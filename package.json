@@ -1,0 +1,17 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "` npm install ` or ` yarn `",
+  "main": "index.js",
+  "scripts": {
+    "server:start":"cd server && npm run start",
+    "client:dev":"cd client && npm run dev",
+    "start": "concurrently \"npm run client:dev\" \"npm run server:start\""
+  },
+  "keywords": [],
+  "author": "Burak Behlül <@burakbehlull>",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
