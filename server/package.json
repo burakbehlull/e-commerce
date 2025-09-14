@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node main.js"
   },
+  "imports": {
+    "#routers": "./routers/index.js",
+    "#config": "./config/index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

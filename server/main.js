@@ -6,9 +6,12 @@ import helmet from 'helmet';
 
 import 'dotenv/config';
 
-import { apiRouter } from './routers/index.js'
+import { apiRouter } from '#routers'
+import { db } from "#config"
 
 const app = express();
+
+db()
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
