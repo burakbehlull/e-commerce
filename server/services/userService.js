@@ -20,7 +20,7 @@ async function getUser({id, username, email}){
 		
 		return {
 			status: true,
-			message: "Kullanıcı silindi!",
+			message: "Kullanıcı getirildi!",
 			data: user,
 		}
 	} catch(err) {
@@ -66,7 +66,36 @@ async function createUser({ globalName, username, password, email, phone, addres
 }
 
 
-async function updateUser(){}
+async function updateUserById({id, username, password, email, phone, address}){
+	try {
+		const user = await User.findById(id)
+		
+		if(!user) return {
+			status: false,
+			message: "Kullanıcı mevcut değil",
+		}
+		
+		if(username) user.username = username
+		if(password) user.password = password
+		if(email) user.email = email
+		if(phone) user.phone = phone
+		if(address) user.address = address
+		
+		await user.save()
+		return {
+			status: true,
+			message: "Kullanıcı güncellendi",
+			data: null
+		}
+	} catch {
+		return {
+			status: false,
+			error: error,
+			message: error.message
+		}
+		console.error("[ERROR - userService/deleteUser]: ", err.message)
+	}
+}
 
 async function deleteUser({ username, email }){
 	try {
@@ -105,7 +134,7 @@ async function deleteUser({ username, email }){
 export {
 	getUser,
 	createUser,
-	// update action,
+	updateUserById,
 	deleteUser
 }
 
