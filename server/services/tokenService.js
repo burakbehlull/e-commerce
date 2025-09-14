@@ -46,23 +46,49 @@ function isExpired(token, key) {
     const isOption = key ? options[key] : options["ACCESS"]
     
     try {
-        jwt.verify(token, isOption);
-        return { expired: false };
+        const verify = jwt.verify(token, isOption);
+        return { data: verify, expired: false };
     } catch (err) {
         if (err.name === "TokenExpiredError") {
             const decodeData = jwt.decode(token)
             return { expired: true, data: decodeData };
         }
-        return { expired: false, invalid: true };
+        return { expired: false, invalid: true, data: null };
     }
 }
 
 async function updateUserRefreshToken(username, refreshToken) {
-    const user = await User.findOne({ username });
-    if (!user) return null;
-    user.token = refreshToken;
-    await user.save();
-    return user;
+    try {
+		const user = await User.findOne({ username });
+		if (!user) return {
+			data: null,
+			message: "Kullanıcı mevcut değil",
+			status: false
+		};
+		const isToken = user.token == refreshToken
+		if(isToken) return {
+			data: null,
+			message: "Token zaten var",
+			status: false
+		}
+		
+		user.token = refreshToken;
+		await user.save();
+		
+		return {
+			data: user,
+			message: "Token yenilendi",
+			status: true
+		}
+	} catch(err) {
+		console.error("[ERROR tokenService/updateUserRefreshToken]: ", err.message)
+		return {
+			data: null,
+			message: "Sistem hatası",
+			status: false,
+		}
+		
+	}
 }
 
 async function refreshAccessToken(refreshToken) {
