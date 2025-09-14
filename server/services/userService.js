@@ -5,10 +5,10 @@ async function createUser({ globalName, username, password, email, phone, addres
 		
 		const user = await User.findOne({
 		  $or: [
-			{ name: username }, 
+			{ username: username }, 
 			{ email: email }
 		  ]
-		});
+		})
 		
 		if(user) return {
 			status: false,
@@ -19,7 +19,7 @@ async function createUser({ globalName, username, password, email, phone, addres
 		
 		return {
 			status: true,
-			message: "Kullanıcı yaratıldı!",
+			message: "Kullanıcı yaratıldı",
 			data: createdUser,
 		}
 	} catch(err) {
@@ -28,6 +28,42 @@ async function createUser({ globalName, username, password, email, phone, addres
 			error: error,
 			message: error.message
 		}
-		console.error("[ERROR]: ", err.message)
+		console.error("[ERROR - userService/createUser]: ", err.message)
+	}
+}
+
+
+// update action
+
+async function deleteUser({ username, email }){
+	try {
+		const user = await User.findOne({
+		  $or: [
+			{ username: username }, 
+			{ email: email }
+		  ]
+		})
+		
+		if(!user) return {
+			status: true,
+			message: "Kullanıcı mevcut değil",
+		}
+		
+		const userId = user._id
+		
+		const deletedUser = await User.findByIdAndDelete(userId);
+		
+		return {
+			status: true,
+			message: "Kullanıcı silindi!",
+			data: deletedUser,
+		}
+	} catch(err) {
+		return {
+			status: false,
+			error: error,
+			message: error.message
+		}
+		console.error("[ERROR - userService/deleteUser]: ", err.message)
 	}
 }
