@@ -9,7 +9,8 @@
   "imports": {
     "#config": "./config/index.js",
     "#routers": "./routers/index.js",
-    "#models": "./models/index.js"
+    "#models": "./models/index.js",
+    "#controllers": "./controllers/index.js"
   },
   "keywords": [],
   "author": "",
