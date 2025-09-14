@@ -1,4 +1,37 @@
+import mongoose from "mongoose"
 import { User } from "@models"
+
+async function getUser({id, username, email}){
+	try {
+		const isUserId = mongoose.Types.ObjectId.isValid(id) ? id : null
+		
+		const user = await User.findOne({
+		  $or: [
+			{ _id: isUserId }, 
+			{ username: username }, 
+			{ email: email }
+		  ]
+		})
+		
+		if(!user) return {
+			status: false,
+			message: "Kullanıcı mevcut değil",
+		}
+		
+		return {
+			status: true,
+			message: "Kullanıcı silindi!",
+			data: user,
+		}
+	} catch(err) {
+		return {
+			status: false,
+			error: error,
+			message: error.message
+		}
+		console.error("[ERROR - userService/deleteUser]: ", err.message)
+	}
+}
 
 async function createUser({ globalName, username, password, email, phone, address, token }){
 	try {
@@ -33,7 +66,7 @@ async function createUser({ globalName, username, password, email, phone, addres
 }
 
 
-// update action
+async function updateUser(){}
 
 async function deleteUser({ username, email }){
 	try {
@@ -45,7 +78,7 @@ async function deleteUser({ username, email }){
 		})
 		
 		if(!user) return {
-			status: true,
+			status: false,
 			message: "Kullanıcı mevcut değil",
 		}
 		
@@ -67,3 +100,14 @@ async function deleteUser({ username, email }){
 		console.error("[ERROR - userService/deleteUser]: ", err.message)
 	}
 }
+
+
+export {
+	getUser,
+	createUser,
+	// update action,
+	deleteUser
+}
+
+
+
