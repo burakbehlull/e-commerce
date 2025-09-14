@@ -24,12 +24,12 @@ async function getUser({id, username, email}){
 			data: user,
 		}
 	} catch(err) {
+		console.error("[ERROR - userService/deleteUser]: ", err.message)
 		return {
 			status: false,
-			error: error,
-			message: error.message
+			error: err,
+			message: err.message
 		}
-		console.error("[ERROR - userService/deleteUser]: ", err.message)
 	}
 }
 
@@ -56,12 +56,13 @@ async function createUser({ globalName, username, password, email, phone, addres
 			data: createdUser,
 		}
 	} catch(err) {
+		console.error("[ERROR - userService/createUser]: ", err.message)
 		return {
 			status: false,
-			error: error,
-			message: error.message
+			error: err,
+			message: err.message
 		}
-		console.error("[ERROR - userService/createUser]: ", err.message)
+		
 	}
 }
 
@@ -86,13 +87,13 @@ async function updateUserById({id, username, password, email, phone, address}){
 			message: "Kullanıcı güncellendi",
 			data: null
 		}
-	} catch {
+	} catch(err) {
+		console.error("[ERROR - userService/deleteUser]: ", err.message)
 		return {
 			status: false,
-			error: error,
-			message: error.message
+			error: err,
+			message: err.message
 		}
-		console.error("[ERROR - userService/deleteUser]: ", err.message)
 	}
 }
 
@@ -120,12 +121,12 @@ async function deleteUser({ username, email }){
 			data: deletedUser,
 		}
 	} catch(err) {
+		console.error("[ERROR - userService/deleteUser]: ", err.message)
 		return {
 			status: false,
-			error: error,
-			message: error.message
+			error: err,
+			message: err.message
 		}
-		console.error("[ERROR - userService/deleteUser]: ", err.message)
 	}
 }
 

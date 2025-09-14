@@ -1,11 +1,12 @@
 import express from 'express';
 
+import { UserRegister } from "#controllers"
+
 const router = express.Router();
 
-// router.get('/', UserGets);
-
 // kullanıcıyı id'ye göre çekme (GET)
-// kullanıcı yaratma (POST)
+router.post('/', UserRegister);
+// kullanıcı giriş (POST)
 // kullanıcı güncelleme (PUT)
 // kullanıcıyı silme (DELETE)
 
