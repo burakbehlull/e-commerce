@@ -65,7 +65,6 @@ async function createUser({ globalName, username, password, email, phone, addres
 	}
 }
 
-
 async function updateUserById({id, username, password, email, phone, address}){
 	try {
 		const user = await User.findById(id)
