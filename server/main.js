@@ -6,6 +6,8 @@ import helmet from 'helmet';
 
 import 'dotenv/config';
 
+import { apiRouter } from './routers/index.js'
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -18,6 +20,8 @@ app.use(helmet());
 app.get('/', (req, res) => {
   res.send('hello e-commerce');
 });
+
+app.use('/api', apiRouter);
 
 const PORT = process.env.PORT || 80;
 
