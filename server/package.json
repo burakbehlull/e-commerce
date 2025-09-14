@@ -7,8 +7,9 @@
     "start": "node main.js"
   },
   "imports": {
+    "#config": "./config/index.js",
     "#routers": "./routers/index.js",
-    "#config": "./config/index.js"
+    "#models": "./models/index.js"
   },
   "keywords": [],
   "author": "",
