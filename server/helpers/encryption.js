@@ -10,3 +10,8 @@ async function isHash(password, saltValue=10){
 	const hashedPassword = await bcrypt.hash(password, salt);
 	return hashedPassword
 }
+
+export {
+	isMatch,
+	isHash
+}

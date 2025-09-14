@@ -5,8 +5,11 @@ const { register } = authService;
 const UserRegister = async (req, res) => {
 	const data = req.body
     try {
-		const result = await UserRegister(data)
-		if(!result) res.status(204).json({success: false, message: "Boş içerik"})
+		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		
+		const result = await register(data)
+		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+			
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - userController/Register]: ", err.message)
@@ -17,4 +20,8 @@ const UserRegister = async (req, res) => {
 			message: err.message
 		})
 	}
+}
+
+export {
+	UserRegister
 }

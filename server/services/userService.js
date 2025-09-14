@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { User } from "@models"
+import { User } from "#models"
 
 async function getUser({id, username, email}){
 	try {

@@ -11,7 +11,8 @@
     "#routers": "./routers/index.js",
     "#models": "./models/index.js",
     "#controllers": "./controllers/index.js",
-    "#services": "./services/index.js"
+    "#services": "./services/index.js",
+    "#helpers": "./helpers/index.js"
   },
   "keywords": [],
   "author": "",

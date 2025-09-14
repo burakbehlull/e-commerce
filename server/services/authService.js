@@ -4,16 +4,16 @@ import { generateRefreshToken, generateAccessToken } from "./tokenService.js"
 
 async function register(data){
 	if(!data) return null
-	
 	const generatedRefreshToken = generateRefreshToken({email: data.email, username: data.username})
 	const hashedPassword = await isHash(data.password)
 	
 	const result = await createUser({...data, password: hashedPassword, token: generatedRefreshToken})
+	if(!result.status) return result
 	
 	const userId = result.data._id
 	const generatedAccessToken = generateAccessToken({ id: userId, email: data.email, username: data.username })
 	
-	return {...result, token: generatedAccessToken}
+	return {...result, accessToken: generatedAccessToken}
 }
 
 async function login(){}
@@ -22,3 +22,6 @@ async function verify(){}
 async function getUserInfo(){}
 
 
+export {
+	register
+}
