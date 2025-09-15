@@ -1,7 +1,6 @@
 import { createUser, getUser } from "./userService.js"
 import { isHash, isMatch } from "#helpers"
 import { generateRefreshToken, generateAccessToken, 
-	updateUserRefreshToken, isExpired, verifyRefreshToken,
 	generateAccessTokenFromVerifyRefreshToken } from "./tokenService.js"
 
 async function register(data){
@@ -18,8 +17,6 @@ async function register(data){
 	return {...result, accessToken: generatedAccessToken}
 }
 
-
-
 async function login({ email, username, password }){
 	const result = await getUser({username, email})
 	const user = result.data
@@ -35,12 +32,25 @@ async function login({ email, username, password }){
 	return {...result, accessToken: verifyResult.accessToken}
 	
 }
-async function logout(){}
+
 async function verify(){}
 async function getUserInfo(){}
+
+async function refreshToAccessToken(data){
+	const user = await getUser(data)
+	if(!user.status) return user
+	
+	const result = await generateAccessTokenFromVerifyRefreshToken(user.data)
+	if(!result.status) return result
+	return result
+}
+
+async function logout(){}
+
 
 
 export {
 	register,
-	login
+	login,
+	refreshToAccessToken
 }
