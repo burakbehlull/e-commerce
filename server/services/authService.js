@@ -1,7 +1,8 @@
-import { createUser } from "./userService.js"
+import { createUser, getUser } from "./userService.js"
 import { isHash, isMatch } from "#helpers"
 import { generateRefreshToken, generateAccessToken, 
-	updateUserRefreshToken, isExpired, verifyRefreshToken } from "./tokenService.js"
+	updateUserRefreshToken, isExpired, verifyRefreshToken,
+	generateAccessTokenFromVerifyRefreshToken } from "./tokenService.js"
 
 async function register(data){
 	if(!data) return null
@@ -19,15 +20,13 @@ async function register(data){
 
 
 
-async function login({id, email, username, password}){
-	const result = await getUser({id, username, email})
+async function login({ email, username, password }){
+	const result = await getUser({username, email})
 	const user = result.data
 	
-	console.log("USER", user)
+	if(!result.status) return result
 	
-	if(!result.status) return user
-	
-	const matchPassword = await isMatch(password, data.password)
+	const matchPassword = await isMatch(password, user.password)
 	if(!matchPassword) return { status: false, message: "Kullanıcı bilgileri yanlış"}
 	
 	const verifyResult = await generateAccessTokenFromVerifyRefreshToken(user)
@@ -42,5 +41,6 @@ async function getUserInfo(){}
 
 
 export {
-	register
+	register,
+	login
 }

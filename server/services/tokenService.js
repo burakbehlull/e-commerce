@@ -93,15 +93,15 @@ async function updateUserRefreshToken(username, refreshToken) {
 
 async function refreshAccessToken(refreshToken) {
     const decoded = verifyRefreshToken(refreshToken);
-    if (!decoded) return null;
+    if (!decoded) return { status: false };
 
     const user = await User.findOne({ username: decoded.username });
-    if (!user) return null;
+    if (!user) return { status: false };
 
-    if (user.token !== refreshToken) return null;
+    if (user.token !== refreshToken) return { status: false };
 
     const newAccessToken = generateAccessToken({ username: user.username });
-    return newAccessToken;
+    return { status: true, accessToken: newAccessToken };
 }
 
 async function generateAccessTokenFromVerifyRefreshToken(user){
