@@ -104,6 +104,29 @@ async function refreshAccessToken(refreshToken) {
     return newAccessToken;
 }
 
+async function generateAccessTokenFromVerifyRefreshToken(user){
+	const verify = verifyRefreshToken(user?.token, true)
+    const userVerify = user?.email === verify?.email
+	if(!userVerify) return { status: false, message: "Kullanıcı kimliği doğrulanmadı" };
+        
+    const expiredToken = isExpired(user.token)
+
+    if(expiredToken.expired) {
+        const refreshToken = generateRefreshToken({
+            email: user.email,
+            username: user.username
+        })
+        await updateUserRefreshToken(user.username, refreshToken)
+    }
+	const accessToken = generateAccessToken({
+        email: user.email,
+        username: user.username,
+        _id: user._id
+    })
+	
+	return { status: true, message: "Kullanıcı doğrulandı.", accessToken: accessToken}
+}
+
 export {
     generateAccessToken,
     generateRefreshToken,
@@ -111,5 +134,6 @@ export {
     verifyRefreshToken,
     isExpired,
     updateUserRefreshToken,
-    refreshAccessToken
+    refreshAccessToken,
+	generateAccessTokenFromVerifyRefreshToken
 };
