@@ -1,6 +1,6 @@
 import { authService } from "#services";
 
-const { register, login, refreshToAccessToken } = authService;
+const { register, login, refreshToAccessToken, getUserInfo } = authService;
 
 const UserRegister = async (req, res) => {
 	const data = req.body
@@ -62,8 +62,30 @@ const RefreshAccessToken = async (req, res)=> {
 	}
 }
 
+const UserInfo = async (req, res) => {
+	const data = req.body
+    try {
+		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		
+		const result = await getUserInfo(data)
+	
+		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - userController/UserInfo]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
+
 export {
 	UserRegister,
 	UserLogin,
-	RefreshAccessToken
+	RefreshAccessToken,
+	UserInfo
 }

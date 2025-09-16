@@ -1,7 +1,7 @@
 import { createUser, getUser } from "./userService.js"
 import { isHash, isMatch } from "#helpers"
 import { generateRefreshToken, generateAccessToken, 
-	generateAccessTokenFromVerifyRefreshToken } from "./tokenService.js"
+	generateAccessTokenFromVerifyRefreshToken, verifyAccessToken } from "./tokenService.js"
 
 async function register(data){
 	if(!data) return null
@@ -33,9 +33,6 @@ async function login({ email, username, password }){
 	
 }
 
-async function verify(){}
-async function getUserInfo(){}
-
 async function refreshToAccessToken(data){
 	const user = await getUser(data)
 	if(!user.status) return user
@@ -45,6 +42,29 @@ async function refreshToAccessToken(data){
 	return result
 }
 
+async function getUserInfo({id, username, email}){
+	const result = await getUser({id, username, email})
+	const user = result.data
+	return result
+}
+
+
+async function verify(){}
+
+async function isAuth(req){
+	const authHeader = req.headers["authorization"]
+    const token = authHeader && authHeader.split(" ")[1];
+	
+	if(!authHeader) return { status: false, message: "Token yok" }
+	const verify = verifyAccessToken(token)
+	
+	if(verify.expired) return { status: false, message: "Tokenin süresi dolmuş" }
+	if(!verify) return { status: false, message: "Geçersiz token" }
+	return { status: true, message: "Token başarılı" }
+}
+
+
+
 async function logout(){}
 
 
@@ -52,5 +72,7 @@ async function logout(){}
 export {
 	register,
 	login,
-	refreshToAccessToken
+	refreshToAccessToken,
+	getUserInfo,
+	isAuth
 }

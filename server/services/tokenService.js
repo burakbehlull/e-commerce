@@ -8,11 +8,9 @@ function generateAccessToken(payload) {
     return jwt.sign(payload, ACCESS_KEY, { expiresIn: "30m" });
 }
 
-
 function generateRefreshToken(payload) {
     return jwt.sign(payload, REFRESH_KEY, { expiresIn: "12h" });
 }
-
 
 function verifyAccessToken(token, isDecode) {
     try {
