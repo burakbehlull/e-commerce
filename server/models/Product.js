@@ -20,6 +20,7 @@ const productSchema = new mongoose.Schema({
   },
   category: {
 	  type: mongoose.Schema.Types.ObjectId, 
+	  required: false,
 	  ref: "Category"
   },
   brand: {
@@ -36,11 +37,14 @@ const productSchema = new mongoose.Schema({
 	type: String,
     required: true,
   },
+  /*
   images: [
     {
       type: String,
     }
   ],
+  
+  sonra tamamlanacak
   ratings: [
     {
       user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -48,6 +52,7 @@ const productSchema = new mongoose.Schema({
       comment: { type: String, trim: true }
     }
   ],
+  */
   averageRating: {
     type: Number,
     default: 0
@@ -57,6 +62,10 @@ const productSchema = new mongoose.Schema({
     default: true
   },
   createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updateAt: {
     type: Date,
     default: Date.now
   }
