@@ -52,11 +52,12 @@ const productSchema = new mongoose.Schema({
       comment: { type: String, trim: true }
     }
   ],
-  */
+  
   averageRating: {
     type: Number,
     default: 0
   },
+  */
   isActive: {
     type: Boolean,
     default: true
