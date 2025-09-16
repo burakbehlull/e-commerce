@@ -19,13 +19,14 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	/*
+	
 	role: { 
       type: String, 
       enum: ["admin", "customer"], 
-      required: true 
+      required: true,
+	  default: "customer"
 	},
-	*/
+	
 	address: { type: String },
     createdAt: { type: Date, default: Date.now },
     token: { type: String, required: true }  
