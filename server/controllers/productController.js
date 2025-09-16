@@ -4,9 +4,7 @@ const { addProduct, getProducts, getProductById, updateProduct, deleteProduct } 
 
 const GetProducts = async (req, res) => {
 	const data = req.body
-    try {
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
-		
+    try {		
 		const result = await getProducts(data)
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
@@ -26,7 +24,6 @@ const CreateProduct = async (req, res) => {
 	const data = req.body
     try {
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
-		
 		const result = await addProduct(data)
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
@@ -64,7 +61,7 @@ const FindProductById = async (req, res) => {
 
 const UpdateProduct = async (req, res) => {
 	const { id } = req.params
-	const { data } = req.body
+	const data = req.body
 	
     try {
 		if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})

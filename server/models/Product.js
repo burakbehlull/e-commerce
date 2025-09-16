@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import slugify from "slugify"
 
 import { generateId } from "#helpers"
 
@@ -73,12 +74,8 @@ const productSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  updateAt: {
-    type: Date,
-    default: Date.now
   }
-})
+}, { timestamps: true })
 
 productSchema.pre("save", function (next) {
   if (this.isModified("name")) {
