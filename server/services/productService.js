@@ -24,7 +24,7 @@ async function addProduct(data){
 	}
 }
 
-async function getProduct(id){
+async function getProductById(id){
 	try {
 		if(!id) return { 
 			status: false,
@@ -51,6 +51,34 @@ async function getProduct(id){
 	}
 	
 }
+
+async function getProducts({ page = 1, limit = 10 } = {}) {
+    try {
+        page = parseInt(page);
+        limit = parseInt(limit);
+
+        const totalItems = await Product.countDocuments();
+
+        const products = await Product.find({})
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+        return {
+            products,
+            totalItems,
+            totalPages: Math.ceil(totalItems / limit),
+            page,
+            limit,
+        };
+    } catch (error) {
+        console.error("[ERROR - productService/getProducts]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+    }
+};
 
 async function updateProduct(id, data){
 	try {
@@ -114,7 +142,7 @@ async function deleteProduct(id){
 
 export {
 	addProduct,
-	getProduct,
+	getProductById,
 	updateProduct,
 	deleteProduct
 };
