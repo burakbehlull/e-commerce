@@ -9,7 +9,7 @@ export default async function db(){
 			return null
 		}
 		const conn = await mongoose.connect(MONGO_URI)
-	
+		console.log("Veritabanına bağlandı")
 		return conn
 	} catch(err) {
 		console.error("Veritabanı hatası: ", err)
