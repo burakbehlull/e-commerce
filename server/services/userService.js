@@ -82,10 +82,13 @@ async function updateUserById({id, username, password, email, phone, address}){
 		if(address) user.address = address
 		
 		await user.save()
+		
+		const updatedUser = await User.findById(id)
+		
 		return {
 			status: true,
 			message: "Kullanıcı güncellendi",
-			data: null
+			data: updatedUser
 		}
 	} catch(err) {
 		console.error("[ERROR - userService/deleteUser]: ", err.message)

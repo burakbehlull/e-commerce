@@ -5,13 +5,13 @@ const { updateUserById, deleteUser, getUserInfo } = userService;
 
 const UserInfo = async (req, res) => {
 	const data = req.body
-	const user = req.user
+	const user = req?.user
 	
     try {
 		
-		if(!(user._id === data._id 
-			|| user.username === data.username 
-			|| user.email === data.email)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+		if(!(user?._id === data?._id 
+			|| user?.username === data?.username 
+			|| user?.email === data?.email)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 		
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		

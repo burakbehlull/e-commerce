@@ -1,12 +1,12 @@
 import express from 'express';
 
 import { UserInfo, UpdateUser, DeleteToUser } from "#controllers"
-import { authMiddleware } from "#middlewares"
+import { authMiddleware, rateLimiterMiddleware } from "#middlewares"
 
 const router = express.Router();
 
-router.post('/info', authMiddleware, UserInfo)
-router.put('/:id', authMiddleware, UpdateUser)
-router.delete('/:id', authMiddleware, DeleteToUser)
+router.post('/info', authMiddleware, rateLimiterMiddleware, UserInfo)
+router.put('/:id', authMiddleware, rateLimiterMiddleware, UpdateUser)
+router.delete('/:id', authMiddleware, rateLimiterMiddleware, DeleteToUser)
 
 export default router;
