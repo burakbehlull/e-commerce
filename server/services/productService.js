@@ -31,7 +31,7 @@ async function getProductById(id){
 			message: "Eksik istek"
 		}
 		
-		const product = await Product.findById(id)
+		const product = await Product.findOne({id})
 		if(!product) return {
 			status: false,
 			message: "Ürün mevcut değil",
@@ -86,13 +86,13 @@ async function updateProduct(id, data){
 			status: false,
 			message: "Eksik istek"
 		}
-		const product = await Product.findById(id)
+		const product = await Product.findOne({id})
 		if(!product) return {
 			status: false,
 			message: "Ürün mevcut değil",
 		}
 		
-		const updatedProduct = await Product.findByIdAndUpdate(id, { $set: data }, { new: true, runValidators: true })
+		const updatedProduct = await Product.findOneAndUpdate({id}, { $set: data }, { new: true, runValidators: true })
 		return {
 			status: true,
 			message: "Ürün güncellendi",
@@ -116,14 +116,14 @@ async function deleteProduct(id){
 			message: "Eksik istek"
 		}
 		
-		const product = await Product.findById(id)
+		const product = await Product.findOne({id})
 		
 		if(!product) return {
 			status: false,
 			message: "Ürün mevcut değil",
 		}
 		
-		const deletedProduct = await Product.findByIdAndDelete(id);
+		const deletedProduct = await Product.findOneAndDelete({id});
 		
 		return {
 			status: true,
@@ -143,6 +143,7 @@ async function deleteProduct(id){
 export {
 	addProduct,
 	getProductById,
+	getProducts,
 	updateProduct,
 	deleteProduct
 };

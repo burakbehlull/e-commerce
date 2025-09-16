@@ -1,59 +1,19 @@
-import { authService } from "#services";
+import { productService } from "#services";
 
-const { register, login, refreshToAccessToken } = authService;
+const { addProduct } = productService;
 
-const UserRegister = async (req, res) => {
+const CreateProduct = async (req, res) => {
 	const data = req.body
     try {
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		
-		const result = await register(data)
+		const result = await addProduct(data)
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
-		console.error("[ERROR - userController/Register]: ", err.message)
+		console.error("[ERROR - productController/CreateProduct]: ", err.message)
 		
-		return res.status(500).json({
-			status: false,
-			error: err,
-			message: err.message
-		})
-	}
-}
-
-const UserLogin = async (req, res) => {
-	const data = req.body
-    try {
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
-		
-		const result = await login(data)
-	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
-			
-		return res.status(200).json(result)
-	} catch(err){
-		console.error("[ERROR - userController/Login]: ", err.message)
-		return res.status(500).json({
-			status: false,
-			error: err,
-			message: err.message
-		})
-	}
-}
-
-const RefreshAccessToken = async (req, res)=> {
-	const data = req.body
-    try {
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
-		
-		const result = await refreshToAccessToken(data)
-	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
-			
-		return res.status(200).json(result)
-	} catch(err){
-		console.error("[ERROR - authController/RefreshAccessToken]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -63,7 +23,5 @@ const RefreshAccessToken = async (req, res)=> {
 }
 
 export {
-	UserRegister,
-	UserLogin,
-	RefreshAccessToken
+	CreateProduct
 }

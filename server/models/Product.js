@@ -1,6 +1,14 @@
 import mongoose from "mongoose";
 
+import { generateId } from "#helpers"
+
 const productSchema = new mongoose.Schema({
+  id: {
+	  type: String,
+	  required: true,
+	  unique: true,
+	  default: ()=> generateId()
+  },
   name: {
     type: String,
     required: true,
