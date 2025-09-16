@@ -1,20 +1,19 @@
-import { authService, userService } from "#services";
+import { authService } from "#services";
 
-const { updateUserById, deleteUser, getUserInfo } = userService;
+const { register, login, refreshToAccessToken } = authService;
 
-
-const UserInfo = async (req, res) => {
+const UserRegister = async (req, res) => {
 	const data = req.body
     try {
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		
-		const result = await getUserInfo(data)
-	
+		const result = await register(data)
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
-		console.error("[ERROR - userController/UserInfo]: ", err.message)
+		console.error("[ERROR - userController/Register]: ", err.message)
+		
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -23,21 +22,18 @@ const UserInfo = async (req, res) => {
 	}
 }
 
-const UpdateUser = async (req, res) => {
+const UserLogin = async (req, res) => {
 	const data = req.body
-	const id = req.params.id
     try {
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		
-		const result = await updateUserById({id, ...data})
+		const result = await login(data)
 	
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
-		if(!result.status) return res.status(204).json(result)
-			
 		return res.status(200).json(result)
 	} catch(err){
-		console.error("[ERROR - userController/UpdateUser]: ", err.message)
+		console.error("[ERROR - userController/Login]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -46,20 +42,18 @@ const UpdateUser = async (req, res) => {
 	}
 }
 
-const DeleteToUser = async (req, res) => {
-	const id = req.params.id
+const RefreshAccessToken = async (req, res)=> {
+	const data = req.body
     try {
-		if(!id) return res.status(204).json({status: false, message: "Boş kimlik"})
+		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		
-		const result = await deleteUser(id)
+		const result = await refreshToAccessToken(data)
 	
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
-		if(!result.status) return res.status(204).json(result)
-			
 		return res.status(200).json(result)
 	} catch(err){
-		console.error("[ERROR - userController/UpdateUser]: ", err.message)
+		console.error("[ERROR - authController/RefreshAccessToken]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -69,7 +63,7 @@ const DeleteToUser = async (req, res) => {
 }
 
 export {
-	UserInfo,
-	UpdateUser,
-	DeleteToUser
+	UserRegister,
+	UserLogin,
+	RefreshAccessToken
 }

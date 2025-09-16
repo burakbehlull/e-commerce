@@ -49,10 +49,18 @@ async function getUserInfo({id, username, email}){
 }
 
 
-async function verify(){}
+async function verifyFromAccessToken(token){
+	if(!token) return { status: false, message: "Token yok" }
+	const verify = verifyAccessToken(token)
+	
+	if(verify.expired) return { status: false, message: "Tokenin süresi dolmuş" }
+	if(!verify) return { status: false, message: "Geçersiz token" }
+	return { status: true, message: "Token doğrulandı" }
+	
+}
 
-async function isAuth(req){
-	const authHeader = req.headers["authorization"]
+async function verifyFromRefreshToken(authHeader){
+	// const authHeader = req.headers["authorization"]
     const token = authHeader && authHeader.split(" ")[1];
 	
 	if(!authHeader) return { status: false, message: "Token yok" }
@@ -70,7 +78,9 @@ async function logout(){}
 export {
 	register,
 	login,
+	
 	refreshToAccessToken,
-	getUserInfo,
-	isAuth
+	
+	verifyFromAccessToken,
+	verifyFromRefreshToken
 }

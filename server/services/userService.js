@@ -123,12 +123,20 @@ async function deleteUser(userId){
 	}
 }
 
+async function getUserInfo({id, username, email}){
+	const result = await getUser({id, username, email})
+	const user = result.data
+	return result
+}
 
 export {
 	getUser,
 	createUser,
 	updateUserById,
-	deleteUser
+	deleteUser,
+	
+	// e
+	getUserInfo
 }
 
 
