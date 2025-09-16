@@ -1,15 +1,17 @@
 import express from 'express';
 
-import { UserRegister, UserLogin, RefreshAccessToken, UserInfo } from "#controllers"
+import { UserRegister, UserLogin, RefreshAccessToken, UserInfo, 
+	UpdateUser, DeleteToUser } from "#controllers"
 
 const router = express.Router();
 
 router.post('/info', UserInfo)
 router.post('/register', UserRegister);
 router.post('/login', UserLogin);
+
 router.post('/refresh', RefreshAccessToken);
 
-// kullanıcı güncelleme (PUT)
-// kullanıcıyı silme (DELETE)
+router.put('/:id', UpdateUser)
+router.delete('/:id', DeleteToUser)
 
 export default router;

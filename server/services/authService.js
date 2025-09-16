@@ -63,8 +63,6 @@ async function isAuth(req){
 	return { status: true, message: "Token başarılı" }
 }
 
-
-
 async function logout(){}
 
 

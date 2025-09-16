@@ -97,21 +97,14 @@ async function updateUserById({id, username, password, email, phone, address}){
 	}
 }
 
-async function deleteUser({ username, email }){
+async function deleteUser(userId){
 	try {
-		const user = await User.findOne({
-		  $or: [
-			{ username: username }, 
-			{ email: email }
-		  ]
-		})
+		const user = await User.findById(userId)
 		
 		if(!user) return {
 			status: false,
 			message: "Kullanıcı mevcut değil",
 		}
-		
-		const userId = user._id
 		
 		const deletedUser = await User.findByIdAndDelete(userId);
 		
