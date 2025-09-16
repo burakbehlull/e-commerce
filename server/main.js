@@ -20,7 +20,6 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(morgan('dev'));
 app.use(helmet());
 
-
 app.get('/', (req, res) => {
   res.send('hello e-commerce');
 });

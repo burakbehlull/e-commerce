@@ -1,10 +1,19 @@
 import mongoose from 'mongoose'
+import { logger } from '#config'
 
-export default function db(){
-    const conn = mongoose.connect(process.env.MONGO_URI).then(()=> {
-        console.log('Veritabanına bağlandı.')
-    }).catch((err)=>{
-        console.error("Veritabanı hatası: ", err)
-    })
-    return conn
+export default async function db(){
+	const MONGO_URI = process.env.MONGO_URI
+	try {
+		if(!MONGO_URI) {
+			logger.error("MongoDB bağlantısı girilmemiş", err.message)
+			return null
+		}
+		const conn = await mongoose.connect(MONGO_URI)
+	
+		return conn
+	} catch(err) {
+		console.error("Veritabanı hatası: ", err)
+		logger.error("Veritabanı hatası: ", err.message)
+		return null
+	}
 }
