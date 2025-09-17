@@ -68,7 +68,6 @@ const CreateProduct = async (req, res) => {
   }
 };
 
-
 const FindProductById = async (req, res) => {
 	const { id } = req.params
     try {

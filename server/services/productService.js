@@ -123,6 +123,11 @@ async function deleteProduct(id){
 			message: "Ürün mevcut değil",
 		}
 		
+		if (product.thumbnail && fs.existsSync(product.thumbnail)) fs.unlinkSync(product.thumbnail);
+
+		  // Resimleri sil
+		 product.images.forEach(img => fs.existsSync(img) && fs.unlinkSync(img));
+				
 		const deletedProduct = await Product.findOneAndDelete({id});
 		
 		return {
@@ -139,6 +144,93 @@ async function deleteProduct(id){
 		}
 	}
 }
+
+// Thumbnail güncelle
+async function updateThumbnail(id, newPath){
+	try {
+		const product = await Product.findById(id);
+	    if (!product) return {
+			status: false,
+			message: "Ürün bulunamadı"
+		};
+
+	    if (product.thumbnail && fs.existsSync(product.thumbnail)) fs.unlinkSync(product.thumbnail);
+	    product.thumbnail = newPath;
+	    await product.save();
+	  
+		return {
+			status: true,
+			message: "Thumbnail güncellendi",
+			data: product
+		};
+	} catch(err) {
+		console.error("[ERROR - productService/updateThumbnail]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+  
+};
+
+// Resimleri ekle
+async function addImages(id, paths){
+	try {
+		const product = await Product.findById(id);
+		if (!product) return {
+			status: false,
+			message: "Ürün bulunamadı"
+		};
+
+		product.images.push(...paths);
+		await product.save();
+		
+		return {
+			status: true,
+			message: "Resim eklendi",
+			data: product
+		};
+	} catch(err) {
+		console.error("[ERROR - productService/addImages]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+  
+};
+
+// Tek resimi sil
+async function deleteImage(id, imagePath) => {
+	try {
+		const product = await Product.findById(id);
+		if (!product) return {
+			status: false,
+			message: "Ürün bulunamadı"
+		};
+
+		product.images = product.images.filter(img => img !== imagePath);
+		if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+
+		await product.save();
+		
+		return {
+			status: true,
+			message: "Resim silindi",
+			data: product
+		};
+	} catch(err) {
+		console.error("[ERROR - productService/deleteImage]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+  
+};
 
 export {
 	getProducts,
