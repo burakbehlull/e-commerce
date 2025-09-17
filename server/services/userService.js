@@ -126,6 +126,33 @@ async function deleteUser(userId){
 	}
 }
 
+async function logoutUser(userId){
+	try {
+		const user = await User.findById(userId)
+		
+		if(!user) return {
+			status: false,
+			message: "Kullanıcı mevcut değil",
+		}
+		
+		user.token = null;
+		await user.save();
+		
+		return {
+			status: true,
+			message: "Çıkış yapıldı!",
+			data: user,
+		}
+	} catch(err) {
+		console.error("[ERROR - userService/logoutUser]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}	
+}
+
 async function getUserInfo({id, username, email}){
 	const result = await getUser({id, username, email})
 	const user = result.data
@@ -137,6 +164,8 @@ export {
 	createUser,
 	updateUserById,
 	deleteUser,
+	
+	logoutUser,
 	
 	// e
 	getUserInfo

@@ -1,6 +1,6 @@
 import { authService, userService } from "#services";
 
-const { updateUserById, deleteUser, getUserInfo } = userService;
+const { updateUserById, deleteUser, getUserInfo, logoutUser } = userService;
 
 
 const UserInfo = async (req, res) => {
@@ -81,8 +81,35 @@ const DeleteToUser = async (req, res) => {
 	}
 }
 
+const UserLogout = async (req, res) => {
+	const id = req.params.id
+	
+    try {
+		if(!(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+
+		if(!id) return res.status(204).json({status: false, message: "Boş kimlik"})
+		
+		const result = await logoutUser(id)
+	
+		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+			
+		if(!result.status) return res.status(204).json(result)
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - userController/UserLogout]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
 export {
 	UserInfo,
 	UpdateUser,
-	DeleteToUser
+	DeleteToUser,
+	
+	UserLogout
 }
