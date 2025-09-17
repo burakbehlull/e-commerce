@@ -3,6 +3,7 @@ import { logger } from '#config'
 
 export default async function db(){
 	const MONGO_URI = process.env.MONGO_URI
+	mongoose.set('sanitizeFilter', true);
 	try {
 		if(!MONGO_URI) {
 			logger.error("MongoDB bağlantısı girilmemiş", err.message)

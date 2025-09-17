@@ -135,7 +135,14 @@ async function logoutUser(userId){
 			message: "Kullanıcı mevcut değil",
 		}
 		
+		if(!user.token) return {
+			status: false,
+			message: "Zaten çıkış yapıldı"
+		}
+		
+		
 		user.token = null;
+		
 		await user.save();
 		
 		return {
