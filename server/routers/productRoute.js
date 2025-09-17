@@ -1,7 +1,8 @@
 import express from 'express';
 import { multer } from '#config'
 
-import { GetProducts, CreateProduct, FindProductById, UpdateProduct, DeleteProduct } from "#controllers"
+import { GetProducts, CreateProduct, FindProductById, UpdateProduct, 
+	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage } from "#controllers"
 
 const router = express.Router();
 
@@ -17,5 +18,9 @@ router.get('/:id', FindProductById)
 
 router.put('/:id', UpdateProduct)
 router.delete('/:id', DeleteProduct)
+
+router.put('/:id/thumbnail', multer.single("thumbnail"), UpdateToThumbnail)
+router.post('/:id/images', multer.array("images", 10), AddToImages)
+router.delete('/:id/images', DeleteToImage)
 
 export default router;

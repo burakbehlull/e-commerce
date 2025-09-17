@@ -1,6 +1,7 @@
 import { productService } from "#services";
 
-const { addProduct, getProducts, getProductById, updateProduct, deleteProduct } = productService;
+const { addProduct, getProducts, getProductById, updateProduct, 
+	deleteProduct, updateThumbnail, addImages } = productService;
 
 import fs from "fs";
 import path from "path"
@@ -133,11 +134,107 @@ const DeleteProduct = async (req, res) => {
 	}
 }
 
+const UpdateToThumbnail = async (req, res) => {
+  try {
+	const id = req.params.id
+    if (!req.file) return res.status(400).json({ status: false, message: "Thumbnail alanı zorunlu" });
+    
+	if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+	
+    const result = await updateThumbnail(id, newPath);
+	if(!result.status) res.status(204).json(result);
+
+    const dir = path.join("uploads", "products", result.data.slug);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    const ext = path.extname(req.file.originalname);
+    const newPath = path.join(dir, "thumbnail" + ext);
+
+    fs.renameSync(req.file.path, newPath);
+
+    return res.status(200).json(result)
+
+  } catch (err) {
+		console.error("[ERROR - productController/UpdateThumbnail]: ", err.message)
+		
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+  }
+};
+
+const AddToImages = async (req, res) => {
+  try {
+	const id = req.params.id
+    if (!req.files || req.files.length === 0) return res.status(400).json({ status: false, message: "Resim seçilmemiş" });
+    
+	if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+
+	
+	const product = await getProductById(id);
+    if (!product.status) return res.status(404).json(product);
+
+    const dir = path.join("uploads", "products", product.data.slug);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    const imagesPaths = req.files.map((file, idx) => {
+      const ext = path.extname(file.originalname);
+      const newPath = path.join(dir, `image${product.data.images.length + idx + 1}${ext}`);
+      fs.renameSync(file.path, newPath);
+      return newPath;
+    });
+
+    const result = await addImages(product.data._id, imagesPaths);
+	
+    return res.status(200).json(result)
+  } catch (err) {
+		console.error("[ERROR - productController/addToImages]: ", err.message)
+		
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+  }
+};
+
+const DeleteToImage = async (req, res) => {
+  try {
+    const { imagePath } = req.body;
+    if (!imagePath) return res.status(400).json({ message: "imagePath zorunlu" });
+	
+	const id = req.params.id
+	if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+	
+
+    const product = await getProductById(id);
+    if (!product.status) return res.status(404).json(product)
+
+    const result = await deleteImage(product.data._id, imagePath);
+    return res.status(200).json(result)
+	
+  } catch (err) {
+		console.error("[ERROR - productController/deleteToImage]: ", err.message)
+		
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+  }
+};
+
 export {
 	GetProducts,
 	CreateProduct,
 	
 	FindProductById,
 	UpdateProduct,
-	DeleteProduct
+	DeleteProduct,
+	
+	UpdateToThumbnail,
+	AddToImages,
+	DeleteToImage
 }

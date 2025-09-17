@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import { Product } from "#models";
 
 async function getProducts({ page = 1, limit = 10 } = {}) {
@@ -145,10 +147,9 @@ async function deleteProduct(id){
 	}
 }
 
-// Thumbnail güncelle
 async function updateThumbnail(id, newPath){
 	try {
-		const product = await Product.findById(id);
+		const product = await Product.findOne({id: id});
 	    if (!product) return {
 			status: false,
 			message: "Ürün bulunamadı"
@@ -174,7 +175,6 @@ async function updateThumbnail(id, newPath){
   
 };
 
-// Resimleri ekle
 async function addImages(id, paths){
 	try {
 		const product = await Product.findById(id);
@@ -202,8 +202,7 @@ async function addImages(id, paths){
   
 };
 
-// Tek resimi sil
-async function deleteImage(id, imagePath) => {
+async function deleteImage(id, imagePath) {
 	try {
 		const product = await Product.findById(id);
 		if (!product) return {
@@ -237,5 +236,9 @@ export {
 	addProduct,
 	getProductById,
 	updateProduct,
-	deleteProduct
+	deleteProduct,
+	
+	updateThumbnail,
+	addImages,
+	deleteImage
 };
