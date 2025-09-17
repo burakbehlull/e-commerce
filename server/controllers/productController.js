@@ -24,7 +24,11 @@ const CreateProduct = async (req, res) => {
 	const data = req.body
     try {
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
-		const result = await addProduct(data)
+		const result = await addProduct({
+			...data,
+			thumbnail: req.files["thumbnail"][0].path,
+			images: req.files["images"] ? req.files["images"].map(f => f.path) : []			
+		})
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)

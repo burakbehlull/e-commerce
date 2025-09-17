@@ -1,7 +1,7 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
