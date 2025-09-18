@@ -1,4 +1,4 @@
-import { Category } from "#models";
+import { Category, Product } from "#models";
 
 async function getCategories(){
 	try {
@@ -25,19 +25,24 @@ async function getCategories(){
 	}
 }
 
-async function getCategory({ name=null, page = 1, limit = 10 } = {}) {
+async function getCategory({ slug=null, page = 1, limit = 10 } = {}) {
     try {
         page = parseInt(page);
         limit = parseInt(limit);
-
-        const totalItems = await Category.countDocuments();
-
-        const category = await Category.find({name})
+		
+		const category = await Category.findOne({ slug });
+		if (!category) return { status: false, message: "Kategori bulunamadı" };
+		
+        const products = await Product.find({ category: category._id })
+		.populate("category")
         .skip((page - 1) * limit)
         .limit(limit);
+		
+        const totalItems = await Product.countDocuments({ category: category._id });
+		
 
         return {
-            category,
+            products,
             totalItems,
             totalPages: Math.ceil(totalItems / limit),
             page,

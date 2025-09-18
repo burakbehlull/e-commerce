@@ -4,11 +4,13 @@ import { handleValidationErrors } from "#validations";
 const loginValidation = [
   body("email")
     .optional()
-    .isEmail().withMessage("Geçerli bir email adresi giriniz."),
+    .isEmail()
+	.withMessage("Geçerli bir email adresi giriniz."),
 
   body("username")
     .optional()
-    .isAlphanumeric().withMessage("Kullanıcı adı sadece harf ve rakamlardan oluşmalıdır."),
+    .isAlphanumeric()
+	.withMessage("Kullanıcı adı sadece harf ve rakamlardan oluşmalıdır."),
 
   body().custom((value, { req }) => {
     if (!req.body.email && !req.body.username) {
