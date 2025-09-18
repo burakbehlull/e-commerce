@@ -71,7 +71,7 @@ const UpdateToCategoy = async (req, res) => {
 		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
 		
 		const result = await updateCategory(data.id, {
-			name: data.name
+			name: data.name,
 			description: data.description
 		})
 	
