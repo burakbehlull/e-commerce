@@ -1,15 +1,16 @@
+import fs from "fs";
+import path from "path"
+
 import { productService } from "#services";
 
 const { addProduct, getProducts, getProductById, updateProduct, 
 	deleteProduct, updateThumbnail, addImages } = productService;
 
-import fs from "fs";
-import path from "path"
-
 const GetProducts = async (req, res) => {
-	const data = req.body
+	const page = req.query.page
+	const limit = req.query.limit
     try {		
-		const result = await getProducts(data)
+		const result = await getProducts({page, limit})
 		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
