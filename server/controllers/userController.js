@@ -1,5 +1,7 @@
 import { authService, userService } from "#services";
 
+import { logger } from "#config";
+
 const { updateUserById, deleteUser, getUserInfo, logoutUser } = userService;
 
 
@@ -22,6 +24,7 @@ const UserInfo = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - userController/UserInfo]: ", err.message)
+		logger.error("[ERROR - userController/UserInfo]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -48,6 +51,8 @@ const UpdateUser = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - userController/UpdateUser]: ", err.message)
+		logger.error("[ERROR - userController/UpdateUser]: ", err.message)
+
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -72,7 +77,9 @@ const DeleteToUser = async (req, res) => {
 			
 		return res.status(200).json(result)
 	} catch(err){
-		console.error("[ERROR - userController/UpdateUser]: ", err.message)
+		console.error("[ERROR - userController/DeleteToUser]: ", err.message)
+		logger.error("[ERROR - userController/DeleteToUser]: ", err.message)
+
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -98,6 +105,8 @@ const UserLogout = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - userController/UserLogout]: ", err.message)
+		logger.error("[ERROR - userController/UserLogout]: ", err.message)
+
 		return res.status(500).json({
 			status: false,
 			error: err,

@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.get('/', GetToCategories)
 router.get('/', GetToCategoryByName)
-router.post('/', CreateToCategory)
-router.put('/', UpdateToCategoy)
-router.delete('/', DeleteToCategory)
+router.post('/', adminAuthMiddleware, CreateToCategory)
+router.put('/', adminAuthMiddleware, UpdateToCategoy)
+router.delete('/', adminAuthMiddleware, DeleteToCategory)
 
 
 export default router;

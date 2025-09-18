@@ -1,5 +1,7 @@
 import { authService, tokenService } from "#services";
 
+import { logger } from "#config";
+
 const { register, login, refreshToAccessToken } = authService;
 const { verifyAccessToken } = tokenService;
 
@@ -23,7 +25,7 @@ const UserRegister = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - userController/Register]: ", err.message)
-		
+		logger.error("[ERROR - userController/Register]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -44,6 +46,7 @@ const UserLogin = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - userController/Login]: ", err.message)
+		logger.error("[ERROR - userController/Login]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -67,6 +70,7 @@ const RefreshAccessToken = async (req, res)=> {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - authController/RefreshAccessToken]: ", err.message)
+		logger.error("[ERROR - userController/RefreshAccessToken]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,

@@ -1,4 +1,6 @@
 import { categoryService } from "#services";
+import { logger } from "#config";
+
 const { getCategories, getCategory, createCategory, updateCategory } = categoryService;
 
 
@@ -12,6 +14,7 @@ const GetToCategories = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - categoryController/GetToCategories]: ", err.message)
+		logger.error("[ERROR - categoryController/GetToCategories]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -32,6 +35,7 @@ const GetToCategoryByName = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - categoryController/GetToCategoryByName]: ", err.message)
+		logger.error("[ERROR - categoryController/GetToCategoryByName]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -52,6 +56,7 @@ const CreateToCategory = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - categoryController/CreateToCategory]: ", err.message)
+		logger.error("[ERROR - categoryController/CreateToCategory]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -75,6 +80,7 @@ const UpdateToCategoy = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - categoryController/UpdateToCategory]: ", err.message)
+		logger.error("[ERROR - categoryController/UpdateToCategory]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -95,6 +101,7 @@ const DeleteToCategory = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - categoryController/DeleteToCategory]: ", err.message)
+		logger.error("[ERROR - categoryController/DeleteToCategory]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,

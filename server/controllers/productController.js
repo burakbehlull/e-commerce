@@ -3,6 +3,8 @@ import path from "path"
 
 import { productService } from "#services";
 
+import { logger } from "#config";
+
 const { addProduct, getProducts, getProductById, updateProduct, 
 	deleteProduct, updateThumbnail, addImages } = productService;
 
@@ -16,7 +18,7 @@ const GetProducts = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - productController/GetProducts]: ", err.message)
-		
+		logger.error("[ERROR - productController/GetProducts]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -66,6 +68,7 @@ const CreateProduct = async (req, res) => {
 
   } catch (err) {
     console.error("[ERROR - productController/CreateProduct]: ", err);
+	logger.error("[ERROR - productController/CreateProduct]: ", err.message)
     return res.status(500).json({ status: false, error: err, message: err.message });
   }
 };
@@ -81,7 +84,7 @@ const FindProductById = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - productController/FindProductById]: ", err.message)
-		
+		logger.error("[ERROR - productController/FindProductById]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -105,7 +108,7 @@ const UpdateProduct = async (req, res) => {
 		return res.status(200).json(result)
 	} catch(err){
 		console.error("[ERROR - productController/UpdateProductById]: ", err.message)
-		
+		logger.error("[ERROR - productController/UpdateProductById]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -125,8 +128,8 @@ const DeleteProduct = async (req, res) => {
 			
 		return res.status(200).json(result)
 	} catch(err){
-		console.error("[ERROR - productController/UpdateProductById]: ", err.message)
-		
+		console.error("[ERROR - productController/DeleteProduct]: ", err.message)
+		logger.error("[ERROR - productController/DeleteProduct]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -157,7 +160,7 @@ const UpdateToThumbnail = async (req, res) => {
 
   } catch (err) {
 		console.error("[ERROR - productController/UpdateThumbnail]: ", err.message)
-		
+		logger.error("[ERROR - productController/UpdateThumbnail]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -191,8 +194,8 @@ const AddToImages = async (req, res) => {
 	
     return res.status(200).json(result)
   } catch (err) {
-		console.error("[ERROR - productController/addToImages]: ", err.message)
-		
+		console.error("[ERROR - productController/AddToImages]: ", err.message)
+		logger.error("[ERROR - productController/AddToImages]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -218,7 +221,7 @@ const DeleteToImage = async (req, res) => {
 	
   } catch (err) {
 		console.error("[ERROR - productController/deleteToImage]: ", err.message)
-		
+		logger.error("[ERROR - productController/DeleteToImage]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
