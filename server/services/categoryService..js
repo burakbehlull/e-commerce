@@ -1,0 +1,147 @@
+import { Category } from "#models";
+
+async function getCategories({ name, description }){
+	try {
+		
+		const categories = await Category.find({})
+		
+		if(categories?.length === 0) return {
+			status: false,
+			message: "Mevcut kategori yok"
+		}
+		return {
+			status: true,
+			message: "Kategori yaratıldı",
+			data: categories,
+		}
+	} catch(err) {
+		console.error("[ERROR - categoryService/getCategories]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+		
+	}
+}
+
+async function getCategory({ name=null, page = 1, limit = 10 } = {}) {
+    try {
+        page = parseInt(page);
+        limit = parseInt(limit);
+
+        const totalItems = await Category.countDocuments();
+
+        const category = await Category.find({name})
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+        return {
+            category,
+            totalItems,
+            totalPages: Math.ceil(totalItems / limit),
+            page,
+            limit,
+        };
+    } catch (error) {
+        console.error("[ERROR - categoryService/getCategory]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+    }
+};
+
+async function createCategory({ name, description }){
+	try {
+		
+		const category = await Category.findOne({name})
+		
+		if(category) return {
+			status: false,
+			message: "Zaten bu kategori mevcut!"
+		}
+		
+		const createdCategory = await Category.create({name, description})
+		
+		return {
+			status: true,
+			message: "Kategori yaratıldı",
+			data: createdCategory,
+		}
+	} catch(err) {
+		console.error("[ERROR - categoryService/createCategory]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+		
+	}
+}
+
+async function updateCategory({ name, description }){
+	try {
+		
+		const category = await Category.findOne({name})
+		if(!category) return {
+			status: false,
+			message: "Zaten bu kategori mevcut!"
+		}
+		
+		if(name) category.name = name
+		if(description) category.description = description
+		
+		await category.save()
+		
+		return {
+			status: true,
+			message: "Kategori yaratıldı",
+			data: createdCategory,
+		}
+	} catch(err) {
+		console.error("[ERROR - categoryService/updateCategory]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+		
+	}
+}
+
+async function deleteCategory(name){
+	try {
+		const category = await Category.findOne({name})
+		
+		if(!category) return {
+			status: false,
+			message: "Kategori mevcut değil",
+		}
+		
+		const deletedCategory = await Category.findOneAndDelete({name});
+		
+		return {
+			status: true,
+			message: "Kategori silindi!",
+			data: deletedUser,
+		}
+	} catch(err) {
+		console.error("[ERROR - categoryService/deleteCategory]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+}
+
+
+export {
+	getCategories,
+	getCategory,
+	createCategory,
+	updateCategory,
+	deleteCategory
+};

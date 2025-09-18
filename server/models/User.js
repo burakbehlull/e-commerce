@@ -30,6 +30,6 @@ const userSchema = new mongoose.Schema({
 	address: { type: String },
     createdAt: { type: Date, default: Date.now },
     token: { type: String, required: true }  
-});
+}, { timestamps: true });
 
 export default mongoose.model("User", userSchema);

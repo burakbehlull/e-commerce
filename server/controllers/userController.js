@@ -13,11 +13,11 @@ const UserInfo = async (req, res) => {
 			|| user?.username === data?.username 
 			|| user?.email === data?.email)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 		
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
 		
 		const result = await getUserInfo(data)
 	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -37,13 +37,13 @@ const UpdateUser = async (req, res) => {
     try {
 		if(req?.user?.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 		
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
 		
 		const result = await updateUserById({id, ...data})
 	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
-		if(!result.status) return res.status(204).json(result)
+		if(!result.status) return res.status(400).json(result)
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -62,13 +62,13 @@ const DeleteToUser = async (req, res) => {
     try {
 		if(req?.user?.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 
-		if(!id) return res.status(204).json({status: false, message: "Boş kimlik"})
+		if(!id) return res.status(400).json({status: false, message: "Boş kimlik"})
 		
 		const result = await deleteUser(id)
 	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
-		if(!result.status) return res.status(204).json(result)
+		if(!result.status) return res.status(400).json(result)
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -87,13 +87,13 @@ const UserLogout = async (req, res) => {
     try {
 		if(req.user.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 
-		if(!id) return res.status(204).json({status: false, message: "Boş kimlik"})
+		if(!id) return res.status(400).json({status: false, message: "Boş kimlik"})
 		
 		const result = await logoutUser(id)
 	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
-		if(!result.status) return res.status(204).json(result)
+		if(!result.status) return res.status(400).json(result)
 			
 		return res.status(200).json(result)
 	} catch(err){

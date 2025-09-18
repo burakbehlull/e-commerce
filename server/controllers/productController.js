@@ -10,7 +10,7 @@ const GetProducts = async (req, res) => {
 	const data = req.body
     try {		
 		const result = await getProducts(data)
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -27,7 +27,7 @@ const GetProducts = async (req, res) => {
 const CreateProduct = async (req, res) => {
   const data = req.body;
   try {
-    if (!data) return res.status(204).json({ status: false, message: "İstek boş" });
+    if (!data) return res.status(400).json({ status: false, message: "İstek boş" });
 
     if (!req.files || !req.files["thumbnail"] || req.files["thumbnail"].length === 0) {
       return res.status(400).json({ message: "Thumbnail zorunlu" });
@@ -72,10 +72,10 @@ const CreateProduct = async (req, res) => {
 const FindProductById = async (req, res) => {
 	const { id } = req.params
     try {
-		if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+		if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 		
 		const result = await getProductById(id)
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -94,12 +94,12 @@ const UpdateProduct = async (req, res) => {
 	const data = req.body
 	
     try {
-		if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+		if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
 		
 		const result = await updateProduct(id, data)
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -117,10 +117,10 @@ const DeleteProduct = async (req, res) => {
 	const { id } = req.params
 	
     try {
-		if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+		if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 			
 		const result = await deleteProduct(id)
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -139,10 +139,10 @@ const UpdateToThumbnail = async (req, res) => {
 	const id = req.params.id
     if (!req.file) return res.status(400).json({ status: false, message: "Thumbnail alanı zorunlu" });
     
-	if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+	if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 	
     const result = await updateThumbnail(id, newPath);
-	if(!result.status) res.status(204).json(result);
+	if(!result.status) res.status(400).json(result);
 
     const dir = path.join("uploads", "products", result.data.slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -170,7 +170,7 @@ const AddToImages = async (req, res) => {
 	const id = req.params.id
     if (!req.files || req.files.length === 0) return res.status(400).json({ status: false, message: "Resim seçilmemiş" });
     
-	if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+	if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 
 	
 	const product = await getProductById(id);
@@ -206,7 +206,7 @@ const DeleteToImage = async (req, res) => {
     if (!imagePath) return res.status(400).json({ message: "imagePath zorunlu" });
 	
 	const id = req.params.id
-	if(!id) return res.status(204).json({status: false, message: "Ürün kimliği boş"})
+	if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 	
 
     const product = await getProductById(id);

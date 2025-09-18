@@ -3,7 +3,7 @@ import { multer } from '#config'
 
 import { GetProducts, CreateProduct, FindProductById, UpdateProduct, 
 	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage } from "#controllers"
-
+import { adminAuthMiddleware } from "#middlewares"
 const router = express.Router();
 
 const fileUploads = multer.fields([
@@ -12,15 +12,15 @@ const fileUploads = multer.fields([
 ])
 
 router.get('/', GetProducts)
-router.post('/', fileUploads, CreateProduct)
-
 router.get('/:id', FindProductById)
 
-router.put('/:id', UpdateProduct)
-router.delete('/:id', DeleteProduct)
+router.post('/', fileUploads, adminAuthMiddleware, CreateProduct)
 
-router.put('/:id/thumbnail', multer.single("thumbnail"), UpdateToThumbnail)
-router.post('/:id/images', multer.array("images", 10), AddToImages)
-router.delete('/:id/images', DeleteToImage)
+router.put('/:id', adminAuthMiddleware, UpdateProduct)
+router.delete('/:id', adminAuthMiddleware, DeleteProduct)
+
+router.put('/:id/thumbnail', multer.single("thumbnail"), adminAuthMiddleware, UpdateToThumbnail)
+router.post('/:id/images', multer.array("images", 10), adminAuthMiddleware, AddToImages)
+router.delete('/:id/images', adminAuthMiddleware, DeleteToImage)
 
 export default router;
