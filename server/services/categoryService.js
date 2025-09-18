@@ -1,6 +1,6 @@
 import { Category } from "#models";
 
-async function getCategories({ name, description }){
+async function getCategories(){
 	try {
 		
 		const categories = await Category.find({})
@@ -81,10 +81,10 @@ async function createCategory({ name, description }){
 	}
 }
 
-async function updateCategory({ name, description }){
+async function updateCategory(id, { name, description }){
 	try {
 		
-		const category = await Category.findOne({name})
+		const category = await Category.findById(id)
 		if(!category) return {
 			status: false,
 			message: "Zaten bu kategori mevcut!"
@@ -111,16 +111,16 @@ async function updateCategory({ name, description }){
 	}
 }
 
-async function deleteCategory(name){
+async function deleteCategory(id){
 	try {
-		const category = await Category.findOne({name})
+		const category = await Category.findById(id)
 		
 		if(!category) return {
 			status: false,
 			message: "Kategori mevcut değil",
 		}
 		
-		const deletedCategory = await Category.findOneAndDelete({name});
+		const deletedCategory = await Category.findOneAndDelete(id);
 		
 		return {
 			status: true,
