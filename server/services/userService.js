@@ -33,7 +33,7 @@ async function getUser({id, username, email}){
 	}
 }
 
-async function createUser({ globalName, username, password, email, phone, address, token }){
+async function createUser({ globalName, username, password, email, role, phone, address, token }){
 	try {
 		
 		const user = await User.findOne({
@@ -48,7 +48,7 @@ async function createUser({ globalName, username, password, email, phone, addres
 			message: "Zaten e-posta veya kullanıcı adı var!"
 		}
 		
-		const createdUser = await User.create({ globalName, username, password, email, phone, address, token })
+		const createdUser = await User.create({ globalName, username, role, password, email, phone, address, token })
 		
 		return {
 			status: true,

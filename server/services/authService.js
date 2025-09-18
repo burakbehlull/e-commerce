@@ -2,6 +2,7 @@ import { createUser, getUser } from "./userService.js"
 import { isHash, isMatch } from "#helpers"
 import { generateRefreshToken, generateAccessToken, 
 	generateAccessTokenFromVerifyRefreshTokenAL,
+	generateAccessTokenFromVerifyRefreshToken,
 	verifyAccessToken, verifyRefreshToken } from "./tokenService.js"
 
 async function register(data){

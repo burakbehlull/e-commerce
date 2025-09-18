@@ -1,14 +1,24 @@
-import { authService } from "#services";
+import { authService, tokenService } from "#services";
 
 const { register, login, refreshToAccessToken } = authService;
+const { verifyAccessToken } = tokenService;
 
 const UserRegister = async (req, res) => {
 	const data = req.body
+	
+	const authHeader = req?.headers["authorization"]
+    const token = authHeader && authHeader?.split(" ")[1];
+	
+	const verify = verifyAccessToken(token)
+	
+	let verifyRole = "customer";
+	if (verify?.role === "admin") verifyRole = data.role;
+	
     try {
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
 		
-		const result = await register(data)
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		const result = await register({...data, role: verifyRole})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -25,11 +35,11 @@ const UserRegister = async (req, res) => {
 const UserLogin = async (req, res) => {
 	const data = req.body
     try {
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
+		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
 		
 		const result = await login(data)
 	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
@@ -48,11 +58,11 @@ const RefreshAccessToken = async (req, res)=> {
 	
     try {
 		
-		if(!token) return res.status(204).json({status: false, message: "Token boş"})
+		if(!token) return res.status(400).json({status: false, message: "Token boş"})
 		
 		const result = await refreshToAccessToken(token)
 	
-		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)
 	} catch(err){
