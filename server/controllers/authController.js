@@ -43,11 +43,14 @@ const UserLogin = async (req, res) => {
 }
 
 const RefreshAccessToken = async (req, res)=> {
-	const data = req.body
+	
+	const { token } = req.body
+	
     try {
-		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		
-		const result = await refreshToAccessToken(data)
+		if(!token) return res.status(204).json({status: false, message: "Token boş"})
+		
+		const result = await refreshToAccessToken(token)
 	
 		if(!result) return res.status(204).json({status: false, message: "Boş içerik"})
 			

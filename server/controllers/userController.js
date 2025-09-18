@@ -9,7 +9,7 @@ const UserInfo = async (req, res) => {
 	
     try {
 		
-		if(!(user?._id === data?._id 
+		if(user?.role !== "admin" && !(user?._id === data?._id 
 			|| user?.username === data?.username 
 			|| user?.email === data?.email)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 		
@@ -35,7 +35,7 @@ const UpdateUser = async (req, res) => {
 	const id = req.params.id
 	
     try {
-		if(!(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+		if(req?.user?.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 		
 		if(!data) return res.status(204).json({status: false, message: "İstek boş"})
 		
@@ -60,7 +60,7 @@ const DeleteToUser = async (req, res) => {
 	const id = req.params.id
 	
     try {
-		if(!(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+		if(req?.user?.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 
 		if(!id) return res.status(204).json({status: false, message: "Boş kimlik"})
 		
@@ -85,7 +85,7 @@ const UserLogout = async (req, res) => {
 	const id = req.params.id
 	
     try {
-		if(!(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+		if(req.user.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 
 		if(!id) return res.status(204).json({status: false, message: "Boş kimlik"})
 		

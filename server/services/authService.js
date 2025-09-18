@@ -1,7 +1,7 @@
 import { createUser, getUser } from "./userService.js"
 import { isHash, isMatch } from "#helpers"
 import { generateRefreshToken, generateAccessToken, 
-	generateAccessTokenFromVerifyRefreshToken, verifyAccessToken } from "./tokenService.js"
+	generateAccessTokenFromVerifyRefreshToken, verifyAccessToken, verifyRefreshToken } from "./tokenService.js"
 
 async function register(data){
 	if(!data) return null
@@ -12,7 +12,7 @@ async function register(data){
 	if(!result.status) return result
 	
 	const userId = result.data._id
-	const generatedAccessToken = generateAccessToken({ id: userId, email: data.email, username: data.username })
+	const generatedAccessToken = generateAccessToken({ id: userId, email: data.email, username: data.username, role: data.role })
 	
 	return {...result, accessToken: generatedAccessToken}
 }
@@ -26,15 +26,19 @@ async function login({ email, username, password }){
 	const matchPassword = await isMatch(password, user.password)
 	if(!matchPassword) return { status: false, message: "Kullanıcı bilgileri yanlış"}
 	
-	const verifyResult = await generateAccessTokenFromVerifyRefreshToken(user)
+	const verifyResult = await generateAccessTokenFromVerifyRefreshToken(user, true)
 	if(!verifyResult.status) return verifyResult
 	
 	return {...result, accessToken: verifyResult.accessToken}
 	
 }
 
-async function refreshToAccessToken(data){
-	const user = await getUser(data)
+async function refreshToAccessToken(token){
+	
+	const data = verifyRefreshToken(token, true)
+	if(!data) return { status: false, message: "Geçersiz token" }
+	
+	const user = await getUser({id: data._id})
 	if(!user.status) return user
 	
 	const result = await generateAccessTokenFromVerifyRefreshToken(user.data)
@@ -70,10 +74,6 @@ async function verifyFromRefreshToken(authHeader){
 	if(!verify) return { status: false, message: "Geçersiz token" }
 	return { status: true, message: "Token başarılı" }
 }
-
-async function logout(){}
-
-
 
 export {
 	register,
