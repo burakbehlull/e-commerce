@@ -231,6 +231,74 @@ async function deleteImage(id, imagePath) {
   
 };
 
+async function addCategoryToProduct(productId, categoryId){
+	
+	try {
+		if(!productId || !categoryId) return { 
+			status: false,
+			message: "Ürün veya kategori kimliği boş"
+		}
+		
+		const product = await Product.findById(productId);
+		if (!product) return { status: false, message: "Ürün bulunamadı" }
+		
+
+		if (product.category.includes(categoryId)) return { status: false, message: "Kategori zaten üründe mevcut" }
+		
+
+		product.category.push(categoryId)
+		await product.save()
+		await product.populate("category")
+		
+		return { 
+			status: true,
+			message: "Ürüne kategori eklendi.",
+			data: product,
+		}
+	} catch(err) {
+		console.error("[ERROR - productService/addCategoryToProduct]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+}
+
+async function removeCategoryFromProduct(productId, categoryId){
+	
+	try {
+		if(!productId || !categoryId) return { 
+			status: false,
+			message: "Ürün veya kategori kimliği boş"
+		}
+		
+		const exitsProduct = await Product.findById(productId);
+		if (!exitsProduct) return { status: false, message: "Ürün bulunamadı" }
+
+		const product = await Product.findByIdAndUpdate(
+			productId,
+			{ $pull: { category: categoryId } },
+			{ new: true }
+		).populate("category");
+
+		
+		return { 
+			status: true,
+			message: "Üründen kategori silindi.",
+			data: product,
+		}
+	} catch(err) {
+		console.error("[ERROR - productService/removeCategoryFromProduct]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+}
+
+
 export {
 	getProducts,
 	addProduct,
@@ -240,5 +308,8 @@ export {
 	
 	updateThumbnail,
 	addImages,
-	deleteImage
+	deleteImage,
+	
+	addCategoryToProduct,
+	removeCategoryFromProduct
 };
