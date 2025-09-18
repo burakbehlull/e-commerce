@@ -1,0 +1,52 @@
+import { body } from "express-validator";
+import { handleValidationErrors } from "#validations";
+
+const registerValidation = [
+  body("globalName").optional().isString().withMessage("Global name geçersiz"),
+
+  body("username")
+    .notEmpty().withMessage("Kullanıcı adı boş olamaz")
+    .isLength({ min: 3, max: 11 }).withMessage("Kullanıcı adı en az 3, maksimum 11 karakter olmalı")
+    .custom(async (value) => {
+      const existingUser = await User.findOne({ username: value });
+      if (existingUser) {
+        throw new Error("Kullanıcı adı zaten kullanılıyor");
+      }
+      return true;
+  }),
+
+  body("email")
+    .notEmpty().withMessage("Email boş olamaz")
+    .isEmail().withMessage("Geçerli bir email giriniz")
+    .custom(async (value) => {
+      const existingUser = await User.findOne({ email: value });
+      if (existingUser) {
+        throw new Error("Email zaten kullanılıyor");
+      }
+      return true;
+  }),
+
+  body("phone")
+    .optional()
+    .isMobilePhone("tr-TR").withMessage("Geçerli bir telefon numarası giriniz")
+    .custom(async (value) => {
+      if (!value) return true;
+      const existingUser = await User.findOne({ phone: value });
+      if (existingUser) {
+        throw new Error("Telefon numarası zaten kullanılıyor");
+      }
+      return true;
+  }),
+
+  body("password")
+    .notEmpty().withMessage("Parola boş olamaz")
+    .isLength({ min: 6 }).withMessage("Parola en az 6 karakter olmalı"),
+
+  body("role")
+    .optional()
+    .isIn(["admin", "customer"]).withMessage("Role 'admin' veya 'customer' olmalı"),
+
+  handleValidationErrors,
+];
+
+export default registerValidation
