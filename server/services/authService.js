@@ -1,7 +1,8 @@
 import { createUser, getUser } from "./userService.js"
 import { isHash, isMatch } from "#helpers"
 import { generateRefreshToken, generateAccessToken, 
-	generateAccessTokenFromVerifyRefreshToken, verifyAccessToken, verifyRefreshToken } from "./tokenService.js"
+	generateAccessTokenFromVerifyRefreshTokenAL,
+	verifyAccessToken, verifyRefreshToken } from "./tokenService.js"
 
 async function register(data){
 	if(!data) return null
@@ -26,7 +27,7 @@ async function login({ email, username, password }){
 	const matchPassword = await isMatch(password, user.password)
 	if(!matchPassword) return { status: false, message: "Kullanıcı bilgileri yanlış"}
 	
-	const verifyResult = await generateAccessTokenFromVerifyRefreshToken(user, true)
+	const verifyResult = await generateAccessTokenFromVerifyRefreshToken(user)
 	if(!verifyResult.status) return verifyResult
 	
 	return {...result, accessToken: verifyResult.accessToken}
@@ -34,14 +35,7 @@ async function login({ email, username, password }){
 }
 
 async function refreshToAccessToken(token){
-	
-	const data = verifyRefreshToken(token, true)
-	if(!data) return { status: false, message: "Geçersiz token" }
-	
-	const user = await getUser({id: data._id})
-	if(!user.status) return user
-	
-	const result = await generateAccessTokenFromVerifyRefreshToken(user.data)
+	const result = await generateAccessTokenFromVerifyRefreshTokenAL(token)
 	if(!result.status) return result
 	return result
 }

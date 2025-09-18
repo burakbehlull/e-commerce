@@ -102,19 +102,11 @@ async function refreshAccessToken(refreshToken) {
     return { status: true, accessToken: newAccessToken };
 }
 
-async function generateAccessTokenFromVerifyRefreshToken(user, isVerRef=false){
-	if(isVerRef){
-		const verify = verifyRefreshToken(user?.token, true)
-		
-		const userVerify = user?.email === verify?.email
-		
-		if(!userVerify) return { status: false, message: "Kullanıcı kimliği doğrulanmadı" };
-    }
-	
-	if (user.data.token !== refreshToken) {
-        return { status: false, message: "Refresh token uyuşmuyor" }
-    }
-	
+async function generateAccessTokenFromVerifyRefreshToken(user){
+	const verify = verifyRefreshToken(user?.token, true)
+    const userVerify = user?.email === verify?.email
+	if(!userVerify) return { status: false, message: "Kullanıcı kimliği doğrulanmadı" };
+        
     const expiredToken = isExpired(user.token)
 
     if(expiredToken.expired) {
@@ -134,7 +126,46 @@ async function generateAccessTokenFromVerifyRefreshToken(user, isVerRef=false){
 	return { status: true, message: "Kullanıcı doğrulandı.", accessToken: accessToken}
 }
 
+async function generateAccessTokenFromVerifyRefreshTokenAL(refreshToken) {
+	const data = verifyRefreshToken(refreshToken, true)
+	if(!data) return { status: false, message: "Geçersiz token" }
+	
+	const resultUser = await getUser({id: data._id})
+	if(!resultUser.status) return resultUser
+	
+	const user = resultUser.data
+	
+    if (user.token !== refreshToken)  return { status: false, message: "Refresh token uyuşmuyor" }
+    
 
+    const expiredToken = isExpired(refreshToken)
+    if (expiredToken.expired) {
+        const newRefreshToken = generateRefreshToken({
+            email: user.email,
+            username: user.username
+        })
+        await updateUserRefreshToken(user.username, newRefreshToken)
+
+        return {
+            status: true,
+            message: "Yeni refresh token üretildi",
+            refreshToken: newRefreshToken
+        }
+    }
+
+    const accessToken = generateAccessToken({
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        _id: user._id
+    })
+
+    return {
+        status: true,
+        message: "Kullanıcı doğrulandı.",
+        accessToken
+    }
+}
 
 export {
     generateAccessToken,
@@ -144,5 +175,6 @@ export {
     isExpired,
     updateUserRefreshToken,
     refreshAccessToken,
-	generateAccessTokenFromVerifyRefreshToken
+	generateAccessTokenFromVerifyRefreshToken,
+	generateAccessTokenFromVerifyRefreshTokenAL
 };
