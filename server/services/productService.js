@@ -239,7 +239,7 @@ async function addCategoryToProduct(productId, categoryId){
 			message: "Ürün veya kategori kimliği boş"
 		}
 		
-		const product = await Product.findById(productId);
+		const product = await Product.findOne({id: productId});
 		if (!product) return { status: false, message: "Ürün bulunamadı" }
 		
 
@@ -273,11 +273,11 @@ async function removeCategoryFromProduct(productId, categoryId){
 			message: "Ürün veya kategori kimliği boş"
 		}
 		
-		const exitsProduct = await Product.findById(productId);
+		const exitsProduct = await Product.findOne({id: productId});
 		if (!exitsProduct) return { status: false, message: "Ürün bulunamadı" }
 
 		const product = await Product.findByIdAndUpdate(
-			productId,
+			exitsProduct._id,
 			{ $pull: { category: categoryId } },
 			{ new: true }
 		).populate("category");

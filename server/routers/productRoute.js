@@ -2,7 +2,8 @@ import express from 'express';
 import { multer } from '#config'
 
 import { GetProducts, CreateProduct, FindProductById, UpdateProduct, 
-	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage } from "#controllers"
+	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage, AddCategoryProduct,
+	RemoveCategoryProduct } from "#controllers"
 import { adminAuthMiddleware } from "#middlewares"
 const router = express.Router();
 
@@ -22,5 +23,8 @@ router.delete('/:id', adminAuthMiddleware, DeleteProduct)
 router.put('/:id/thumbnail', multer.single("thumbnail"), adminAuthMiddleware, UpdateToThumbnail)
 router.post('/:id/images', multer.array("images", 10), adminAuthMiddleware, AddToImages)
 router.delete('/:id/images', adminAuthMiddleware, DeleteToImage)
+
+router.post('/:id/categories', adminAuthMiddleware, AddCategoryProduct)
+router.delete('/:id/categories', adminAuthMiddleware, RemoveCategoryProduct)
 
 export default router;

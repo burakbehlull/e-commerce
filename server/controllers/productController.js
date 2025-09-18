@@ -5,8 +5,8 @@ import { productService } from "#services";
 
 import { logger } from "#config";
 
-const { addProduct, getProducts, getProductById, updateProduct, 
-	deleteProduct, updateThumbnail, addImages } = productService;
+const { addProduct, getProducts, getProductById, updateProduct, deleteProduct, 
+	updateThumbnail, addImages, addCategoryToProduct, removeCategoryFromProduct } = productService;
 
 const GetProducts = async (req, res) => {
 	const page = req.query.page
@@ -230,6 +230,51 @@ const DeleteToImage = async (req, res) => {
   }
 };
 
+const AddCategoryProduct = async (req, res) => {
+	const id = req.params.id
+    const { categoryId } = req.body;
+    try {		
+		const result = await addCategoryToProduct(id, categoryId)
+		
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
+		if(!result.status) return res.status(400).json(result)
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - productController/AddCategoryProduct]: ", err.message)
+		logger.error("[ERROR - productController/AddCategoryProduct]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
+const RemoveCategoryProduct = async (req, res) => {
+	
+	const id = req.params.id
+    const { categoryId } = req.body; 
+	
+    try {		
+		const result = await removeCategoryFromProduct(id, categoryId)
+		
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
+		if(!result.status) return res.status(400).json(result)
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - productController/removeCategoryFromProduct]: ", err.message)
+		logger.error("[ERROR - productController/removeCategoryFromProduct]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
+
 export {
 	GetProducts,
 	CreateProduct,
@@ -240,5 +285,8 @@ export {
 	
 	UpdateToThumbnail,
 	AddToImages,
-	DeleteToImage
+	DeleteToImage,
+	
+	AddCategoryProduct,
+	RemoveCategoryProduct
 }
