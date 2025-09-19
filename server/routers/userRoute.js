@@ -5,7 +5,7 @@ import { authMiddleware, rateLimiterMiddleware } from "#middlewares"
 
 const router = express.Router();
 
-router.post('/info', authMiddleware, rateLimiterMiddleware, UserInfo)
+router.post('/me', authMiddleware, rateLimiterMiddleware, UserInfo)
 router.put('/:id', authMiddleware, rateLimiterMiddleware, UpdateUser)
 router.delete('/:id', authMiddleware, rateLimiterMiddleware, DeleteToUser)
 
