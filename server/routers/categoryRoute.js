@@ -8,7 +8,7 @@ import { getCategoryByNameValidation, createCategoryValidation, updateCategoryVa
 	
 const router = express.Router();
 
-router.get('/', rateLimiterMiddleware(), GetToCategories)
+router.get('/all', rateLimiterMiddleware(), GetToCategories)
 router.get('/', getCategoryByNameValidation, rateLimiterMiddleware(), GetToCategoryByName)
 router.post('/', createCategoryValidation, adminAuthMiddleware, CreateToCategory)
 router.put('/:id', updateCategoryValidation, adminAuthMiddleware, UpdateToCategoy)
