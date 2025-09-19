@@ -4,17 +4,21 @@ import { GetToBasket, AddToBasket, RemoveToBasket, ClearToBasket,
 	UpdateToBasket, MergeToBasket } from "#controllers"
 import { authMiddleware, rateLimiterMiddleware } from "#middlewares"
 
+import { basketAddItemsValidation,
+	basketProductIdAndQuantityValidation,
+	basketProductIdValidation } from "#validations"
+
 const router = express.Router();
 
 router.get('/', authMiddleware, rateLimiterMiddleware(), GetToBasket)
-router.post('/', authMiddleware, rateLimiterMiddleware(), AddToBasket)
+router.post('/', authMiddleware, basketProductIdAndQuantityValidation, rateLimiterMiddleware(), AddToBasket)
 
-router.patch('/', authMiddleware,rateLimiterMiddleware(),  UpdateToBasket)
+router.patch('/', authMiddleware, basketProductIdAndQuantityValidation, rateLimiterMiddleware(),  UpdateToBasket)
 
-router.delete('/:productId', authMiddleware, rateLimiterMiddleware(5),  RemoveToBasket)
+router.delete('/:productId', authMiddleware, basketProductIdValidation, rateLimiterMiddleware(5),  RemoveToBasket)
 router.delete('/clear', authMiddleware, rateLimiterMiddleware(), ClearToBasket)
 
-router.post('/merge', authMiddleware, rateLimiterMiddleware(10), MergeToBasket)
+router.post('/merge', authMiddleware, basketAddItemsValidation, rateLimiterMiddleware(10), MergeToBasket)
 
 
 
