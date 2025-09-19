@@ -66,11 +66,14 @@ const CreateToCategory = async (req, res) => {
 }
 
 const UpdateToCategoy = async (req, res) => {
+	
+	const { id } = req.params
 	const data = req.body
+	
     try {
-		if(!data) return res.status(400).json({status: false, message: "İstek boş"})
+		if(!data || !id) return res.status(400).json({status: false, message: "İstek boş"})
 		
-		const result = await updateCategory(data.id, {
+		const result = await updateCategory(id, {
 			name: data.name,
 			description: data.description
 		})
@@ -90,7 +93,7 @@ const UpdateToCategoy = async (req, res) => {
 }
 
 const DeleteToCategory = async (req, res) => {
-	const{ id } = req.body
+	const { id } = req.params
     try {
 		if(!id) return res.status(400).json({status: false, message: "İstek boş"})
 		
