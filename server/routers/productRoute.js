@@ -1,10 +1,12 @@
 import express from 'express';
-import { multer } from '#config'
 
 import { GetProducts, CreateProduct, FindProductById, UpdateProduct, 
 	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage, AddCategoryProduct,
 	RemoveCategoryProduct } from "#controllers"
+	
+import { multer } from '#config'
 import { adminAuthMiddleware } from "#middlewares"
+
 const router = express.Router();
 
 const fileUploads = multer.fields([

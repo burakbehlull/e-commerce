@@ -1,12 +1,12 @@
 import express from 'express';
 
 import { GetToCategories, GetToCategoryByName, CreateToCategory, UpdateToCategoy, DeleteToCategory } from "#controllers"
-import { adminAuthMiddleware } from "#middlewares"
+import { adminAuthMiddleware, rateLimiterMiddleware } from "#middlewares"
 
 const router = express.Router();
 
-router.get('/', GetToCategories)
-router.get('/', GetToCategoryByName)
+router.get('/', rateLimiterMiddleware(), GetToCategories)
+router.get('/', rateLimiterMiddleware(), GetToCategoryByName)
 router.post('/', adminAuthMiddleware, CreateToCategory)
 router.put('/', adminAuthMiddleware, UpdateToCategoy)
 router.delete('/', adminAuthMiddleware, DeleteToCategory)

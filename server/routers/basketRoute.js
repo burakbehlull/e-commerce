@@ -1,23 +1,20 @@
 import express from 'express';
 
-import { GetToBasket, AddToBasket,
-	RemoveToBasket,
-	ClearToBasket,
-	UpdateToBasket,
-	MergeToBasket } from "#controllers"
-import { authMiddleware } from "#middlewares"
+import { GetToBasket, AddToBasket, RemoveToBasket, ClearToBasket,
+	UpdateToBasket, MergeToBasket } from "#controllers"
+import { authMiddleware, rateLimiterMiddleware } from "#middlewares"
 
 const router = express.Router();
 
-router.get('/', authMiddleware, GetToBasket)
-router.post('/', authMiddleware, AddToBasket)
+router.get('/', authMiddleware, rateLimiterMiddleware(), GetToBasket)
+router.post('/', authMiddleware, rateLimiterMiddleware(), AddToBasket)
 
-router.patch('/', authMiddleware, UpdateToBasket)
+router.patch('/', authMiddleware,rateLimiterMiddleware(),  UpdateToBasket)
 
-router.delete('/:productId', authMiddleware, RemoveToBasket)
-router.delete('/clear', authMiddleware, ClearToBasket)
+router.delete('/:productId', authMiddleware, rateLimiterMiddleware(5),  RemoveToBasket)
+router.delete('/clear', authMiddleware, rateLimiterMiddleware(), ClearToBasket)
 
-router.post('/merge', authMiddleware, MergeToBasket)
+router.post('/merge', authMiddleware, rateLimiterMiddleware(10), MergeToBasket)
 
 
 
