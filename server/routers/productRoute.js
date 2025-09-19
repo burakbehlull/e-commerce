@@ -7,6 +7,9 @@ import { GetProducts, CreateProduct, FindProductById, UpdateProduct,
 import { multer } from '#config'
 import { adminAuthMiddleware } from "#middlewares"
 
+import { createProductValidation, updateProductValidation, productIdValidation,
+  addCategoryToProductValidation, removeCategoryFromProductValidation, } from "#validations"
+
 const router = express.Router();
 
 const fileUploads = multer.fields([
@@ -17,16 +20,16 @@ const fileUploads = multer.fields([
 router.get('/', GetProducts)
 router.get('/:id', FindProductById)
 
-router.post('/', fileUploads, adminAuthMiddleware, CreateProduct)
+router.post('/', fileUploads, createProductValidation, adminAuthMiddleware, CreateProduct)
 
-router.put('/:id', adminAuthMiddleware, UpdateProduct)
-router.delete('/:id', adminAuthMiddleware, DeleteProduct)
+router.put('/:id',   productIdValidation, updateProductValidation, adminAuthMiddleware, UpdateProduct)
+router.delete('/:id', productIdValidation, adminAuthMiddleware, DeleteProduct)
 
-router.put('/:id/thumbnail', multer.single("thumbnail"), adminAuthMiddleware, UpdateToThumbnail)
-router.post('/:id/images', multer.array("images", 10), adminAuthMiddleware, AddToImages)
-router.delete('/:id/images', adminAuthMiddleware, DeleteToImage)
+router.put('/:id/thumbnail', multer.single("thumbnail"), productIdValidation, adminAuthMiddleware, UpdateToThumbnail)
+router.post('/:id/images', multer.array("images", 10), productIdValidation, adminAuthMiddleware, AddToImages)
+router.delete('/:id/images', productIdValidation, adminAuthMiddleware, DeleteToImage)
 
-router.post('/:id/categories', adminAuthMiddleware, AddCategoryProduct)
-router.delete('/:id/categories', adminAuthMiddleware, RemoveCategoryProduct)
+router.post('/:id/categories', addCategoryToProductValidation, adminAuthMiddleware, AddCategoryProduct)
+router.delete('/:id/categories', removeCategoryFromProductValidation, adminAuthMiddleware, RemoveCategoryProduct)
 
 export default router;
