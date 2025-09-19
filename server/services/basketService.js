@@ -73,7 +73,6 @@ async function removeBasket(userId, productId){
 		
 		const basket = await Basket.findOne({ user: userId }).populate("items.product");
 	
-		let basket = await Basket.findOne({ user: userId });
 		if (!basket) return { status: false, message: "Sepet yok" };
 
 		basket.items = basket.items.filter(i => i.product.toString() !== product._id);
@@ -131,7 +130,7 @@ async function mergeBasket(userId, items){
 
 	    if (!basket) basket = new Basket({ user: userId, items: [] });
 
-	    items.forEach(({ product, quantity }) => {
+	    items.forEach(async({ product, quantity }) => {
 			const getProduct = await Product.findOne({ id: product });
 			
 			const itemIndex = basket.items.findIndex(i => i.product.toString() === getProduct._id);
@@ -168,7 +167,7 @@ async function updateQuantity(userId, productId, quantity){
 		
 
 		let basket = await Basket.findOne({ user: userId })
-		if (!basket) { status: false, message: "Sepet bulunamadı" }
+		if (!basket) return { status: false, message: "Sepet bulunamadı" }
 		
 		const product = Product.findOne({id: productId})
 		
@@ -179,7 +178,7 @@ async function updateQuantity(userId, productId, quantity){
 		basket.items[itemIndex].quantity = quantity;
 
 		await basket.save();
-		const itemsProduct = await basket.populate("items.product"));
+		const itemsProduct = await basket.populate("items.product");
 		
 		return {
 			status: true,

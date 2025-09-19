@@ -11,6 +11,7 @@ export {
 	productRoute,
 	authRoute,
 	categoryRoute,
+	basketRoute,
 	
 	apiRouter,
 }
