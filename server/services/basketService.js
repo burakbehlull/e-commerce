@@ -202,5 +202,6 @@ export {
 	addBasket,
 	removeBasket,
 	clearBasket,
-	mergeBasket
+	mergeBasket,
+	updateQuantity
 };
