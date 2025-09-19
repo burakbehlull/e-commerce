@@ -55,7 +55,7 @@ const AddToBasket = async (req, res) => {
 
 const RemoveToBasket = async (req, res) => {
 	const user = req?.user
-	const { productId } = req.body
+	const { productId } = req.params
     
 	try {
 
