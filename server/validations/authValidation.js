@@ -87,7 +87,7 @@ const authRouteRefreshAcessTokenValidation = [
   handleValidationErrors,
 ];
 
-export default {
+export {
 	registerValidation,
 	loginValidation,
 	authRouteRefreshAcessTokenValidation

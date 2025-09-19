@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { UserRegister, UserLogin, RefreshAccessToken } from "#controllers"
-import { loginValidation, registerValidation, authRouteRefreshAcessTokenValidation } from "#validations"
+import { registerValidation, loginValidation, authRouteRefreshAcessTokenValidation } from "#validations"
 import { rateLimiterMiddleware } from "#middlewares"
 
 const router = express.Router();
