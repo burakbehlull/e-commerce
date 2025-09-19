@@ -1,6 +1,7 @@
 import { body } from "express-validator";
 import { handleValidationErrors } from "#validations";
 
+
 const registerValidation = [
   body("globalName").optional().isString().withMessage("Global name geçersiz"),
 
@@ -49,4 +50,45 @@ const registerValidation = [
   handleValidationErrors,
 ];
 
-export default registerValidation
+const loginValidation = [
+  body("email")
+    .optional()
+    .isEmail()
+	.withMessage("Geçerli bir email adresi giriniz."),
+
+  body("username")
+    .optional()
+    .isAlphanumeric()
+	.withMessage("Kullanıcı adı sadece harf ve rakamlardan oluşmalıdır."),
+
+  body().custom((value, { req }) => {
+    if (!req.body.email && !req.body.username) {
+      throw new Error("Email veya kullanıcı adı zorunludur.");
+    }
+    return true;
+  }),
+
+  body("password")
+    .notEmpty().withMessage("Parola boş olamaz."),
+
+  handleValidationErrors,
+];
+
+const authRouteRefreshAcessTokenValidation = [
+  body("token").notEmpty().withMessage("Token gerekli"),
+
+  body().custom((value, { req }) => {
+    if (!req.body.token) {
+      throw new Error("token zorunludur.");
+    }
+    return true;
+  }),
+
+  handleValidationErrors,
+];
+
+export default {
+	registerValidation,
+	loginValidation,
+	authRouteRefreshAcessTokenValidation
+}
