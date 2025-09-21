@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path"
 
 import { Product } from "#models";
 
@@ -30,19 +31,45 @@ async function getProducts({ page = 1, limit = 10 } = {}) {
     }
 };
 
-async function addProduct(data){
+async function addProduct(data, tempThumbnail, tempImages){
 	try {
 		if(!data) return { 
 			status: false,
 			message: "Veri Boş"
 		}
 		
-		const createdProduct = await Product.create(data)
+		const product = await Product.create(data)
+		
+		if(!product) return { 
+			status: false,
+			message: "Ürün oluşturalamadı",
+			error: product,
+		}
+		
+		const productDir = path.join("uploads", "products", product.slug);
+		if (!fs.existsSync(productDir)) fs.mkdirSync(productDir, { recursive: true });
+		
+		// Thumbnail
+		const thumbExt = path.extname(tempThumbnail);
+		const thumbnailPath = path.join("products", product.slug, "thumbnail" + thumbExt);
+		fs.renameSync(tempThumbnail, path.join("uploads", thumbnailPath));
+		product.thumbnail = thumbnailPath.replace(/\\/g, "/");
+
+		// Images
+		const imagesPaths = tempImages.map((img, idx) => {
+		  const ext = path.extname(img);
+		  const newPath = path.join("products", product.slug, `image${idx + 1}${ext}`);
+		  fs.renameSync(img, path.join("uploads", newPath));
+		  return newPath.replace(/\\/g, "/");
+		});
+
+		product.images = imagesPaths;
+		await product.save();
 		
 		return { 
 			status: true,
 			message: "Ürün oluşturuldu",
-			data: createdProduct,
+			data: product,
 		}
 	} catch(err) {
 		console.error("[ERROR - productService/addProduct]: ", err.message)
@@ -299,6 +326,33 @@ async function removeCategoryFromProduct(productId, categoryId){
 }
 
 
+async function getImage(productId, index){
+	
+	try {
+		const product = await Product.findOne({id: productId});
+		if (!product) return { status: false, message: "Ürün bulunamadı" }
+
+		const imagePath = index ? product.images[index] : product.thumbnail;
+		 if (!imagePath) return { status: false, message: "Resim bulunamadı" }
+
+		const absolutePath = path.resolve("uploads", imagePath);
+		
+		return {
+			status: true,
+			data: absolutePath,
+			message: "Resim çekimi başarılı"
+		}
+	} catch(err) {
+		console.error("[ERROR - productService/getImage]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+}
+
+
 export {
 	getProducts,
 	addProduct,
@@ -308,6 +362,7 @@ export {
 	
 	updateThumbnail,
 	addImages,
+	getImage,
 	deleteImage,
 	
 	addCategoryToProduct,

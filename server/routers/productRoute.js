@@ -2,13 +2,13 @@ import express from 'express';
 
 import { GetProducts, CreateProduct, FindProductById, UpdateProduct, 
 	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage, AddCategoryProduct,
-	RemoveCategoryProduct } from "#controllers"
+	RemoveCategoryProduct, GetImage } from "#controllers"
 	
 import { multer } from '#config'
 import { adminAuthMiddleware } from "#middlewares"
 
 import { createProductValidation, updateProductValidation, productIdValidation,
-  addCategoryToProductValidation, removeCategoryFromProductValidation, } from "#validations"
+  addCategoryToProductValidation, removeCategoryFromProductValidation } from "#validations"
 
 const router = express.Router();
 
@@ -19,6 +19,7 @@ const fileUploads = multer.fields([
 
 router.get('/', GetProducts)
 router.get('/:id', FindProductById)
+router.get('/:id/image', GetImage)
 
 router.post('/', fileUploads, createProductValidation, adminAuthMiddleware, CreateProduct)
 
