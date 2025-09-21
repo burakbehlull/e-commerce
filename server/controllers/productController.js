@@ -5,7 +5,7 @@ import { productService } from "#services";
 import { logger } from "#config";
 
 const { addProduct, getProducts, getProductById, updateProduct, deleteProduct, 
-	updateThumbnail, addImages, addCategoryToProduct, removeCategoryFromProduct, getImage } = productService;
+	updateThumbnail, addImages, deleteImage, addCategoryToProduct, removeCategoryFromProduct, getImage } = productService;
 
 const GetProducts = async (req, res) => {
 	const { page, limit } = req.query

@@ -28,7 +28,7 @@ const createProductValidation = [
 const updateProductValidation = [
   param("id")
     .notEmpty().withMessage("Ürün ID gerekli")
-    .isString().withMessage("Geçerli bir ürün kimliği giriniz"),
+	.isString().withMessage("Geçerli bir ürün kimliği giriniz"),
 
   body("name")
     .optional()
