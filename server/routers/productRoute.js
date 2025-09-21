@@ -21,7 +21,7 @@ router.get('/', GetProducts)
 router.get('/:id', FindProductById)
 router.get('/:id/image', GetImage)
 
-router.post('/', fileUploads, createProductValidation, adminAuthMiddleware, CreateProduct)
+router.post('/', fileUploads, createProductValidation, CreateProduct)
 
 router.put('/:id',   productIdValidation, updateProductValidation, adminAuthMiddleware, UpdateProduct)
 router.delete('/:id', productIdValidation, adminAuthMiddleware, DeleteProduct)

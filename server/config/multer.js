@@ -9,11 +9,8 @@ const storage = multer.diskStorage({
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
   },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const name = `${Date.now()}-${nanoid(10)}${ext}`;
-    cb(null, name);
-  },
+  filename: (req, file, cb) => cb(null, file.originalname)
+  
 });
 
 const fileFilter = (req, file, cb) => {
