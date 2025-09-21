@@ -9,8 +9,8 @@ const { addProduct, getProducts, getProductById, updateProduct, deleteProduct,
 	updateThumbnail, addImages, addCategoryToProduct, removeCategoryFromProduct } = productService;
 
 const GetProducts = async (req, res) => {
-	const page = req.query.page
-	const limit = req.query.limit
+	const { page, limit } = req.query
+	
     try {		
 		const result = await getProducts({page, limit})
 		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
@@ -231,8 +231,8 @@ const DeleteToImage = async (req, res) => {
 };
 
 const AddCategoryProduct = async (req, res) => {
-	const id = req.params.id
-    const { categoryId } = req.body;
+	const { id, categoryId } = req.params
+	
     try {		
 		const result = await addCategoryToProduct(id, categoryId)
 		
@@ -253,8 +253,7 @@ const AddCategoryProduct = async (req, res) => {
 
 const RemoveCategoryProduct = async (req, res) => {
 	
-	const id = req.params.id
-    const { categoryId } = req.body; 
+	const { id, categoryId } = req.params
 	
     try {		
 		const result = await removeCategoryFromProduct(id, categoryId)

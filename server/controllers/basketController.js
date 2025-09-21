@@ -104,7 +104,10 @@ const ClearToBasket = async (req, res) => {
 
 const UpdateToBasket = async (req, res) => {
 	const user = req?.user
-    const { productId, quantity } = req.body
+	
+	const { productId } = req.params
+    const { quantity } = req.body
+	
 	try {
 
 		if(user?._id !== id) return res.status(403).json({status: false, message: "Yetkiniz yok"})

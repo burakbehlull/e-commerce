@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/', authMiddleware, rateLimiterMiddleware(), GetToBasket)
 router.post('/', authMiddleware, basketProductIdAndQuantityValidation, rateLimiterMiddleware(), AddToBasket)
 
-router.patch('/', authMiddleware, basketProductIdAndQuantityValidation, rateLimiterMiddleware(),  UpdateToBasket)
+router.patch('/:productId', authMiddleware, basketProductIdAndQuantityValidation, rateLimiterMiddleware(),  UpdateToBasket)
 
 router.delete('/:productId', authMiddleware, basketProductIdValidation, rateLimiterMiddleware(5),  RemoveToBasket)
 router.delete('/clear', authMiddleware, rateLimiterMiddleware(), ClearToBasket)

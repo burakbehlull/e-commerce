@@ -25,11 +25,11 @@ router.post('/', fileUploads, createProductValidation, adminAuthMiddleware, Crea
 router.put('/:id',   productIdValidation, updateProductValidation, adminAuthMiddleware, UpdateProduct)
 router.delete('/:id', productIdValidation, adminAuthMiddleware, DeleteProduct)
 
-router.put('/:id/thumbnail', multer.single("thumbnail"), productIdValidation, adminAuthMiddleware, UpdateToThumbnail)
 router.post('/:id/images', multer.array("images", 10), productIdValidation, adminAuthMiddleware, AddToImages)
+router.put('/:id/thumbnail', multer.single("thumbnail"), productIdValidation, adminAuthMiddleware, UpdateToThumbnail)
 router.delete('/:id/images', productIdValidation, adminAuthMiddleware, DeleteToImage)
 
-router.post('/:id/categories', addCategoryToProductValidation, adminAuthMiddleware, AddCategoryProduct)
-router.delete('/:id/categories', removeCategoryFromProductValidation, adminAuthMiddleware, RemoveCategoryProduct)
+router.post('/:id/:categoryId', addCategoryToProductValidation, adminAuthMiddleware, AddCategoryProduct)
+router.delete('/:id/:categoryId', removeCategoryFromProductValidation, adminAuthMiddleware, RemoveCategoryProduct)
 
 export default router;
