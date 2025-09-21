@@ -16,6 +16,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': way('src'),
+      '@api': way('src/base/api.js'),
     },
   },
 })
