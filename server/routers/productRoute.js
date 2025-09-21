@@ -27,7 +27,7 @@ router.put('/:id',   productIdValidation, updateProductValidation, adminAuthMidd
 router.delete('/:id', productIdValidation, adminAuthMiddleware, DeleteProduct)
 
 router.post('/:id/images', multer.array("images", 10), productIdValidation, adminAuthMiddleware, AddToImages)
-router.put('/:id/thumbnail', multer.single("thumbnail"), productIdValidation, adminAuthMiddleware, UpdateToThumbnail)
+router.put('/:id/thumbnail', multer.single("thumbnail"), UpdateToThumbnail)
 router.delete('/:id/images', productIdValidation, adminAuthMiddleware, DeleteToImage)
 
 router.post('/:id/:categoryId', addCategoryToProductValidation, adminAuthMiddleware, AddCategoryProduct)

@@ -56,7 +56,7 @@ const updateProductValidation = [
 const productIdValidation = [
   param("id")
     .notEmpty().withMessage("Ürün ID gerekli")
-    .isString().withMessage("Geçerli bir MongoDB ObjectId giriniz"),
+    .isString().withMessage("Geçerli bir ürün kimliği giriniz"),
   
   handleValidationErrors,
 ];

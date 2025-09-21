@@ -118,22 +118,15 @@ const DeleteProduct = async (req, res) => {
 }
 
 const UpdateToThumbnail = async (req, res) => {
+	
   try {
-	const id = req.params.id
+	const { id }= req.params
     if (!req.file) return res.status(400).json({ status: false, message: "Thumbnail alanı zorunlu" });
     
 	if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
 	
-    const result = await updateThumbnail(id, newPath);
+    const result = await updateThumbnail(id, req);
 	if(!result.status) res.status(400).json(result);
-
-    const dir = path.join("uploads", "products", result.data.slug);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-    const ext = path.extname(req.file.originalname);
-    const newPath = path.join(dir, "thumbnail" + ext);
-
-    fs.renameSync(req.file.path, newPath);
 
     return res.status(200).json(result)
 

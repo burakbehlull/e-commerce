@@ -174,16 +174,28 @@ async function deleteProduct(id){
 	}
 }
 
-async function updateThumbnail(id, newPath){
+async function updateThumbnail(id, req){
 	try {
 		const product = await Product.findOne({id: id});
 	    if (!product) return {
 			status: false,
 			message: "Ürün bulunamadı"
 		};
+		
+		const dir = path.join("uploads", "products", product.slug);
+		if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-	    if (product.thumbnail && fs.existsSync(product.thumbnail)) fs.unlinkSync(product.thumbnail);
-	    product.thumbnail = newPath;
+		const ext = path.extname(req.file.originalname);
+		const newPath = path.join(dir, "thumbnail" + ext);
+
+	    if (product.thumbnail) {
+			const oldPath = path.join("uploads", product.thumbnail); 
+			if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+		}
+
+		fs.renameSync(req.file.path, newPath);
+
+	    product.thumbnail = path.join("products", product.slug, "thumbnail" + ext);
 	    await product.save();
 	  
 		return {
@@ -325,7 +337,6 @@ async function removeCategoryFromProduct(productId, categoryId){
 	}
 }
 
-
 async function getImage(productId, index){
 	
 	try {
@@ -333,10 +344,10 @@ async function getImage(productId, index){
 		if (!product) return { status: false, message: "Ürün bulunamadı" }
 
 		const imagePath = index ? product.images[index] : product.thumbnail;
-		 if (!imagePath) return { status: false, message: "Resim bulunamadı" }
+		if (!imagePath) return { status: false, message: "Resim bulunamadı" }
 
-		const absolutePath = path.resolve("uploads", imagePath);
-		
+		const absolutePath = path.join(process.cwd(), "uploads", imagePath.replace(/\//g, path.sep));
+
 		return {
 			status: true,
 			data: absolutePath,
