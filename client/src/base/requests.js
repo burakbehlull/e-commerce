@@ -62,11 +62,19 @@ const productAPI = {
 			'Content-Type': 'multipart/form-data'
 		}
 	}), // thumbnail
-	removeImageToProduct: (productId, data)=> API.delete(`/products/${productId}/images`, {
+	removeImageToProduct: (productId, data)=> API.delete(`/products/${productId}/image`, {
 		headers: {
 			'Content-Type': 'multipart/form-data'
 		}
 	}, data), // imagePath
+	
+	getImage: (productId, index)=> API.get(`/products/${productId}/image`, {
+		index: index
+	}, {
+		headers: {
+			 responseType: 'blob'
+		}
+	}), // imagePath
 	
 	addProductToCategory: (productId, categoryId)=> API.post(`/products/${productId}/${categoryId}`),
 	removeProductToCategory: (productId, categoryId)=> API.delete(`/products/${productId}/${categoryId}`),

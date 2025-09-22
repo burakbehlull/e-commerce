@@ -1,13 +1,7 @@
-import { useState } from 'react'
+import { Layout } from '@pages'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-		HELLO E-COMERCE
-    </>
-  )
+  return <Layout />
 }
 
 export default App
