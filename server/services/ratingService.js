@@ -25,8 +25,11 @@ async function updateProductStats(productId) {
     }
 }
 
-const addOrUpdateRating = async (userId, productId, rating, comment) => {
+const addOrUpdateRating = async (userId, ProductIdValue, rating, comment) => {
     try {
+		const product = await Product.findOne({id: ProductIdValue})
+		const productId = product._id
+		
         let userRating = await Rating.findOne({ user: userId, product: productId });
 
         if (userRating) {
@@ -60,7 +63,9 @@ const addOrUpdateRating = async (userId, productId, rating, comment) => {
 
 const getProductRatings = async (productId) => {
     try {
-        const ratings = await Rating.find({ product: productId }).populate("user", "name email");
+		const product = await Product.findOne({id: productId})
+
+        const ratings = await Rating.find({ product: product._id }).populate("user", "name email");
         return {
             status: true,
             data: ratings
