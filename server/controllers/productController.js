@@ -25,6 +25,27 @@ const GetProducts = async (req, res) => {
 		})
 	}
 }
+
+const FindProductById = async (req, res) => {
+	const { id } = req.params
+    try {
+		if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
+		
+		const result = await getProductById(id)
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - productController/FindProductById]: ", err.message)
+		logger.error("[ERROR - productController/FindProductById]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
 const CreateProduct = async (req, res) => {
   const data = req.body;
 
@@ -51,26 +72,6 @@ const CreateProduct = async (req, res) => {
     return res.status(500).json({ status: false, error: err.message });
   }
 };
-
-const FindProductById = async (req, res) => {
-	const { id } = req.params
-    try {
-		if(!id) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
-		
-		const result = await getProductById(id)
-		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
-			
-		return res.status(200).json(result)
-	} catch(err){
-		console.error("[ERROR - productController/FindProductById]: ", err.message)
-		logger.error("[ERROR - productController/FindProductById]: ", err.message)
-		return res.status(500).json({
-			status: false,
-			error: err,
-			message: err.message
-		})
-	}
-}
 
 const UpdateProduct = async (req, res) => {
 	const { id } = req.params
