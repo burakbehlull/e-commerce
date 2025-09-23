@@ -1,4 +1,4 @@
-import { Rating, Product } from "#models/Rating.js";
+import { Rating, Product } from "#models";
 
 async function updateProductStats(productId) {
     const stats = await Rating.aggregate([
@@ -80,6 +80,7 @@ const getProductRatings = async (productId) => {
 };
 
 export {
+	updateProductStats,
     addOrUpdateRating,
     getProductRatings
 };
