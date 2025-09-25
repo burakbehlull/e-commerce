@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet';
-
+import { Container } from '@chakra-ui/react'
 import Routes from "../routes/index"
 
 function Layout() {
@@ -15,9 +15,15 @@ function Layout() {
                 <title>E-Commerce</title>
             </Helmet>
             
-            <main>
+            <Container
+                padding={0}
+                margin={0}
+                bg={{ base: "red", _dark: "gray.900" }}
+                minH="100vh"
+                maxW="100vw"
+		    >
                 <Routes />
-            </main>
+			</Container>
             
         </>
     )
