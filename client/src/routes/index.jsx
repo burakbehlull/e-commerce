@@ -1,13 +1,20 @@
 import { useRoutes } from 'react-router-dom'
-import { Home } from '@pages'
+import { Home, HomeLayout } from '@pages'
 
 export default function Routes(){
 
     return useRoutes([
-        {
-            path: '/',
-            element: <Home />,
-        },
+		{
+			element: <HomeLayout />,
+			children: [
+				{
+					path: '/',
+					element: <Home />,
+				},
+			]
+		},
+		
+		
     ])
 }
 

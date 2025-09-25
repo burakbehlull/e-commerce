@@ -1,6 +1,7 @@
 import { Flex, Box } from '@chakra-ui/react'
+import { Outlet } from 'react-router-dom'
 
-function Layout() {
+function HomeLayout() {
     return (
         <>
             <Flex direction="column" padding="15px">
@@ -20,7 +21,7 @@ function Layout() {
 					flex="1"
 					pt={4}
 				  >
-					LAYOUT
+					<Outlet />
 				</Box>
 			</Flex>
             
@@ -28,4 +29,4 @@ function Layout() {
     )
 }
 
-export default Layout;
+export default HomeLayout;
