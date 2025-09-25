@@ -19,6 +19,7 @@ export default defineConfig({
       '@api': way('src/base/api.js'),
       '@requests': way('src/base/requests.js'),
       '@pages': way('src/pages/index'),
+      '@ui': way('src/components/ui/index'),
     },
   },
 })
