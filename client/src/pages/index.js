@@ -1,4 +1,4 @@
-import Layout from './Layout'
+import Layout from './layouts/Layout'
 
 import Home from './Home'
 
