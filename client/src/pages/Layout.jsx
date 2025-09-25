@@ -18,7 +18,7 @@ function Layout() {
             <Container
                 padding={0}
                 margin={0}
-                bg={{ base: "red", _dark: "gray.900" }}
+                //bg={{ base: "red", _dark: "gray.900" }}
                 minH="100vh"
                 maxW="100vw"
 		    >
