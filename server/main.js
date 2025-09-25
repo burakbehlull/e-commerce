@@ -22,6 +22,20 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(morgan('dev'));
 app.use(helmet());
 
+app.disable('x-powered-by');
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+			// scriptSrc: ["'self'", "http://localhost:3000"]
+			// connectSrc: ["'self'", "ws://localhost:3000"] // (socket connecter)
+        },
+    })
+);
+
+
 app.use("/uploads", express.static("uploads"));
 
 app.get('/', (req, res) => {
