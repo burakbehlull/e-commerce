@@ -20,6 +20,7 @@ export default defineConfig({
       '@requests': way('src/base/requests.js'),
       '@pages': way('src/pages/index'),
       '@ui': way('src/components/ui/index'),
+      '@components': way('src/components/index'),
     },
   },
 })
