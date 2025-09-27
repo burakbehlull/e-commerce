@@ -13,6 +13,7 @@ export default class mailSender {
 		
 	}
 	send(user, { text, html, title }){
+		
 		const mailOptions = {
 			from: process.env.GMAIL_USER,
 			to: user,
@@ -21,7 +22,7 @@ export default class mailSender {
 			html
 		}
 		
-		this.transporter.sendMail(mailOptions, (err, data)=> {
+		const sender = this.transporter.sendMail(mailOptions, (err, data)=> {
 			if(err) {
 				console.error("[Error / mailSender]: ", err)
 				return { 
@@ -39,6 +40,7 @@ export default class mailSender {
 				}
 			}
 		})
+		return sender
 	}
 }
 

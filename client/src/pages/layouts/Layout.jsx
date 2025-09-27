@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { Container } from '@chakra-ui/react'
-import Routes from "../routes/index"
+import Routes from "../../routes/index"
 
 function Layout() {
     return (
