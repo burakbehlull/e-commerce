@@ -1,9 +1,9 @@
 import { Text } from "@chakra-ui/react"
 
-const TextUI = ({text, ...props}) => {
+const TextUI = ({children, text, ...props}) => {
   return (
     <Text {...props}>
-		{text}
+		{children ? children : text}
 	</Text>
   )
 }
