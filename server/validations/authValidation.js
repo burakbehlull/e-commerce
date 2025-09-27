@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { handleValidationErrors } from "#validations";
-
+import { User } from '#models'
 
 const registerValidation = [
   body("globalName").optional().isString().withMessage("Global name geçersiz"),
@@ -22,7 +22,7 @@ const registerValidation = [
     .custom(async (value) => {
       const existingUser = await User.findOne({ email: value });
       if (existingUser) {
-        throw new Error("Email zaten kullanılıyor");
+		return false
       }
       return true;
   }),
