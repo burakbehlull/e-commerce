@@ -10,7 +10,23 @@ export default function Routes(){
 				{
 					path: '/',
 					element: <Home />,
+				}
+			]
+		},
+		
+		// product
+		{
+			element: <HomeLayout />,
+			path: 'products',
+			children: [
+				{
+					path: '',
+					element: <h1>products</h1>,
 				},
+				{
+					path: ':productId',
+					element: <h1>product id</h1>,
+				}
 			]
 		},
 		
