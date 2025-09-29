@@ -1,6 +1,8 @@
 import { Flex, Box } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 
+import { Navbar } from '@components'
+
 function HomeLayout() {
     return (
         <>
@@ -10,10 +12,9 @@ function HomeLayout() {
 				  display="flex"
 				  alignItems="center"
 				  justifyContent="center"
-				  // bg={{ base: "blue.500", _dark: "gray.800" }}
 				  px={{base: 0, sm: 8, md: 8}}
 				>
-				  NAVBAR
+				  <Navbar />
 				</Box>
 
 
