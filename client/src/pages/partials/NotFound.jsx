@@ -1,4 +1,4 @@
-import { Box, Text, Button, Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import { Box, Text, Button, Flex } from "@chakra-ui/react";
 
 function NotFound() {
   return (
@@ -6,20 +6,34 @@ function NotFound() {
       direction="column"
       align="center"
       justify="center"
-      h="85vh"
+      h={{ base: "70vh", md: "85vh" }}
       bg="white"
       textAlign="center"
-      px={4}
+      px={{ base: 4, md: 8 }}
     >
-      <Text fontSize="6xl" fontWeight="bold" mb={4}>
+      <Text
+        fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+        fontWeight="bold"
+        mb={4}
+      >
         404 Sayfa Bulunamadı
       </Text>
 
-      <Text fontSize="md" color="gray.600" mb={8}>
-    Ziyaret ettiğiniz sayfa bulunamadı. Ana sayfaya gidebilirsiniz.
+      <Text
+        fontSize={{ base: "sm", md: "md" }}
+        color="gray.600"
+        mb={8}
+        px={{ base: 2, md: 0 }}
+      >
+        Ziyaret ettiğiniz sayfa bulunamadı. Ana sayfaya gidebilirsiniz.
       </Text>
 
-      <Button colorScheme="red" size="md" as="a" href="/">
+      <Button
+        colorScheme="red"
+        size={{ base: "sm", md: "md" }}
+        as="a"
+        href="/"
+      >
         Anasayfaya Dön
       </Button>
     </Flex>
