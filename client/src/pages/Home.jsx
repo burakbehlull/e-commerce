@@ -6,7 +6,6 @@ function Home() {
 	const [valuee, setValuee] = useState(0)
     return (
         <>
-				
 			<ProductCard
 				name="Disc x64" price="15$" ratingCount="31" discountBadgeText="-%35"
 				oldPrice="150"

@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom'
-import { Home, HomeLayout } from '@pages'
+import { Home, HomeLayout, NotFound } from '@pages'
 
 export default function Routes(){
 
@@ -29,6 +29,16 @@ export default function Routes(){
 				}
 			]
 		},
+		
+		{
+			element: <HomeLayout />,
+			children: [
+				{
+					path: '*',
+					element: <NotFound />
+				}
+			]
+		}
 		
 		
     ])
