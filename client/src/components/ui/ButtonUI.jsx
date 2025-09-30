@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react"
 
-const ButtonUI = ({text, ...props}) => {
+const ButtonUI = ({children, text, ...props}) => {
   return (
     <Button {...props}>
-		{text}
+		{children ? children : text}
 	</Button>
   )
 }

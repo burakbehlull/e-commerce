@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom'
-import { Home, HomeLayout, NotFound } from '@pages'
+import { Home, HomeLayout, NotFound, ProductPage } from '@pages'
 
 export default function Routes(){
 
@@ -25,7 +25,7 @@ export default function Routes(){
 				},
 				{
 					path: ':productId',
-					element: <h1>product id</h1>,
+					element: <ProductPage />,
 				}
 			]
 		},
