@@ -1,9 +1,9 @@
-import { Box, Flex,Image, Button, HStack, VStack, Icon } from "@chakra-ui/react";
+import { Box, Flex, Image, Button, HStack, VStack, Icon } from "@chakra-ui/react";
 import { FaMinus, FaPlus, FaTruck, FaUndo } from "react-icons/fa";
 import { useState } from "react";
 import { ButtonUI, TextUI, RatingUI, NumberInputUI } from "@ui"
 
-const Product = () => {
+const Product = ({ratingCount}) => {
   const images = [
     "https://cdn.discordapp.com/attachments/1287336506008141907/1418547788681056277/image.png?ex=68dd0594&is=68dbb414&hm=8a857d486ead7da0c6a56631ad097a23aa94b21e1137644c9b27f150552eff3e&",
     "https://cdn.discordapp.com/attachments/1287336506008141907/1418549020837675059/image.png?ex=68dd06b9&is=68dbb539&hm=5dc7bd928664fac0307eefa783a039a06a81c82e75652ccd58d513c15128b7b9&",
@@ -44,7 +44,18 @@ const Product = () => {
 
         <VStack align="flex-start" spacing={4} maxW="400px">
           <TextUI text="Havic HV G-92 Gamepad" fontSize="2xl" fontWeight="bold" />
-            
+          <Flex>
+			  <RatingUI 
+				  readOnly={true} 
+				  value={3} 
+				  count={5} 
+				  onValueChange={null} 
+				  color="yellow" 
+			  />
+			  {ratingCount && <TextUI text={`(${ratingCount})`}  ml="2" color="gray.500" />}
+
+		  </Flex>
+
           <TextUI text=" $192.00" fontSize="xl" color="red.500" />
            
           <TextUI 

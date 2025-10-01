@@ -1,4 +1,4 @@
-import { Box, Image, Badge, Text, Flex, Stack } from "@chakra-ui/react";
+import { Box, Image, Badge, Flex, Stack } from "@chakra-ui/react";
 import { TextUI, RatingUI, ButtonUI } from "@ui"
 
 export default function ProductCard({name, image, price, oldPrice, ratingCount, discountBadgeText}) {
@@ -34,7 +34,7 @@ export default function ProductCard({name, image, price, oldPrice, ratingCount, 
         <Flex align="center" fontSize="sm" >
           <RatingUI readOnly={true} value={3} count={5} onValueChange={null} color="yellow" />
 		  
-		  {ratingCount && <Text ml="2" color="gray.500">({ratingCount})</Text>}
+		  {ratingCount && <TextUI text={`(${ratingCount})`}  ml="2" color="gray.500" />}
         </Flex>
 		
 		<ButtonUI text="Add To Cart" />
