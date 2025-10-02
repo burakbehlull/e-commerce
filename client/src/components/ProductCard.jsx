@@ -31,7 +31,7 @@ export default function ProductCard({name, image, price, oldPrice, ratingCount, 
         
 		</TextUI>
 		
-        <Flex align="center" fontSize="sm" >
+        <Flex align="center" fontSize="sm">
           <RatingUI readOnly={true} value={3} count={5} onValueChange={null} color="yellow" />
 		  
 		  {ratingCount && <TextUI text={`(${ratingCount})`}  ml="2" color="gray.500" />}
