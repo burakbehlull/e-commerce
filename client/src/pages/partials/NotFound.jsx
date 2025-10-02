@@ -1,6 +1,9 @@
 import { Box, Text, Button, Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom"
 
 function NotFound() {
+  const navigate = useNavigate()
+  
   return (
     <Flex
       direction="column"
@@ -32,7 +35,7 @@ function NotFound() {
         colorScheme="red"
         size={{ base: "sm", md: "md" }}
         as="a"
-        href="/"
+		onClick={()=> navigate("/")}
       >
         Anasayfaya Dön
       </Button>
