@@ -1,7 +1,7 @@
-import API, { BASEAPI } from '@api';
+import { API, BASEAPI } from '@api';
 
 BASEAPI.interceptors.request.use(config=> {
-	const token;
+	const token = null;
     config.headers.Authorization = `Bearer ${token}` 
     return config
 })
@@ -48,7 +48,8 @@ const productAPI = {
 		images, categoryId 
 	*/
 
-	getProductById: (productId)=> API.get(`/products/${productId}`),
+	getProductById: (productId)=> API.get(`/products/id/${productId}`),
+	getProductBySlug: (productSlug)=> API.get(`/products/${productSlug}`),
 	updateProductById: (productId, data)=> API.put(`/products/${productId}`, data),
 	removeProductById: (productId)=> API.delete(`/products/${productId}`),
 

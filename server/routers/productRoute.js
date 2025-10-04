@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { GetProducts, CreateProduct, FindProductById, UpdateProduct, 
+import { GetProducts, CreateProduct, FindProductById, FindProductBySlug, UpdateProduct, 
 	DeleteProduct, UpdateToThumbnail, AddToImages, DeleteToImage, AddCategoryProduct,
 	RemoveCategoryProduct, GetImage } from "#controllers"
 	
@@ -18,7 +18,8 @@ const fileUploads = multer.fields([
 ])
 
 router.get('/', GetProducts)
-router.get('/:id', FindProductById)
+router.get('/id/:id', FindProductById)
+router.get('/:slug', FindProductBySlug)
 router.get('/:id/image', GetImage)
 
 router.post('/', fileUploads, createProductValidation, adminAuthMiddleware, CreateProduct)

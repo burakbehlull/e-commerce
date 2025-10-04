@@ -99,7 +99,35 @@ async function getProductById(id){
 			data: product
 		}
 	} catch(err) {
-		console.error("[ERROR - productService/getProduct]: ", err.message)
+		console.error("[ERROR - productService/getProductById]: ", err.message)
+		return {
+			status: false,
+			error: err,
+			message: err.message
+		}
+	}
+	
+}
+
+async function getProductBySlug(slug){
+	try {
+		if(!slug) return { 
+			status: false,
+			message: "Eksik istek"
+		}
+		
+		const product = await Product.findOne({slug: slug})
+		if(!product) return {
+			status: false,
+			message: "Ürün mevcut değil",
+		}
+		return {
+			status: true,
+			message: "Ürün bilgileri çekildi",
+			data: product
+		}
+	} catch(err) {
+		console.error("[ERROR - productService/getProductBySlug]: ", err.message)
 		return {
 			status: false,
 			error: err,
@@ -368,6 +396,7 @@ export {
 	getProducts,
 	addProduct,
 	getProductById,
+	getProductBySlug,
 	updateProduct,
 	deleteProduct,
 	

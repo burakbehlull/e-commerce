@@ -4,7 +4,7 @@ import path from 'path'
 import { productService } from "#services";
 import { logger } from "#config";
 
-const { addProduct, getProducts, getProductById, updateProduct, deleteProduct, 
+const { addProduct, getProducts, getProductById, getProductBySlug, updateProduct, deleteProduct, 
 	updateThumbnail, addImages, deleteImage, addCategoryToProduct, removeCategoryFromProduct, getImage } = productService;
 
 const GetProducts = async (req, res) => {
@@ -38,6 +38,26 @@ const FindProductById = async (req, res) => {
 	} catch(err){
 		console.error("[ERROR - productController/FindProductById]: ", err.message)
 		logger.error("[ERROR - productController/FindProductById]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
+const FindProductBySlug = async (req, res) => {
+	const { slug } = req.params
+    try {
+		if(!slug) return res.status(400).json({status: false, message: "Ürün kimliği boş"})
+		
+		const result = await getProductBySlug(slug)
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - productController/FindProductBySlug]: ", err.message)
+		logger.error("[ERROR - productController/FindProductBySlug]: ", err.message)
 		return res.status(500).json({
 			status: false,
 			error: err,
@@ -278,6 +298,7 @@ export {
 	CreateProduct,
 	
 	FindProductById,
+	FindProductBySlug,
 	UpdateProduct,
 	DeleteProduct,
 	

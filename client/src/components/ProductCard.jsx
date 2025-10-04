@@ -2,6 +2,7 @@ import { Box, Image, Badge, Flex, Stack } from "@chakra-ui/react";
 import { TextUI, RatingUI, ButtonUI } from "@ui"
 
 export default function ProductCard({name, image, price, oldPrice, ratingCount, discountBadgeText}) {
+  
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" w="56" p="4">
       <Box position="relative">

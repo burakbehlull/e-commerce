@@ -24,7 +24,7 @@ export default function Routes(){
 					element: <h1>products</h1>,
 				},
 				{
-					path: ':productId',
+					path: ':productSlug',
 					element: <ProductPage />,
 				}
 			]

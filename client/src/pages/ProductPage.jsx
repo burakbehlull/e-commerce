@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"
 
 import { Box, Flex, Image, Button, HStack, VStack, Icon, Badge } from "@chakra-ui/react";
 import { FaMinus, FaPlus, FaTruck, FaUndo } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
-import { ButtonUI, TextUI, RatingUI, NumberInputUI } from "@ui";
 
-const Product = () => {
+import { showToast } from "@partials"
+
+import { ButtonUI, TextUI, RatingUI, NumberInputUI } from "@ui";
+import { productAPI } from '@requests'
+
+
+const ProductPage = () => {
+  const { productSlug } = useParams()
+  
   const [images, setImages] = useState([
 	"https://cdn.discordapp.com/attachments/1287336506008141907/1421472653788577802/image.png?ex=68dfc092&is=68de6f12&hm=f423876c4bb2eaa831034f563dc8ccfd2d175a9e156993fe64e441b70f5c2ed4&",
 	"https://cdn.discordapp.com/attachments/1287336506008141907/1419660969964998866/image.png?ex=68dfc0cf&is=68de6f4f&hm=7ad200e02d633227db3fbcc450c541b0351cc266004e27cd7e55bf8320660510&",
@@ -15,19 +23,37 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState(images[0]);
   const [product, setProduct] = useState({
-    name: "Gaming Laptop",
-    ratingCount: 4,
-    isActive: true,
-    averageRating: 2.5,
-    price: 150,
-    brand: "Asus",
-    description: "Yüksek performanslı oyun laptopu",
-    category: [
-      { _id: "", name: "Teknoloji" },
-      { _id: "", name: "Kozmetik" },
-      { _id: "", name: "Gıda" },
-    ],
+    name: null,
+    description: null,
+    isActive: false,
+    averageRating: 0,
+    ratingCount: 0,
+    price: 0,
+	slug: null,
+	stock: 0,
+	thumbnail: null,
+	images: [],
+    brand: null,
+    category: [],
   });
+  
+  const getProduct = async ()=> {
+	  const result = await productAPI.getProductBySlug(productSlug)
+	  
+	  if(!result.status) return showToast({
+        message: result?.message || result?.error,
+        type: 'success',
+        id: 'product',
+        duration: 2000
+      });
+	  
+	  setProduct(result.data)
+  }
+  
+  useEffect(()=> {
+	  getProduct()
+  }, [])
+  
   return (
     <Flex justify="center" align="center" minH="100vh" px={{ base: 4, md: 10 }}>
       <Flex
@@ -154,4 +180,4 @@ s            bg="#db4444"
   );
 };
 
-export default Product;
+export default ProductPage;
