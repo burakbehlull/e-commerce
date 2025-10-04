@@ -69,14 +69,15 @@ const productAPI = {
 		}
 	}, data), // imagePath
 	
-	getImage: (productId, index)=> API.get(`/products/${productId}/image`, {
-		index: index
-	}, {
-		headers: {
-			 responseType: 'blob'
-		}
-	}), // imagePath
-	
+	getImage: async (productId, index) => {
+		const response = await API.get(`/products/${productId}/image`, {
+			index
+		}, {
+		  responseType: 'blob',
+		});
+		return response;
+	 },
+
 	addProductToCategory: (productId, categoryId)=> API.post(`/products/${productId}/${categoryId}`),
 	removeProductToCategory: (productId, categoryId)=> API.delete(`/products/${productId}/${categoryId}`),
 

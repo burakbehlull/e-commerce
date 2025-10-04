@@ -6,14 +6,14 @@ const API = axios.create({
 
 const apiRequest = {
     get: async (url, params = {}, config = {}) => {
-        try {
-            const response = await API.get(url, { ...config, params });
-            return response.data;
-        } catch (error) {
-            console.error('GET Error:', error);
-            throw error;
-        }
-    },
+	  try {
+		const response = await API.get(url, { ...config, params });
+		return config.responseType === 'blob' ? response : response.data;
+	  } catch (error) {
+		console.error('GET Error:', error);
+		throw error;
+	  }
+	},
     post: async (url, data, config = {}) => {
         try {
             const response = await API.post(url, data, config);

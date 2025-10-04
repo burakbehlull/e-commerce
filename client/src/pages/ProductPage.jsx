@@ -14,14 +14,9 @@ import { productAPI } from '@requests'
 const ProductPage = () => {
   const { productSlug, productId } = useParams()
   
-  const [images, setImages] = useState([
-	"https://cdn.discordapp.com/attachments/1287336506008141907/1421472653788577802/image.png?ex=68dfc092&is=68de6f12&hm=f423876c4bb2eaa831034f563dc8ccfd2d175a9e156993fe64e441b70f5c2ed4&",
-	"https://cdn.discordapp.com/attachments/1287336506008141907/1419660969964998866/image.png?ex=68dfc0cf&is=68de6f4f&hm=7ad200e02d633227db3fbcc450c541b0351cc266004e27cd7e55bf8320660510&",
-	"https://cdn.discordapp.com/attachments/1287336506008141907/1415002619218235452/image.png?ex=68df4921&is=68ddf7a1&hm=17783f94fa0c31ef815bf3e12ddf5b1e56d3466027ddaa43a22dd97ddf6084da&",
-	"https://cdn.discordapp.com/attachments/1287336506008141907/1419952757019770880/image.png?ex=68df7f0e&is=68de2d8e&hm=8a0ce4546a09546a6e09395bb38cf0fb973ceb86b33644a252be565ae00a59b8&",
-  ]);
   const [quantity, setQuantity] = useState(1);
-  const [mainImage, setMainImage] = useState(images[0]);
+  const [images, setImages] = useState([])
+  const [mainImage, setMainImage] = useState(null);
   const [product, setProduct] = useState({
     name: null,
     description: null,
@@ -32,12 +27,36 @@ const ProductPage = () => {
 	slug: null,
 	stock: 0,
 	thumbnail: null,
-	images: [],
     brand: null,
     category: [],
   });
   
+  const getImages = async (productId, imagePaths) => {
+		const imagesArr = []
+		
+		const thumbnail = await productAPI.getImage(productId);
+		const thumbnailBlob = thumbnail.data;
+		const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
+		imagesArr.push(thumbnailUrl);
+		for (const [i, image] of [thumbnail, ...imagePaths].entries()) {
+			try {
+			  const res = await productAPI.getImage(productId, i);
+			  const imageBlob = res.data;
+			  const imageUrl = URL.createObjectURL(imageBlob);
+			  imagesArr.push(imageUrl);
+			  setMainImage(imagesArr[0])
+			} catch (err) {
+			  console.error(`Image ${i} yüklenemedi`, err);
+			  continue;
+			}
+		}
+
+		setImages(imagesArr);
+	}
+
+
   const getProduct = async ()=> {
+		  
 	  if(productId) {
 		  const result = await productAPI.getProductById(productId)
 		  
@@ -49,8 +68,10 @@ const ProductPage = () => {
 		  });
 		  
 		  setProduct(result.data)
+		  await getImages(result.data.id, result.data.images)
 		  return 
 	  }
+	  
 	  const result = await productAPI.getProductBySlug(productSlug)
 	  
 	  if(!result.status) return showToast({
@@ -61,6 +82,7 @@ const ProductPage = () => {
       });
 	  
 	  setProduct(result.data)
+	  await getImages(result.data.id, result.data.images)
   }
   
   useEffect(()=> {
