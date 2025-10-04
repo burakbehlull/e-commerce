@@ -26,6 +26,11 @@ export default function Routes(){
 				{
 					path: ':productSlug',
 					element: <ProductPage />,
+				},
+				{
+					path: 'id/:productId',
+					element: <ProductPage />,
+					
 				}
 			]
 		},

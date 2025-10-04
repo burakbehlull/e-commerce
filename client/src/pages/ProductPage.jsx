@@ -12,7 +12,7 @@ import { productAPI } from '@requests'
 
 
 const ProductPage = () => {
-  const { productSlug } = useParams()
+  const { productSlug, productId } = useParams()
   
   const [images, setImages] = useState([
 	"https://cdn.discordapp.com/attachments/1287336506008141907/1421472653788577802/image.png?ex=68dfc092&is=68de6f12&hm=f423876c4bb2eaa831034f563dc8ccfd2d175a9e156993fe64e441b70f5c2ed4&",
@@ -38,11 +38,24 @@ const ProductPage = () => {
   });
   
   const getProduct = async ()=> {
+	  if(productId) {
+		  const result = await productAPI.getProductById(productId)
+		  
+		  if(!result.status) return showToast({
+			message: result?.message || result?.error,
+			type: 'error',
+			id: 'product',
+			duration: 2000
+		  });
+		  
+		  setProduct(result.data)
+		  return 
+	  }
 	  const result = await productAPI.getProductBySlug(productSlug)
 	  
 	  if(!result.status) return showToast({
         message: result?.message || result?.error,
-        type: 'success',
+        type: 'error',
         id: 'product',
         duration: 2000
       });
