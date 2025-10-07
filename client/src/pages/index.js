@@ -5,6 +5,11 @@ import NotFound from './partials/NotFound'
 import Home from './Home'
 import ProductPage from './ProductPage'
 
+
+import RegisterPage from './auth/RegisterPage'
+import LoginPage from './auth/LoginPage'
+import Authentication from './auth/Authentication'
+
 export {
 	Layout,
 	HomeLayout,
@@ -12,5 +17,10 @@ export {
 	NotFound,
 	
 	Home,
-	ProductPage
+	ProductPage,
+	
+	// auth pages,
+	Authentication,
+	LoginPage,
+	RegisterPage
 }

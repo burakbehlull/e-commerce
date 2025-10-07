@@ -20,7 +20,7 @@ const createProductValidation = [
   
   body("discountBadgeText")
 	.optional()
-    .isString().withMessage("İndirim Badgesi Açıklaması"),
+    .isString().withMessage("İndirim Badgesi Açıklaması yazı olmalıdır"),
   
   body("oldPrice")
 	.optional()

@@ -41,7 +41,21 @@ export default function Navbar() {
                     <Link onClick={() => handleNavigate("/contact")}>Contact</Link>
                 </Flex>
 
-                <Box flex="1" display="flex" gap={4}></Box>
+                <Box flex="1" display="flex" gap={7}>
+                    <Link 
+						color="#db4444"
+						_hover= {{
+							color: '#ed3e3e'
+						}}
+					onClick={() => handleNavigate("/login")}>Login</Link>
+                    <Link 
+						color="#db4444"
+						_hover= {{
+							color: '#ed3e3e'
+						}}
+					onClick={() => handleNavigate("/register")}>Register</Link>
+				
+				</Box>
             </Flex>
     );
 }

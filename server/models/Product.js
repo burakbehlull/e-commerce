@@ -44,12 +44,12 @@ const productSchema = new mongoose.Schema({
     default: 0
   },
   oldPrice: {
-	  type: Number
+	  type: Number,
 	  min: 0,
   },
   discountBadgeText: {
 	  type: String,
-	  min: 0,
+	  required: false,
   },
   thumbnail: {
 	type: String,
