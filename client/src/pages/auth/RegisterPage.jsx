@@ -1,9 +1,9 @@
-
+import { RegisterModal } from '@modals'
 const RegisterPage = () => {
   
   return (
     <>
-		RegisterPage
+		<RegisterModal />
 	</>
   );
 };

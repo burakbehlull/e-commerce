@@ -1,5 +1,8 @@
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Box, Flex, Link, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"
+import { FiUser } from "react-icons/fi";
+
+
 
 import { TextUI } from "@ui";
 
@@ -54,7 +57,12 @@ export default function Navbar() {
 							color: '#ed3e3e'
 						}}
 					onClick={() => handleNavigate("/register")}>Register</Link>
-				
+					<Icon size="lg" 
+						color="gray.700"
+						cursor="pointer"
+					>
+						<FiUser />
+					</Icon>
 				</Box>
             </Flex>
     );

@@ -6,6 +6,8 @@ import ButtonUI from "./ButtonUI";
 import TextUI from "./TextUI";
 import NumberInputUI from "./NumberInputUI";
 
+export * from './ModalUI'
+
 export {
     ChakraProvider,
 	RatingUI,
