@@ -21,10 +21,10 @@ const ModalUI = ({title, children, content, dialogRef, clickRef, onClick, clickN
                     </Stack>
                     </Dialog.Body>
                     <Dialog.Footer>
-                    <Dialog.ActionTrigger asChild>
-                        <Button variant="outline" ref={closeRef}>Kapat</Button>
-                    </Dialog.ActionTrigger>
-                    <Button onClick={onClick}>{clickName ?? "Kaydet"}</Button>
+                    { closeRef && <Dialog.ActionTrigger asChild>
+					<Button variant="outline" ref={closeRef}>Kapat</Button>
+                    </Dialog.ActionTrigger>}
+                    {clickName && <Button onClick={onClick}>{clickName ?? "Kaydet"}</Button>}
                     </Dialog.Footer>
                 </Dialog.Content>
                 </Dialog.Positioner>

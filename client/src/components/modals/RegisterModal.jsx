@@ -27,10 +27,9 @@ function RegisterModal() {
       <ModalUI
         clickRef={clickRef}
         title="Create an account"
-        clickName="Kaydet"
       >
         <VStack spacing={4} align="stretch">
-          <Text textAlign="center" color="gray.500" fontSize="sm">
+          <Text textAlign="start" color="gray.600" fontSize="sm">
             Enter your details below
           </Text>
 
@@ -38,11 +37,33 @@ function RegisterModal() {
 			direction="column"
 			gap={4}
 		  >
-			  <Input placeholder="Name" size="md" variant="flushed" />
-			  <Input placeholder="Email or Phone Number" size="md" variant="flushed" />
-			  <Input placeholder="Password" type="password" size="md" variant="flushed" />
-
+			  <Input 
+				placeholder="Name" 
+				size="md" 
+				variant="flushed" 
+			    focusBorderColor="black"
+				transition="all 0.2s"
+				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}
+			  />
+			  <Input 
+				placeholder="Email or Phone Number" 
+				size="md" 
+				variant="flushed" 
+			    focusBorderColor="black"
+				transition="all 0.2s"
+				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  
+			  />
+			  <Input 
+				placeholder="Password" 
+				type="password" 
+				size="md" 
+				variant="flushed" 
+			    focusBorderColor="black"
+				transition="all 0.2s"
+				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  		
+				/>
 		  </Flex>
+		  
           <Button
 			mt={4}
 			color="bg.100"
