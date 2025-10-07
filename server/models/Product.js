@@ -43,6 +43,14 @@ const productSchema = new mongoose.Schema({
     min: 0,
     default: 0
   },
+  oldPrice: {
+	  type: Number
+	  min: 0,
+  },
+  discountBadgeText: {
+	  type: String,
+	  min: 0,
+  },
   thumbnail: {
 	type: String,
     required: false,

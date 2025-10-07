@@ -17,10 +17,19 @@ const createProductValidation = [
   body("stock")
     .optional()
     .isInt({ min: 0 }).withMessage("Stok 0 veya daha büyük olmalı"),
+  
+  body("discountBadgeText")
+	.optional()
+    .isString().withMessage("İndirim Badgesi Açıklaması"),
+  
+  body("oldPrice")
+	.optional()
+    .isFloat({ min: 0 }).withMessage("Eski fiyat 0 veya daha büyük olmalı"),
 
   body("category")
     .optional()
     .isArray().withMessage("Kategori array olmalı"),
+
 
   handleValidationErrors,
 ];
