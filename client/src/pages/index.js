@@ -6,8 +6,6 @@ import Home from './Home'
 import ProductPage from './ProductPage'
 
 
-import RegisterPage from './auth/RegisterPage'
-import LoginPage from './auth/LoginPage'
 import Authentication from './auth/Authentication'
 
 export {
@@ -21,6 +19,4 @@ export {
 	
 	// auth pages,
 	Authentication,
-	LoginPage,
-	RegisterPage
 }

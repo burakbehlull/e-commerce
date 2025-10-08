@@ -2,15 +2,21 @@ import { Box, Flex, Link, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"
 import { FiUser } from "react-icons/fi";
 
+import { useRef } from "react";
 
-
+import { RegisterModal } from '@modals'
 import { TextUI } from "@ui";
 
 export default function Navbar() {
+	
     const navigate = useNavigate();
+	const clickRegisterRef = useRef();
+	
     const handleNavigate = (path) => navigate(path);
     
     return (
+		<>
+			<RegisterModal clickRef={clickRegisterRef} />
             <Flex
                 as="nav"
                 align="center"
@@ -56,7 +62,7 @@ export default function Navbar() {
 						_hover= {{
 							color: '#ed3e3e'
 						}}
-					onClick={() => handleNavigate("/register")}>Register</Link>
+					onClick={() => clickRegisterRef.current.click()}>Register</Link>
 					<Icon size="lg" 
 						color="gray.700"
 						cursor="pointer"
@@ -65,5 +71,6 @@ export default function Navbar() {
 					</Icon>
 				</Box>
             </Flex>
+		</>
     );
 }

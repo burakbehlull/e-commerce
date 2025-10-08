@@ -13,17 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { ModalUI } from "@ui";
-import { useRef } from "react";
 
-function RegisterModal() {
-  const clickRef = useRef();
+function RegisterModal({clickRef}) {
 
   return (
     <>
-      <Button onClick={() => clickRef.current.click()} colorScheme="teal">
-        Open Register
-      </Button>
-
       <ModalUI
         clickRef={clickRef}
         title="Create an account"
