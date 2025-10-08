@@ -4,19 +4,22 @@ import { FiUser } from "react-icons/fi";
 
 import { useRef } from "react";
 
-import { RegisterModal } from '@modals'
+import { RegisterModal, LoginModal } from '@modals'
 import { TextUI } from "@ui";
 
 export default function Navbar() {
 	
     const navigate = useNavigate();
 	const clickRegisterRef = useRef();
+	const clickLoginRef = useRef();
 	
     const handleNavigate = (path) => navigate(path);
     
     return (
 		<>
 			<RegisterModal clickRef={clickRegisterRef} />
+			<LoginModal clickRef={clickLoginRef} />
+			
             <Flex
                 as="nav"
                 align="center"
@@ -56,7 +59,7 @@ export default function Navbar() {
 						_hover= {{
 							color: '#ed3e3e'
 						}}
-					onClick={() => handleNavigate("/login")}>Login</Link>
+					onClick={() => clickLoginRef.current.click()}>Login</Link>
                     <Link 
 						color="#db4444"
 						_hover= {{

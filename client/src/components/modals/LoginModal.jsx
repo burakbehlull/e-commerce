@@ -1,16 +1,16 @@
 "use client"
 
-import { Button, Input, Text, VStack, Heading, HStack, Link, Icon, Box, Flex } from "@chakra-ui/react";
+import { Button, Input,  Text, VStack, Heading, HStack, Link, Icon, Box, Flex } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { ModalUI } from "@ui";
 
-function RegisterModal({clickRef}) {
+function LoginModal({clickRef}) {
 
   return (
     <>
       <ModalUI
         clickRef={clickRef}
-        title="Create an account"
+        title="Log in to Exclusive"
       >
         <VStack spacing={4} align="stretch">
           <Text textAlign="start" color="gray.600" fontSize="sm">
@@ -22,15 +22,7 @@ function RegisterModal({clickRef}) {
 			gap={4}
 		  >
 			  <Input 
-				placeholder="Name" 
-				size="md" 
-				variant="flushed" 
-			    focusBorderColor="black"
-				transition="all 0.2s"
-				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}
-			  />
-			  <Input 
-				placeholder="Email or Phone Number" 
+				placeholder="Email or Username" 
 				size="md" 
 				variant="flushed" 
 			    focusBorderColor="black"
@@ -56,22 +48,26 @@ function RegisterModal({clickRef}) {
 				bg: '#db4444'
 			}}
 		  w="full">
-            Create Account
+			Sign In
           </Button>
 
           <Button
             variant="outline"
             w="full"
           >
-            <Icon as={FcGoogle} boxSize={5} /> Sign up with Google
+            <Icon as={FcGoogle} boxSize={5} /> Sign In with Google
           </Button>
 
           <HStack justify="center" mt={2}>
-            <Text fontSize="sm" color="gray.600">
-              Already have account?
-            </Text>
-            <Link fontSize="sm" color="blue.500" href="#">
-              Log in
+            <Link 
+				fontSize="sm" 
+				href="#"
+				color="#db4444"
+				_hover= {{
+					color: '#ed3e3e'
+				}}
+			>
+              Forgot Password
             </Link>
           </HStack>
         </VStack>
@@ -80,4 +76,4 @@ function RegisterModal({clickRef}) {
   );
 }
 
-export default RegisterModal;
+export default LoginModal;
