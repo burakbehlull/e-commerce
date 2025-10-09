@@ -69,6 +69,7 @@ export default function Navbar() {
 					<Icon size="lg" 
 						color="gray.700"
 						cursor="pointer"
+						onClick={()=> handleNavigate('/account')}
 					>
 						<FiUser />
 					</Icon>

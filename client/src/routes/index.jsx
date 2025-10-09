@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom'
-import { Home, HomeLayout, NotFound, ProductPage, Authentication } from '@pages'
+import { Home, HomeLayout, NotFound, ProductPage, 
+	Authentication, MyAccount } from '@pages'
 
 export default function Routes(){
 
@@ -35,7 +36,22 @@ export default function Routes(){
 			]
 		},
 		
-		
+		// auth 
+		{
+			element: <Authentication />,
+			children: [
+				{
+					element: <HomeLayout />,
+					children: [
+						{
+							path: '/account',
+							element: <MyAccount />
+							
+						}
+					]
+				}
+			]
+		},
 		
 		{
 			element: <HomeLayout />,

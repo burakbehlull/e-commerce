@@ -7,6 +7,7 @@ import ProductPage from './ProductPage'
 
 
 import Authentication from './auth/Authentication'
+import MyAccount from './MyAccount'
 
 export {
 	Layout,
@@ -18,5 +19,6 @@ export {
 	ProductPage,
 	
 	// auth pages,
+	MyAccount,
 	Authentication,
 }
