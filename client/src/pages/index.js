@@ -1,5 +1,7 @@
 import Layout from './layouts/Layout'
 import HomeLayout from './layouts/HomeLayout'
+import AccountLayout from './layouts/AccountLayout'
+
 import NotFound from './partials/NotFound'
 
 import Home from './Home'
@@ -7,7 +9,8 @@ import ProductPage from './ProductPage'
 
 
 import Authentication from './auth/Authentication'
-import MyAccount from './MyAccount'
+import MyAccount from './account/MyAccount'
+import AccountSidebar from './account/AccountSidebar'
 
 export {
 	Layout,
@@ -18,7 +21,11 @@ export {
 	Home,
 	ProductPage,
 	
-	// auth pages,
+	// account pages
+	AccountLayout,
 	MyAccount,
+	AccountSidebar,
+	
+	// auth pages,
 	Authentication,
 }
