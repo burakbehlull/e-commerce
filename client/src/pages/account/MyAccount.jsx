@@ -1,39 +1,36 @@
 "use client";
-import { Box, Button, Flex, Grid, GridItem, Heading, Input, Link, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Heading, Input, Stack } from "@chakra-ui/react";
+import { TextUI } from '@ui'
 
 export default function MyAccount() {
   return (
 	<>
-     
-
-      {/* Main Content */}
-      
-
-        {/* Profile Fields */}
+		<Heading size="md" mb={8} color="red.500">
+          Edit Your Profile
+        </Heading>
         <Grid templateColumns={["1fr", "repeat(2, 1fr)"]} gap={6}>
           <GridItem>
-            <Text mb={1}>First Name</Text>
+            <TextUI text="First Name" mb={1} />
             <Input defaultValue="Md" />
           </GridItem>
           <GridItem>
-            <Text mb={1}>Last Name</Text>
+            <TextUI text="Last Name" mb={1} />
             <Input defaultValue="Rimel" />
           </GridItem>
           <GridItem>
-            <Text mb={1}>Email</Text>
+            <TextUI text="Email" mb={1} />
             <Input defaultValue="rimel111@gmail.com" />
           </GridItem>
           <GridItem>
-            <Text mb={1}>Address</Text>
+            <TextUI text="Address" mb={1} />
             <Input defaultValue="Kingston, 5236, United State" />
           </GridItem>
         </Grid>
 
         {/* Password Section */}
         <Box mt={10}>
-          <Text fontWeight="medium" mb={3}>
-            Password Changes
-          </Text>
+          <TextUI text="Password Changes" fontWeight="medium" mb={3} />
+
           <Stack spacing={4}>
             <Input placeholder="Current Password" type="password" />
             <Input placeholder="New Password" type="password" />

@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import { AccountSidebar } from '@pages'
 
 
-export default function AccountLayout({children}) {
+export default function AccountLayout() {
   return (
     <Flex w="100%" minH="100vh" p={10} justify="center">
       <AccountSidebar />
@@ -18,10 +18,6 @@ export default function AccountLayout({children}) {
         boxShadow="md"
         maxW="800px"
       >
-        <Heading size="md" mb={8} color="red.500">
-          Edit Your Profile
-        </Heading>
-
 		<Outlet />
       </Box>
     </Flex>
