@@ -11,6 +11,7 @@ import ProductPage from './ProductPage'
 import Authentication from './auth/Authentication'
 import MyAccount from './account/MyAccount'
 import AccountSidebar from './account/AccountSidebar'
+import AddressBook from './account/AddressBook'
 
 export {
 	Layout,
@@ -25,6 +26,7 @@ export {
 	AccountLayout,
 	MyAccount,
 	AccountSidebar,
+	AddressBook,
 	
 	// auth pages,
 	Authentication,

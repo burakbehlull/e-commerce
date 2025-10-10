@@ -1,6 +1,6 @@
 "use client";
-import { Box, Button, Flex, Grid, GridItem, Heading, Input, Stack } from "@chakra-ui/react";
-import { TextUI } from '@ui'
+import { Box, Flex, Grid, GridItem, Heading, Stack } from "@chakra-ui/react";
+import { TextUI, InputUI, ButtonUI } from '@ui'
 
 export default function MyAccount() {
   return (
@@ -10,20 +10,16 @@ export default function MyAccount() {
         </Heading>
         <Grid templateColumns={["1fr", "repeat(2, 1fr)"]} gap={6}>
           <GridItem>
-            <TextUI text="First Name" mb={1} />
-            <Input defaultValue="Md" />
+            <InputUI value="Md" label="Görünen Ad" />
           </GridItem>
           <GridItem>
-            <TextUI text="Last Name" mb={1} />
-            <Input defaultValue="Rimel" />
+            <InputUI value="Rimel" label="Kullanıcı Adı" />
           </GridItem>
           <GridItem>
-            <TextUI text="Email" mb={1} />
-            <Input defaultValue="rimel111@gmail.com" />
+            <InputUI value="rimel111@gmail.com" label="E-Posta" />
           </GridItem>
           <GridItem>
-            <TextUI text="Address" mb={1} />
-            <Input defaultValue="Kingston, 5236, United State" />
+            <InputUI value="Kingston, 5236, United State" label="Telefon Numarası" />
           </GridItem>
         </Grid>
 
@@ -32,17 +28,16 @@ export default function MyAccount() {
           <TextUI text="Password Changes" fontWeight="medium" mb={3} />
 
           <Stack spacing={4}>
-            <Input placeholder="Current Password" type="password" />
-            <Input placeholder="New Password" type="password" />
-            <Input placeholder="Confirm New Password" type="password" />
+            <InputUI placeholder="Current Password" type="password" />
+            <InputUI placeholder="New Password" type="password" />
+            <InputUI placeholder="Confirm New Password" type="password" />
           </Stack>
         </Box>
 
         <Flex justify="flex-end" mt={10} gap={4}>
-          <Button variant="ghost">Cancel</Button>
-          <Button bg="red.500" color="white" _hover={{ bg: "red.600" }}>
-            Save Changes
-          </Button>
+          <ButtonUI text="Cancel" variant="ghost" />
+          <ButtonUI text="Save Changes" bg="red.500" color="white" _hover={{ bg: "red.600" }} />
+            
 		</Flex>
       
     </>

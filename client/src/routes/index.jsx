@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom'
 import { Home, HomeLayout, NotFound, ProductPage, 
-	Authentication, MyAccount, AccountLayout } from '@pages'
+	Authentication, MyAccount, AccountLayout, AddressBook } from '@pages'
 
 export default function Routes(){
 
@@ -50,6 +50,10 @@ export default function Routes(){
 								{
 									path: '',
 									element: <MyAccount />
+								},
+								{
+									path: 'address',
+									element: <AddressBook />
 								}
 							]
 						}
