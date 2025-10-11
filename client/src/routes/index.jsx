@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom'
 import { Home, HomeLayout, NotFound, ProductPage, 
-	Authentication, MyAccount, AccountLayout, AddressBook } from '@pages'
+	Authentication, MyAccount, AccountLayout, AddressBook, Basket } from '@pages'
 
 export default function Routes(){
 
@@ -56,6 +56,10 @@ export default function Routes(){
 									element: <AddressBook />
 								}
 							]
+						},
+						{
+							path: '/basket',
+							element: <Basket />
 						}
 					]
 				}

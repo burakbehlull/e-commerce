@@ -13,6 +13,9 @@ import MyAccount from './account/MyAccount'
 import AccountSidebar from './account/AccountSidebar'
 import AddressBook from './account/AddressBook'
 
+import Basket from "./Basket"
+
+
 export {
 	Layout,
 	HomeLayout,
@@ -30,4 +33,6 @@ export {
 	
 	// auth pages,
 	Authentication,
+	
+	Basket
 }
