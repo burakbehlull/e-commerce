@@ -23,6 +23,7 @@ export default defineConfig({
       '@components': way('src/components/index'),
       '@partials': way('src/components/partials/index'),
       '@modals': way('src/components/modals/index'),
-    },
+	  '@helpers': way('src/helpers/index'),
+    }
   },
 })

@@ -1,7 +1,8 @@
 import { API, BASEAPI } from '@api';
+import { getCookie } from '@helpers'
 
 BASEAPI.interceptors.request.use(config=> {
-	const token = null;
+	const token = getCookie("token")
     config.headers.Authorization = `Bearer ${token}` 
     return config
 })
@@ -14,6 +15,7 @@ const authAPI = {
 
 const userAPI = {
     me: (data) => API.post('/users/me', data),
+    meByToken: () => API.get('/users/me'),
     update: (id) => API.put(`/users/${id}`, data),
     delete: (id) => API.delete(`/users/${id}`, data),
 	

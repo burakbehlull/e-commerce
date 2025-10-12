@@ -4,8 +4,10 @@ import { Button, Input, Text, VStack, Heading, HStack, Link, Icon, Box, Flex } f
 import { FcGoogle } from "react-icons/fc";
 import { ModalUI } from "@ui";
 
-function RegisterModal({clickRef}) {
+import { userAPI } from '@requests'
 
+function RegisterModal({clickRef}) {
+   
   return (
     <>
       <ModalUI

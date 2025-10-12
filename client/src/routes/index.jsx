@@ -58,7 +58,7 @@ export default function Routes(){
 							]
 						},
 						{
-							path: '/basket',
+							path: '/cart',
 							element: <Basket />
 						}
 					]

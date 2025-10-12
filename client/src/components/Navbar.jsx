@@ -1,6 +1,8 @@
 import { Box, Flex, Link, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"
+
 import { FiUser } from "react-icons/fi";
+import { LuShoppingCart } from "react-icons/lu";
 
 import { useRef } from "react";
 
@@ -73,6 +75,14 @@ export default function Navbar() {
 					>
 						<FiUser />
 					</Icon>
+					<Icon size="lg" 
+						color="gray.700"
+						cursor="pointer"
+						onClick={()=> handleNavigate('/cart')}
+					>
+						<LuShoppingCart />
+					</Icon>
+					
 				</Box>
             </Flex>
 		</>

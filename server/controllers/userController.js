@@ -33,6 +33,31 @@ const UserInfo = async (req, res) => {
 	}
 }
 
+const UserInfoGetByToken = async (req, res) => {
+	const data = req.body
+	const user = req?.user
+	
+    try {
+		
+		if(user?.role !== "admin" && !(user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+		
+		const result = await getUserInfo({id: user?._id})
+	
+		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
+			
+		return res.status(200).json(result)
+	} catch(err){
+		console.error("[ERROR - userController/UserInfoGetByToken]: ", err.message)
+		logger.error("[ERROR - userController/UserInfoGetByToken]: ", err.message)
+		return res.status(500).json({
+			status: false,
+			error: err,
+			message: err.message
+		})
+	}
+}
+
+
 const UpdateUser = async (req, res) => {
 	const data = req.body
 	const id = req.params.id
@@ -120,5 +145,6 @@ export {
 	UpdateUser,
 	DeleteToUser,
 	
-	UserLogout
+	UserLogout,
+	UserInfoGetByToken
 }

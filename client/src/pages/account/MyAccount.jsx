@@ -1,10 +1,35 @@
 "use client";
+
+import { useState, useEffect } from "react";
+
 import { Box, Flex, Grid, GridItem, Heading, Stack } from "@chakra-ui/react";
+
 import { TextUI, InputUI, ButtonUI } from '@ui'
+import { userAPI } from '@requests'
+import { showToast } from "@partials"
 
 export default function MyAccount() {
+  const [profile, setProfile] = useState({})
+  
+  async function getProfile(){
+	  const result = await userAPI.meByToken()
+
+	  if(!result.status) return showToast({
+        message: result?.message || result?.error,
+        type: 'error',
+        id: 'profile',
+        duration: 2000
+      });	  
+	  setProfile(result.data)
+  }
+  
+  useEffect(()=>{
+	  getProfile()
+  })
+	
   return (
 	<>
+	{JSON.stringify(profile)}
 		<Heading size="md" mb={8} color="red.500">
           Edit Your Profile
         </Heading>

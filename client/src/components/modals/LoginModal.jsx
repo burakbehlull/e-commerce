@@ -1,11 +1,39 @@
 "use client"
-
+import { useState, useEffect } from "react";
 import { Button, Input,  Text, VStack, Heading, HStack, Link, Icon, Box, Flex } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
+
 import { ModalUI } from "@ui";
 
-function LoginModal({clickRef}) {
+import { authAPI } from '@requests'
+import { showToast } from "@partials"
+import { useCookie } from "@helpers";
 
+import { useForm } from 'react-hook-form';
+
+function LoginModal({clickRef}) {
+  const [profile, setProfile] = useState({})
+  
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { setToken } = useCookie()
+	
+  async function loginHandle(data){
+	  const result = await authAPI.login(data)
+	
+	  if(!result.status) return showToast({
+        message: result?.message || result?.error,
+        type: 'error',
+        id: 'auth',
+        duration: 2000
+      });
+	  setToken(result.accessToken)
+	  setProfile(result.data)
+  }
+  
+  const onSubmit = (data) => loginHandle(data);
+  
+
+  
   return (
     <>
       <ModalUI
@@ -28,6 +56,7 @@ function LoginModal({clickRef}) {
 			    focusBorderColor="black"
 				transition="all 0.2s"
 				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  
+				{...register('email')}
 			  />
 			  <Input 
 				placeholder="Password" 
@@ -37,6 +66,7 @@ function LoginModal({clickRef}) {
 			    focusBorderColor="black"
 				transition="all 0.2s"
 				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  		
+				{...register('password')}
 				/>
 		  </Flex>
 		  
@@ -47,7 +77,9 @@ function LoginModal({clickRef}) {
 			_hover= {{
 				bg: '#db4444'
 			}}
-		  w="full">
+			w="full"
+			onClick={handleSubmit(onSubmit)}
+		  >
 			Sign In
           </Button>
 

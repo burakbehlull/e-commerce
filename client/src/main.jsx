@@ -5,19 +5,21 @@ import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider } from '@ui'
 
 import { Toaster } from 'react-hot-toast'
-
+import { CookiesProvider } from "react-cookie";
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-	<BrowserRouter>
-		<ChakraProvider>
-			<App />
-			<Toaster
-				position="top-center"
-				reverseOrder={false}
-			/>
-		</ChakraProvider>
-	</BrowserRouter>
+	<CookiesProvider>
+		<BrowserRouter>
+			<ChakraProvider>
+				<App />
+				<Toaster
+					position="top-center"
+					reverseOrder={false}
+				/>
+			</ChakraProvider>
+		</BrowserRouter>
+	</CookiesProvider>
   </StrictMode>,
 )
