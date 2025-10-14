@@ -116,7 +116,7 @@ export default function BillingPage() {
 					direction: 'column'
 				}}
 			/>
-          
+			<ButtonUI text="Place Order" mt={8} />
         </Box>
       </Flex>
     </Box>
