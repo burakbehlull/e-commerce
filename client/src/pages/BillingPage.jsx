@@ -8,7 +8,7 @@ import {
   Image,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { TextUI, InputUI, ButtonUI, NumberInputUI, CheckboxUI } from "@ui";
+import { TextUI, InputUI, ButtonUI, NumberInputUI, CheckboxUI, RadioGroupUI } from "@ui";
 
 export default function BillingPage() {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -77,21 +77,45 @@ export default function BillingPage() {
             <TextUI text="₺3100" fontWeight="semibold" />
           </Flex>
 
-          <Flex justify="space-between" py={2} borderTop="1px" borderColor="gray.200" mt={2}>
-            <TextUI text="Subtotal" />
+          <Flex 
+			  justify="space-between" 
+			  py={2}
+			  
+			  
+			  borderTop="1px" 
+			  borderColor="gray.200" mt={2}
+			  borderTop={{ base: "1px solid #e4e4e7", _dark: "1px solid #27272a" }} 
+
+		  >
+            <TextUI text="Subtotal:" />
             <TextUI text="₺6750" fontWeight="medium" />
           </Flex>
 
-          <Flex justify="space-between" py={2}>
-            <TextUI text="Shipping" />
+          <Flex
+			justify="space-between" 
+			py={2}
+			borderBottom={{ base: "1px solid #e4e4e7", _dark: "1px solid #27272a" }} 
+
+		  >
+            <TextUI text="Shipping:" />
             <TextUI text="Free" color="green.500" />
           </Flex>
 
           <Flex justify="space-between" py={2} borderTop="1px" borderColor="gray.200" mt={2}>
-            <TextUI text="Total" fontWeight="bold" />
+            <TextUI text="Total:" fontWeight="bold" />
             <TextUI text="₺6750" fontWeight="bold" />
           </Flex>
 
+			<RadioGroupUI
+				mt={6}
+				items= {[
+					{label: 'Bank', value: 'bank'},
+					{label: 'Cash on delivery', value: 'cash'},
+				]}
+				nestedStyle={{
+					direction: 'column'
+				}}
+			/>
           
         </Box>
       </Flex>

@@ -1,17 +1,17 @@
-import { HStack, RadioGroup } from "@chakra-ui/react"
+import { Flex, RadioGroup } from "@chakra-ui/react"
 
-const RadioGroupUI = ({items, ...props}) => {
+const RadioGroupUI = ({items, nestedStyle, ...props}) => {
   return (
     <RadioGroup.Root {...props}>
-      <HStack gap="6">
+      <Flex gap="6" {...nestedStyle}>
         {items?.map((item) => (
-          <RadioGroup.Item key={item.value} value={item.value}>
+          <RadioGroup.Item key={item.value} value={item.value} display="flex" direction="column">
             <RadioGroup.ItemHiddenInput />
             <RadioGroup.ItemIndicator />
             <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
           </RadioGroup.Item>
         ))}
-      </HStack>
+      </Flex>
     </RadioGroup.Root>
   )
 }

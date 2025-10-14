@@ -17,5 +17,6 @@ export {
 	ButtonUI,
 	TextUI,
 	NumberInputUI,
-	CheckboxUI
+	CheckboxUI,
+	RadioGroupUI
 }
