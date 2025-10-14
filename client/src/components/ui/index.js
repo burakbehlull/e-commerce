@@ -5,6 +5,7 @@ import InputUI from "./InputUI";
 import ButtonUI from "./ButtonUI";
 import TextUI from "./TextUI";
 import NumberInputUI from "./NumberInputUI";
+import CheckboxUI from "./CheckboxUI";
 
 export * from './ModalUI'
 
@@ -14,5 +15,6 @@ export {
 	InputUI,
 	ButtonUI,
 	TextUI,
-	NumberInputUI
+	NumberInputUI,
+	CheckboxUI
 }
