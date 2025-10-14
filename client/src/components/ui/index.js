@@ -6,6 +6,7 @@ import ButtonUI from "./ButtonUI";
 import TextUI from "./TextUI";
 import NumberInputUI from "./NumberInputUI";
 import CheckboxUI from "./CheckboxUI";
+import RadioGroupUI from "./RadioGroupUI";
 
 export * from './ModalUI'
 

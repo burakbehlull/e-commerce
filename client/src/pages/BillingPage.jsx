@@ -92,13 +92,7 @@ export default function BillingPage() {
             <TextUI text="₺6750" fontWeight="bold" />
           </Flex>
 
-          <ButtonUI
-            text="Place Order"
-            colorScheme="red"
-            w="100%"
-            mt={4}
-            size="lg"
-          />
+          
         </Box>
       </Flex>
     </Box>
