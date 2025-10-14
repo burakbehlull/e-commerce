@@ -15,6 +15,8 @@ import AddressBook from './account/AddressBook'
 
 import Basket from "./Basket"
 
+import BillingPage from "./BillingPage"
+
 
 export {
 	Layout,
@@ -34,5 +36,7 @@ export {
 	// auth pages,
 	Authentication,
 	
-	Basket
+	Basket,
+	
+	BillingPage
 }

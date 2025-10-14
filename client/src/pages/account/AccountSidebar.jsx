@@ -1,52 +1,58 @@
 "use client";
 import { Box, Link, Stack } from "@chakra-ui/react";
 import { TextUI } from "@ui";
-import { useLocation,useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AccountSidebar() {
-	
   const location = useLocation();
   const navigate = useNavigate();
-  
-  const path = location.pathname; 
+  const path = location.pathname;
   const subPath = path.split("/")[2];
-  
-  const ILink = ({name, path})=>{
-	  return (
-		<Link 
-			color={subPath==path ? "red.500" : null}
-			fontWeight={subPath==path ? "semibold" : null}
 
-			onClick={()=> navigate(`/account/${path}`)}
-		>
-			{name}
-		</Link>
-	  )
-  }
-  const basePath = (style)=> subPath=="" || !subPath ? style: null
-  
+  const ILink = ({ name, path }) => (
+    <Link
+      color={subPath === path ? "red.500" : "gray.600"}
+      fontWeight={subPath === path ? "semibold" : "medium"}
+      _hover={{ color: "red.500" }}
+      onClick={() => navigate(`/account/${path}`)}
+      fontSize={{ base: "sm", md: "md" }}
+    >
+      {name}
+    </Link>
+  );
+
+  const basePath = (style) => (subPath === "" || !subPath ? style : null);
+
   return (
-      <Box w="250px" mr={10}>
-        <TextUI text="Profilini Yönet" fontWeight="bold" mb={4} />
-          
-        <Stack spacing={2} mb={6}>
-		  <Link color={basePath("red.500")} 
-			fontWeight={basePath("semibold")}
-			onClick={()=> navigate("/account")}
-		  >
-            Profil
-          </Link>
-          <ILink name="Adres" path="address" />
-        </Stack>
+    <Box
+      w="100%"
+      bg={{ base: "white", md: "transparent" }}
+      p={{ base: 4, md: 0 }}
+      rounded="xl"
+      boxShadow={{ base: "sm", md: "none" }}
+    >
+      <TextUI text="Profilini Yönet" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
 
-        <TextUI text="My Orders" fontWeight="bold" mb={4} />
-          
-        <Stack spacing={2} mb={6}>
-          <Link>My Returns</Link>
-          <Link>My Cancellations</Link>
-        </Stack>
+      <Stack spacing={2} mb={6}>
+        <Link
+          color={basePath("red.500") || "gray.600"}
+          fontWeight={basePath("semibold") || "medium"}
+          _hover={{ color: "red.500" }}
+          onClick={() => navigate("/account")}
+          fontSize={{ base: "sm", md: "md" }}
+        >
+          Profil
+        </Link>
+        <ILink name="Adres" path="address" />
+      </Stack>
 
-        <TextUI text="My Wishlist" fontWeight="bold" mb={4} />
-      </Box>
+      <TextUI text="My Orders" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
+      <Stack spacing={2} mb={6}>
+        <Link fontSize={{ base: "sm", md: "md" }}>My Returns</Link>
+        <Link fontSize={{ base: "sm", md: "md" }}>My Cancellations</Link>
+      </Stack>
+
+      <TextUI text="My Wishlist" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
+    </Box>
   );
 }

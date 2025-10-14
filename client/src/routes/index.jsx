@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom'
 import { Home, HomeLayout, NotFound, ProductPage, 
-	Authentication, MyAccount, AccountLayout, AddressBook, Basket } from '@pages'
+	Authentication, MyAccount, AccountLayout, AddressBook, Basket, BillingPage } from '@pages'
 
 export default function Routes(){
 
@@ -60,6 +60,10 @@ export default function Routes(){
 						{
 							path: '/cart',
 							element: <Basket />
+						},
+						{
+							path: '/billing',
+							element: <BillingPage />
 						}
 					]
 				}
