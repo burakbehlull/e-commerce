@@ -9,6 +9,8 @@ import CheckboxUI from "./CheckboxUI";
 import RadioGroupUI from "./RadioGroupUI";
 
 export * from './ModalUI'
+export * from "./MenuUI";
+
 
 export {
     ChakraProvider,
