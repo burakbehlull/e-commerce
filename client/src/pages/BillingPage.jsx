@@ -82,7 +82,6 @@ export default function BillingPage() {
 			  py={2}
 			  
 			  
-			  borderTop="1px" 
 			  borderColor="gray.200" mt={2}
 			  borderTop={{ base: "1px solid #e4e4e7", _dark: "1px solid #27272a" }} 
 

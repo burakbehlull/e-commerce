@@ -1,4 +1,6 @@
-const authSchema = z.object({
+import { z } from "zod"
+
+const loginSchema = z.object({
   email: z
     .string()
     .min(1, "E-posta zorunludur")
@@ -9,5 +11,5 @@ const authSchema = z.object({
 })
 
 export {
-	authSchema
+	loginSchema
 }

@@ -37,19 +37,25 @@ function LoginModal({clickRef}) {
 	  setProfile(result.data)
   }
   
-  const onSubmit = (data) => loginHandle(data);
+  const onSubmit = (data) => {
+	  console.log(data)
+	  loginHandle(data);
+  }
   
 
   
   return (
     <>
+		
       <ModalUI
         clickRef={clickRef}
         title="Log in to Exclusive"
       >
         <VStack spacing={4} align="stretch">
-          <TextUI text="Enter your details below" textAlign="start" color="gray.600" fontSize="sm" />
-            
+          
+		  
+		  <TextUI text="Enter your details below" textAlign="start" color="gray.600" fontSize="sm" />
+          WE: {errors?.email?.message}  
           <Flex
 			direction="column"
 			gap={4}
@@ -61,9 +67,13 @@ function LoginModal({clickRef}) {
 			    focusBorderColor="black"
 				transition="all 0.2s"
 				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  
-				{...register('email')}
 				errorText={errors?.email?.message} 
+				{...register('email')}
+				
+				helperText={errors?.email?.message}
+				helperTextErrorManipulation
 			  />
+			  
 			  <InputUI
 				placeholder="Password" 
 				type="password" 
@@ -71,11 +81,12 @@ function LoginModal({clickRef}) {
 				variant="flushed" 
 			    focusBorderColor="black"
 				transition="all 0.2s"
-				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  		
+				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}				
 				
 				{...register('password')}
-				errorText={errors?.password?.message} 
 				
+				helperText={errors?.password?.message}
+				helperTextErrorManipulation
 				/>
 		  </Flex>
 		  
