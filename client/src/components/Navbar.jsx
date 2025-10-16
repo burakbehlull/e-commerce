@@ -2,12 +2,16 @@ import { Box, Flex, Link, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"
 
 import { FiUser } from "react-icons/fi";
+import { TiUser } from "react-icons/ti";
+
 import { LuShoppingCart } from "react-icons/lu";
+import { BiLogOut } from "react-icons/bi";
+
 
 import { useRef } from "react";
 
 import { RegisterModal, LoginModal } from '@modals'
-import { TextUI } from "@ui";
+import { TextUI, MenuUI, MenuItemUI } from "@ui";
 
 export default function Navbar() {
 	
@@ -71,17 +75,28 @@ export default function Navbar() {
 					<Icon size="lg" 
 						color="gray.700"
 						cursor="pointer"
-						onClick={()=> handleNavigate('/account')}
-					>
-						<FiUser />
-					</Icon>
-					<Icon size="lg" 
-						color="gray.700"
-						cursor="pointer"
 						onClick={()=> handleNavigate('/cart')}
 					>
 						<LuShoppingCart />
 					</Icon>
+					<MenuUI 
+						content={<Icon size="lg" color="gray.700" cursor="pointer"><FiUser /></Icon>}
+					>
+						<MenuItemUI 
+							text="profile" 
+							onClick={()=> handleNavigate('/account')}
+							value="profile"
+						>
+							<TiUser size={18} />
+							Profile
+						</MenuItemUI>
+						<MenuItemUI>
+							<BiLogOut size={18} />
+							Logout
+						</MenuItemUI>
+					</MenuUI>
+					
+					
 					
 				</Box>
             </Flex>

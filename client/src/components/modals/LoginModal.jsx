@@ -1,20 +1,27 @@
 "use client"
+
 import { useState, useEffect } from "react";
 import { Button, Input,  Text, VStack, Heading, HStack, Link, Icon, Box, Flex } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 
-import { ModalUI } from "@ui";
+import { ModalUI, TextUI, ButtonUI, InputUI } from "@ui";
 
 import { authAPI } from '@requests'
 import { showToast } from "@partials"
 import { useCookie } from "@helpers";
+import { loginSchema } from '@schemas'
 
 import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod"
+
+
 
 function LoginModal({clickRef}) {
   const [profile, setProfile] = useState({})
   
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+	  resolver: zodResolver(loginSchema),
+  });
   const { setToken } = useCookie()
 	
   async function loginHandle(data){
@@ -41,24 +48,23 @@ function LoginModal({clickRef}) {
         title="Log in to Exclusive"
       >
         <VStack spacing={4} align="stretch">
-          <Text textAlign="start" color="gray.600" fontSize="sm">
-            Enter your details below
-          </Text>
-
+          <TextUI text="Enter your details below" textAlign="start" color="gray.600" fontSize="sm" />
+            
           <Flex
 			direction="column"
 			gap={4}
 		  >
-			  <Input 
-				placeholder="Email or Username" 
+			  <InputUI
+				placeholder="Email" 
 				size="md" 
 				variant="flushed" 
 			    focusBorderColor="black"
 				transition="all 0.2s"
 				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  
 				{...register('email')}
+				errorText={errors?.email?.message} 
 			  />
-			  <Input 
+			  <InputUI
 				placeholder="Password" 
 				type="password" 
 				size="md" 
@@ -66,11 +72,15 @@ function LoginModal({clickRef}) {
 			    focusBorderColor="black"
 				transition="all 0.2s"
 				_focus={{ borderColor: "gray.200", boxShadow: "0 1px 0 0 gray.200" }}			  		
+				
 				{...register('password')}
+				errorText={errors?.password?.message} 
+				
 				/>
 		  </Flex>
 		  
-          <Button
+          <ButtonUI
+			text="Sign In"
 			mt={4}
 			color="bg.100"
 			bg="#ed3e3e"
@@ -79,16 +89,14 @@ function LoginModal({clickRef}) {
 			}}
 			w="full"
 			onClick={handleSubmit(onSubmit)}
-		  >
-			Sign In
-          </Button>
+		  />
 
-          <Button
+          <ButtonUI
             variant="outline"
             w="full"
           >
             <Icon as={FcGoogle} boxSize={5} /> Sign In with Google
-          </Button>
+          </ButtonUI>
 
           <HStack justify="center" mt={2}>
             <Link 
