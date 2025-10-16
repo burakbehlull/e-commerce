@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button, Input,  Text, VStack, Heading, HStack, Link, Icon, Box, Flex } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 
-import { ModalUI, TextUI, ButtonUI, InputUI } from "@ui";
+import { ModalUI, TextUI, ButtonUI, InputUI, AlertUI } from "@ui";
 
 import { authAPI } from '@requests'
 import { showToast } from "@partials"
@@ -18,6 +18,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 function LoginModal({clickRef}) {
   const [profile, setProfile] = useState({})
+  const [apiError, setApiError] = useState({})
+
   
   const { register, handleSubmit, formState: { errors } } = useForm({
 	  resolver: zodResolver(loginSchema),
@@ -27,18 +29,28 @@ function LoginModal({clickRef}) {
   async function loginHandle(data){
 	  const result = await authAPI.login(data)
 	
-	  if(!result.status) return showToast({
-        message: result?.message || result?.error,
-        type: 'error',
-        id: 'auth',
-        duration: 2000
-      });
+		
+	  if(!result.status) {
+		setApiError({
+			status: result?.status===false,
+			message: result?.message || result?.error?.response?.data?.errors?.map((item)=> `${item?.msg}`) ,
+			error: result?.error
+		})
+		
+		/* showToast({
+			message: result?.message || result?.error,
+			type: 'error',
+			id: 'auth',
+			duration: 2000
+		}) */
+		
+		return
+	  }
 	  setToken(result.accessToken)
 	  setProfile(result.data)
   }
   
   const onSubmit = (data) => {
-	  console.log(data)
 	  loginHandle(data);
   }
   
@@ -53,10 +65,13 @@ function LoginModal({clickRef}) {
       >
         <VStack spacing={4} align="stretch">
           
-		  
+		  {JSON.stringify(apiError?.errors)}
 		  <TextUI text="Enter your details below" textAlign="start" color="gray.600" fontSize="sm" />
-          WE: {errors?.email?.message}  
-          <Flex
+          
+		 {apiError?.status && <AlertUI description={apiError?.message} /> }
+
+		  
+		  <Flex
 			direction="column"
 			gap={4}
 		  >
@@ -75,7 +90,7 @@ function LoginModal({clickRef}) {
 			  />
 			  
 			  <InputUI
-				placeholder="Password" 
+				placeholder="Şifre" 
 				type="password" 
 				size="md" 
 				variant="flushed" 

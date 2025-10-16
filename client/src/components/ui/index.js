@@ -7,6 +7,7 @@ import TextUI from "./TextUI";
 import NumberInputUI from "./NumberInputUI";
 import CheckboxUI from "./CheckboxUI";
 import RadioGroupUI from "./RadioGroupUI";
+import AlertUI from "./AlertUI";
 
 export * from './ModalUI'
 export * from "./MenuUI";
@@ -20,5 +21,6 @@ export {
 	TextUI,
 	NumberInputUI,
 	CheckboxUI,
-	RadioGroupUI
+	RadioGroupUI,
+	AlertUI
 }

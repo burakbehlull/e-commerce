@@ -20,6 +20,10 @@ const apiRequest = {
             return response.data;
         } catch (error) {
             console.error('POST Error:', error);
+			return {
+				status: false,
+				error: error
+			}
             throw error;
         }
     },
@@ -29,6 +33,10 @@ const apiRequest = {
             return response.data;
         } catch (error) {
             console.error('PUT Error:', error);
+			return {
+				status: false,
+				error: error
+			}
             throw error;
         }
     },
@@ -38,6 +46,11 @@ const apiRequest = {
             return response.data;
         } catch (error) {
             console.error('PATCH Error:', error);
+			return {
+				status: false,
+				error: error
+			}
+			
             throw error;
         }
     },
@@ -50,6 +63,10 @@ const apiRequest = {
             return response.data;
         } catch (error) {
             console.error('DELETE Error:', error);
+			return {
+				status: false,
+				error: error
+			}
             throw error;
         }
     }
