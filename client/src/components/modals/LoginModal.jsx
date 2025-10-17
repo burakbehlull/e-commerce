@@ -14,9 +14,8 @@ import { loginSchema } from '@schemas'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
 
-
-
 function LoginModal({clickRef}) {
+	
   const [profile, setProfile] = useState({})
   const [apiError, setApiError] = useState({})
 

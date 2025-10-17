@@ -23,12 +23,12 @@ const userAPI = {
 }
 
 const basketAPI = {
-    getBasket: (data) => API.get('/basket', data),
+    getBasket: () => API.get('/basket'),
     addBasket: (data) => API.post('/basket', data), // productId, quantity
     updateBasket: (productId, data) => API.patch(`/basket/${productId}`, data), // quantity
     removeBasket: (productId) => API.delete(`/basket/${productId}`), // productId
     clear: () => API.delete('/basket/clear'),
-	merge: (data) => API.post('/basket/merge') // items
+	merge: (data) => API.post('/basket/merge', data) // items
 }
 
 const categoryAPI = {
