@@ -2,7 +2,6 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import { AccountSidebar, AdminSidebar } from "@pages";
-import { TextUI } from "@ui";
 
 export default function AdminLayout() {
   return (

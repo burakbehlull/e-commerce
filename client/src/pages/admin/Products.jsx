@@ -12,7 +12,7 @@ export default function Products() {
   return (
     <>
       <Heading size="md" mb={8} color="red.500">
-        Products
+        Ürünler
       </Heading>
 
       <Grid

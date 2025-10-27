@@ -38,21 +38,36 @@ export default function AdminSidebar() {
           color={basePath("red.500") || "gray.600"}
           fontWeight={basePath("semibold") || "medium"}
           _hover={{ color: "red.500" }}
-          onClick={() => navigate("/account")}
+          onClick={() => navigate("/admin")}
           fontSize={{ base: "sm", md: "md" }}
         >
-          Profil
+          Panel
         </Link>
-        <ILink name="Adres" path="address" />
+        
       </Stack>
 
-      <TextUI text="My Orders" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
+	  <TextUI text="Site" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
+      <Stack spacing={2} mb={6}>
+		<ILink name="Ürünler" path="products" />
+        <ILink name="Kategoriler" path="category" />
+      </Stack>
+
+      <TextUI text="Diğer" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
+      <Stack spacing={2} mb={6}>
+	  
+        <ILink name="Kullanıcılar" path="users" fontSize={{ base: "sm", md: "md" }} />
+        {/* <Link fontSize={{ base: "sm", md: "md" }}>My Cancellations</Link> */}
+      </Stack>
+	  {/*
+	  <TextUI text="My Orders" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
       <Stack spacing={2} mb={6}>
         <Link fontSize={{ base: "sm", md: "md" }}>My Returns</Link>
         <Link fontSize={{ base: "sm", md: "md" }}>My Cancellations</Link>
       </Stack>
+	  
 
       <TextUI text="My Wishlist" fontWeight="bold" mb={3} fontSize={{ base: "md", md: "lg" }} />
-    </Box>
+    */}
+	</Box>
   );
 }
