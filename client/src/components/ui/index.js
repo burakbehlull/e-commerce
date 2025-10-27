@@ -22,5 +22,5 @@ export {
 	NumberInputUI,
 	CheckboxUI,
 	RadioGroupUI,
-	AlertUI
+	AlertUI,
 }

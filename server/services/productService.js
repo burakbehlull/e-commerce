@@ -15,6 +15,8 @@ async function getProducts({ page = 1, limit = 10 } = {}) {
         .limit(limit);
 
         return {
+			status: true,
+			message: 'Ürünler çekildi',
             products,
             totalItems,
             totalPages: Math.ceil(totalItems / limit),
