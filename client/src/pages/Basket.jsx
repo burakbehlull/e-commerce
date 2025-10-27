@@ -29,7 +29,13 @@ export default function Basket() {
 
   return (
     <Box p={{ base: 4, md: 10 }} maxW="1200px" mx="auto">
-      <TextUI text="Home / Cart" fontSize="sm" color="gray.700" mb={4} />
+      <TextUI display="flex" fontSize={{
+			  base: 'sm',
+			  md: 'lg'
+		  }} color="gray.700" mb={6} gap={2}>
+		  <TextUI text="Home /" />
+		  <TextUI text="Cart" fontWeight="bold" />
+	  </TextUI>
 
       <Box
         borderRadius="lg"

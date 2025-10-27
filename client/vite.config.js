@@ -25,6 +25,7 @@ export default defineConfig({
       '@modals': way('src/components/modals/index'),
 	  '@helpers': way('src/helpers/index'),
 	  '@schemas': way('src/schemas/index'),
+	  '@store': way('src/store/index'),
     }
   },
 })

@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom'
-import { Home, HomeLayout, NotFound, ProductPage, 
-	Authentication, MyAccount, AccountLayout, AddressBook, Basket, BillingPage } from '@pages'
+import { Home, HomeLayout, NotFound, ProductPage, AdminAuthentication, Authentication, 
+	MyAccount, AccountLayout, AddressBook, Basket, BillingPage, AdminLayout, Products } from '@pages'
 
 export default function Routes(){
 
@@ -70,6 +70,28 @@ export default function Routes(){
 			]
 		},
 		
+		// admin
+		{
+		
+			element: <AdminAuthentication />,
+			children: [
+				{
+					element: <HomeLayout />,
+					children: [
+						{
+							path: '/admin',
+							element: <AdminLayout />,
+							children: [
+								{
+									path: 'products',
+									element: <Products />
+								}
+							]
+						},
+					]
+				}
+			]
+		},
 		
 		
 		{

@@ -3,8 +3,6 @@ import { persist } from "zustand/middleware"
 
 import { basketAPI } from "@requests";
 
-
-
 const useBasketStore = create(
   persist(
     (set, get) => ({
@@ -34,15 +32,15 @@ const useBasketStore = create(
         set({ items: filtered });
       },
 
-      mergeBasket: async (userId) => {
+      mergeBasket: async () => {
         const localItems = get().items;
         const merged = await basketAPI.merge(localItems);
-        set({ items: merged, userId });
+        set({ items: merged });
       },
 
-      loadBasket: async (userId) => {
+      loadBasket: async () => {
         const serverBasket = await basketAPI.getBasket();
-        set({ items: serverBasket, userId });
+        set({ items: serverBasket });
       },
 
       clearBasket: () => set({ items: [] }),

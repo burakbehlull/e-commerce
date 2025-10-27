@@ -15,12 +15,13 @@ export default function BillingPage() {
 
   return (
     <Box p={{ base: 4, md: 10 }} maxW="1100px" mx="auto">
-      <TextUI
-        text="Home / Checkout"
-        fontSize="sm"
-        color="gray.600"
-        mb={4}
-      />
+      <TextUI display="flex" fontSize={{
+			  base: 'sm',
+			  md: 'lg'
+		  }} color="gray.700" mb={6} gap={2}>
+		  <TextUI text="Home / " />
+		  <TextUI text="Billing" fontWeight="bold" />
+	  </TextUI>
 
       <Flex
         direction={{ base: "column", lg: "row" }}
