@@ -32,6 +32,10 @@ export default function Products() {
   useEffect(() => {
     getProducts();
   }, []);
+  
+  useEffect(() => {
+        getProducts({ page, limit });
+  }, [page]);
 
   return (
     <Box w="100%" px={6} py={4}>
@@ -62,12 +66,15 @@ export default function Products() {
         mt={10}
         gap={4}
       >
-        <PaginationUI 
+		{products?.length > 0 ? (
+		  <PaginationUI 
             totalItems={totalItems}
             limit={limit}
             currentPage={page}
             onPageChange={(newPage) => setPage(newPage)}
-        />
+          />
+		): null}
+        
       </Flex>
     </Box>
   );
