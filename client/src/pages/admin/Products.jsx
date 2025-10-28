@@ -2,13 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { Box, Heading, Stack, Flex } from "@chakra-ui/react";
-import { ButtonUI } from "@ui";
+import { ButtonUI, PaginationUI } from "@ui";
 import { Card } from "@components";
 import { showToast } from "@partials";
 import { productAPI } from "@requests";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+
+  const limit = 10;
 
   async function getProducts() {
     const result = await productAPI.getProducts();
@@ -20,7 +24,8 @@ export default function Products() {
         id: "product",
         duration: 2000,
       });
-
+	  
+	setTotalItems(result.totalItems);
     setProducts(result.products || []);
   }
 
@@ -57,13 +62,11 @@ export default function Products() {
         mt={10}
         gap={4}
       >
-        <ButtonUI text="Cancel" variant="ghost" w={{ base: "100%", sm: "auto" }} />
-        <ButtonUI
-          text="Save Changes"
-          bg="red.500"
-          color="white"
-          _hover={{ bg: "red.600" }}
-          w={{ base: "100%", sm: "auto" }}
+        <PaginationUI 
+            totalItems={totalItems}
+            limit={limit}
+            currentPage={page}
+            onPageChange={(newPage) => setPage(newPage)}
         />
       </Flex>
     </Box>

@@ -8,6 +8,7 @@ import NumberInputUI from "./NumberInputUI";
 import CheckboxUI from "./CheckboxUI";
 import RadioGroupUI from "./RadioGroupUI";
 import AlertUI from "./AlertUI";
+import PaginationUI from "./PaginationUI";
 
 export * from './ModalUI'
 export * from "./MenuUI";
@@ -23,4 +24,5 @@ export {
 	CheckboxUI,
 	RadioGroupUI,
 	AlertUI,
+	PaginationUI
 }
