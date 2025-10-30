@@ -2,17 +2,34 @@
 
 import { useState, useEffect } from "react";
 import { Box, Flex, Grid, GridItem, Heading, Stack } from "@chakra-ui/react";
-import { TextUI, InputUI, ButtonUI } from "@ui";
-import { userAPI } from "@requests";
+
+import { TextUI, InputUI, ButtonUI, SelectUI } from "@ui";
+import { productAPI } from "@requests";
 import { showToast } from "@partials";
+import { productAddSchema } from "@schemas";
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export default function Products() {
+	
   const [profile, setProfile] = useState({});
+  const [selectBox, setSelectBox] = useState([]);
+  
+  const { register, handleSubmit, formState: { errors } } = useForm({
+	  resolver: zodResolver(productAddSchema),
+  });
+  
+  const items = [{label: 'he', value: 'he'}, {label: 'qw', value: 'qwe'}]
+  
+  const onSubmit = (data) => {
+	  console.log(data);
+  }
 
   return (
     <>
       <Heading size="md" mb={8} color="red.500">
-        Ürünler
+        Ürün Ekle
       </Heading>
 
       <Grid
@@ -20,16 +37,74 @@ export default function Products() {
         gap={6}
       >
         <GridItem>
-          <InputUI value="Md" label="Görünen Ad" />
+          <InputUI 
+			label="Ürün Adı" 
+			helperText={errors?.name?.message}
+			helperTextErrorManipulation
+			{...register('name')} 
+			
+		  />
         </GridItem>
         <GridItem>
-          <InputUI value="Rimel" label="Kullanıcı Adı" />
+          <InputUI
+			label="Ürün Açıklaması" 
+			helperText={errors?.description?.message}
+			helperTextErrorManipulation
+			{...register('description')} 
+		  />
         </GridItem>
         <GridItem>
-          <InputUI value="rimel111@gmail.com" label="E-Posta" />
+          <InputUI
+			label="Ürün Fiyatı" 
+			helperText={errors?.price?.message}
+			helperTextErrorManipulation
+			{...register('price')} 
+		  />
         </GridItem>
+		<GridItem>
+          <InputUI
+			label="Ürün Eski Fiyatı" 
+			helperText={errors?.oldPrice?.message}
+			helperTextErrorManipulation
+			{...register('oldPrice')} 
+		  />
+        </GridItem>
+		
+		<GridItem>
+          <InputUI
+			label="Ürün Stoğu" 
+			helperText={errors?.stock?.message}
+			helperTextErrorManipulation
+			{...register('stock')} 
+		  />
+        </GridItem>
+		
         <GridItem>
-          <InputUI value="Kingston, 5236, United State" label="Telefon Numarası" />
+          <InputUI
+			label="Ürün Markası" 
+			helperText={errors?.brand?.message}
+			helperTextErrorManipulation
+			{...register('brand')} 
+		  />
+        </GridItem>
+		
+		<GridItem>
+          <InputUI
+			label="İndirim" 
+			helperText={errors?.discountBadgeText?.message}
+			helperTextErrorManipulation
+			{...register('discountBadgeText')} 
+		  />
+        </GridItem>
+		
+		<GridItem>
+          <SelectUI
+            value={selectBox}
+            title="Kategori"
+            items={items}
+            setValue={(val) => setSelectBox(val)}
+			multiple 
+		  />
         </GridItem>
       </Grid>
 
@@ -50,13 +125,13 @@ export default function Products() {
         mt={10}
         gap={4}
       >
-        <ButtonUI text="Cancel" variant="ghost" w={{ base: "100%", sm: "auto" }} />
         <ButtonUI
-          text="Save Changes"
+          text="Yarat"
           bg="red.500"
           color="white"
           _hover={{ bg: "red.600" }}
           w={{ base: "100%", sm: "auto" }}
+		  onClick={handleSubmit(onSubmit)}
         />
       </Flex>
     </>

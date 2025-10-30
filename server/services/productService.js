@@ -8,17 +8,9 @@ async function getProducts({ page = 1, limit = 10, name } = {}) {
         page = parseInt(page);
         limit = parseInt(limit);
 
-		console.log("type", typeof name) 
-		
-		const filter = {};
-if (name && typeof name === "string") {
-  filter.name = { $regex: new RegExp(name, "i") };
-}
+        const totalItems = await Product.countDocuments();
 
-
-        const totalItems = await Product.countDocuments(filter);
-
-        const products = await Product.find(filter)
+        const products = await Product.find()
         .skip((page - 1) * limit)
         .limit(limit);
 
