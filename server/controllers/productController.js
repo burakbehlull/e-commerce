@@ -8,10 +8,10 @@ const { addProduct, getProducts, getProductById, getProductBySlug, updateProduct
 	updateThumbnail, addImages, deleteImage, addCategoryToProduct, removeCategoryFromProduct, getImage } = productService;
 
 const GetProducts = async (req, res) => {
-	const { page, limit } = req.query
+	const queries = req.query
 	
     try {		
-		const result = await getProducts({page, limit})
+		const result = await getProducts(queries)
 		if(!result) return res.status(400).json({status: false, message: "Boş içerik"})
 			
 		return res.status(200).json(result)

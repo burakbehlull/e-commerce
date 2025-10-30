@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { Box, Heading, Stack, Flex } from "@chakra-ui/react";
-import { ButtonUI, PaginationUI } from "@ui";
+import { useNavigate } from "react-router-dom";
+import { IoMdSearch } from "react-icons/io";
+
+
+import { TextUI, InputUI, ButtonUI, PaginationUI } from "@ui";
 import { Card } from "@components";
 import { showToast } from "@partials";
 import { productAPI } from "@requests";
@@ -11,12 +15,14 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [name, setName] = useState(null);
+  
+  const navigate = useNavigate()
 
   const limit = 10;
 
-  async function getProducts() {
-    const result = await productAPI.getProducts();
-
+  async function getProducts(quries={}) {
+    const result = await productAPI.getProducts(quries);
     if (!result?.status)
       return showToast({
         message: result?.message || result?.error,
@@ -34,14 +40,24 @@ export default function Products() {
   }, []);
   
   useEffect(() => {
-        getProducts({ page, limit });
-  }, [page]);
+        getProducts({ page, limit, name });
+		console.log(1)
+  }, [page, name]);
 
   return (
     <Box w="100%" px={6} py={4}>
       <Heading size="md" mb={6} color="red.500">
         Ürünler
       </Heading>
+	  
+	  <Flex size="md" mb={6} gap={4}>
+		<InputUI value={name} onChange={(e)=> setName(e.target.value)} />
+		<ButtonUI 
+			text="Ürün Ekle" 
+			variant="outline"
+			onClick={()=> navigate("create")}
+		/>
+      </Flex>
 
       <Stack spacing={4}>
         {products.length > 0 ? (

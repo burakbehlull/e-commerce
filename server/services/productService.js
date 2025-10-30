@@ -3,14 +3,22 @@ import path from "path"
 
 import { Product } from "#models";
 
-async function getProducts({ page = 1, limit = 10 } = {}) {
+async function getProducts({ page = 1, limit = 10, name } = {}) {
     try {
         page = parseInt(page);
         limit = parseInt(limit);
 
-        const totalItems = await Product.countDocuments();
+		console.log("type", typeof name) 
+		
+		const filter = {};
+if (name && typeof name === "string") {
+  filter.name = { $regex: new RegExp(name, "i") };
+}
 
-        const products = await Product.find({})
+
+        const totalItems = await Product.countDocuments(filter);
+
+        const products = await Product.find(filter)
         .skip((page - 1) * limit)
         .limit(limit);
 
@@ -23,7 +31,7 @@ async function getProducts({ page = 1, limit = 10 } = {}) {
             page,
             limit,
         };
-    } catch (error) {
+    } catch (err) {
         console.error("[ERROR - productService/getProducts]: ", err.message)
 		return {
 			status: false,

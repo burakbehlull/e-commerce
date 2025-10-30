@@ -18,6 +18,7 @@ import AccountSidebar from './account/AccountSidebar'
 import AddressBook from './account/AddressBook'
 
 import AdminSidebar from './admin/AdminSidebar'
+import ProductAddScreen from './admin/ProductAddScreen'
 
 
 import Basket from "./Basket"
@@ -52,6 +53,7 @@ export {
 	
 	//admin
 	AdminLayout,
+	ProductAddScreen,
 	
 	AdminSidebar,
 	

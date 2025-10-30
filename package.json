@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "server:start":"cd server && npm run start",
+    "server:dev":"cd server && npm run dev",
     "client:dev":"cd client && npm run dev",
-    "start": "concurrently \"npm run client:dev\" \"npm run server:start\""
+    "start": "concurrently \"npm run client:dev\" \"npm run server:start\"",
+    "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\""
   },
   "keywords": [],
   "author": "Burak Behlül <@burakbehlull>",
