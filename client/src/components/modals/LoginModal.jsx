@@ -45,6 +45,12 @@ function LoginModal({clickRef}) {
 		
 		return
 	  }
+	  showToast({
+		message: result?.message || "Giriş başarıyla yapıldı!",
+		type: 'success',
+		id: 'auth',
+		duration: 2000
+	  })
 	  setToken(result.accessToken)
 	  setProfile(result.data)
   }

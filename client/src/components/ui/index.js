@@ -11,6 +11,7 @@ import AlertUI from "./AlertUI";
 import PaginationUI from "./PaginationUI";
 import SelectUI from "./SelectUI";
 import ListboxUI from "./ListboxUI";
+import FileUploadUI from "./FileUploadUI";
 
 export * from './ModalUI'
 export * from "./MenuUI";
@@ -28,5 +29,6 @@ export {
 	AlertUI,
 	PaginationUI,
 	SelectUI,
-	ListboxUI
+	ListboxUI,
+	FileUploadUI
 }

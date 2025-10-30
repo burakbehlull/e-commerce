@@ -29,10 +29,7 @@ const productAddSchema = z.object({
 
   oldPrice: z
     .string()
-    .optional()
-    .refine((val) => !val || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
-      message: "Eski fiyat 0'dan küçük olamaz",
-    }),
+    .optional(),
 
   discountBadgeText: z
     .string()
