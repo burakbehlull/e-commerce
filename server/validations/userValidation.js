@@ -2,7 +2,7 @@ import { body, param } from "express-validator";
 import { handleValidationErrors } from "#validations";
 
 const updateUserValidation = [
-  param("id")
+  body("id")
     .notEmpty().withMessage("Kullanıcı ID gerekli")
     .isMongoId().withMessage("Geçerli bir MongoDB ObjectId giriniz"),
 

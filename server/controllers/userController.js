@@ -60,7 +60,7 @@ const UserInfoGetByToken = async (req, res) => {
 
 const UpdateUser = async (req, res) => {
 	const data = req.body
-	const id = req.params.id
+	const id = req.body.id
 	
     try {
 		if(req?.user?.role !== "admin" && !(req?.user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})

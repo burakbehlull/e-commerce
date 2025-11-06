@@ -1,20 +1,21 @@
 "use client";
+import { useState } from "react";
+
 import { Box, Flex, Heading, Stack, Textarea } from "@chakra-ui/react";
 import { TextUI, ButtonUI } from "@ui";
 
+
 export default function AddressBook() {
+  const [address, setAddress] = useState(null)
   return (
     <>
       <Heading size="md" mb={8} color="red.500">
-        Edit Your Address
+        Adresi Düzenle
       </Heading>
 
-      <TextUI text="Adres" />
-
       <Box mt={10}>
-        <TextUI text="Address Changes" fontWeight="medium" mb={3} />
         <Stack spacing={4}>
-          <Textarea placeholder="Enter your address..." />
+          <Textarea placeholder="Adresi Gir..." />
         </Stack>
       </Box>
 
@@ -25,9 +26,11 @@ export default function AddressBook() {
         mt={10}
         gap={4}
       >
-        <ButtonUI text="Cancel" variant="ghost" w={{ base: "100%", sm: "auto" }} />
+        <ButtonUI text="Çık" variant="ghost" w={{ base: "100%", sm: "auto" }} />
         <ButtonUI
-          text="Save Changes"
+          text="Kaydet"
+		  value={address}
+		  onChange={(e)=>setAddress(e.target.value)}
           bg="red.500"
           color="white"
           _hover={{ bg: "red.600" }}

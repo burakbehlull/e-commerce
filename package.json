@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "` npm install ` or ` yarn `",
   "main": "index.js",
+  "workspaces": [
+    "client",
+	"server"
+  ],
   "scripts": {
     "server:start":"cd server && npm run start",
     "server:dev":"cd server && npm run dev",

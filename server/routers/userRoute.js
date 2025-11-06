@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/me', authMiddleware, rateLimiterMiddleware(), UserInfoGetByToken)
 router.post('/me', userInfoValidation, authMiddleware, rateLimiterMiddleware(), UserInfo)
-router.put('/:id', updateUserValidation, authMiddleware, rateLimiterMiddleware(5), UpdateUser)
+router.put('/me', updateUserValidation, authMiddleware, rateLimiterMiddleware(5), UpdateUser)
 router.delete('/:id', deleteUserValidation, rateLimiterMiddleware(5), DeleteToUser)
 
 router.post('/:id/logout', authMiddleware, rateLimiterMiddleware(5), UserLogout)

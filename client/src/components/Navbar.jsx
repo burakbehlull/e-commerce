@@ -6,6 +6,8 @@ import { TiUser } from "react-icons/ti";
 
 import { LuShoppingCart } from "react-icons/lu";
 import { BiLogOut } from "react-icons/bi";
+import { RiAdminLine } from "react-icons/ri";
+
 
 
 import { useRef } from "react";
@@ -89,6 +91,14 @@ export default function Navbar() {
 						>
 							<TiUser size={18} />
 							Profile
+						</MenuItemUI>
+						<MenuItemUI 
+							text="Admin" 
+							onClick={()=> handleNavigate('/admin')}
+							value="admin"
+						>
+							<RiAdminLine size={17} />
+							Admin
 						</MenuItemUI>
 						<MenuItemUI>
 							<BiLogOut size={18} />
