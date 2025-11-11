@@ -7,6 +7,7 @@ import AdminLayout from "./layouts/AdminLayout"
 import NotFound from './partials/NotFound'
 
 import Home from './Home'
+import About from './About'
 import ProductPage from './ProductPage'
 
 
@@ -57,5 +58,6 @@ export {
 	
 	AdminSidebar,
 	
-	Products
+	Products,
+	About
 }

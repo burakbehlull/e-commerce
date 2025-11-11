@@ -1,7 +1,7 @@
 import { useRoutes } from 'react-router-dom'
 import { Home, HomeLayout, NotFound, ProductPage, AdminAuthentication, Authentication, 
 	MyAccount, AccountLayout, AddressBook, Basket, BillingPage, AdminLayout, 
-	Products, ProductAddScreen } from '@pages'
+	Products, ProductAddScreen, About } from '@pages'
 
 export default function Routes(){
 
@@ -12,6 +12,10 @@ export default function Routes(){
 				{
 					path: '/',
 					element: <Home />,
+				},
+				{
+					path: '/about',
+					element: <About />
 				}
 			]
 		},
