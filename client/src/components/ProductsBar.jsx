@@ -21,7 +21,7 @@ export default function ProductsBar({ children, header, label }) {
       maxW="100%"
       overflowX="hidden"
     >
-      {/* Üst başlık alanı */}
+	
       <Flex
         justify="space-between"
         align={{ base: "start", md: "center" }}
