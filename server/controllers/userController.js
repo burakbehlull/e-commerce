@@ -34,12 +34,11 @@ const UserInfo = async (req, res) => {
 }
 
 const UserInfoGetByToken = async (req, res) => {
-	const data = req.body
 	const user = req?.user
 	
     try {
 		
-		if(user?.role !== "admin" && !(user?._id === id)) return res.status(403).json({status: false, message: "Yetkiniz yok"})
+		if(user?.role !== "admin" && !user) return res.status(403).json({status: false, message: "Yetkiniz yok"})
 		
 		const result = await getUserInfo({id: user?._id})
 	
